@@ -1,0 +1,8 @@
+syntax = "v1"
+
+type File(
+    FileID string  `json:"file"`
+    FileName string `json:"filename"`
+    FileType string `json:"type"`
+    FilePath string `json:"path"`
+)
