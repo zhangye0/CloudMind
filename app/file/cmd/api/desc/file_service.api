@@ -1,0 +1,13 @@
+syntax = "v1"
+
+import (
+    "file/file.api"
+)
+
+@server(
+    prefix: file/v1
+    group: file
+)
+
+service FileService{
+}
