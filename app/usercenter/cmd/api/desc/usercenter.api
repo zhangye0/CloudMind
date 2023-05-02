@@ -1,39 +1,51 @@
 syntax = "v1"
 
 import (
-    "user/user.api"
+	"user/user.api"
 )
-
 
 // =================== usercenter v1 ==============================
 
 // 调用该接口不需要登陆， 因此不需要鉴权
 @server (
-    prefix: usercenter/v1
-    group: user
+	prefix: usercenter/v1
+	group: user
 )
-
 service usercenter {
-    @handler register
-    post /user/register (RegisterReq) returns (RegisterResp)
-    @handler aclogin
-    post /user/AccountLogin (AccountLoginReq) returns (AccountLoginResp)
-    @handler qqlogin
-    post /user/QqLogin (QqLoginReq) returns (QqLoginResp)
-    @handler wxlogin
-    post /user/WxLogin (WxLoginReq) returns (WxLoginResp)
+	@doc "注册"
+	@handler register
+	post /user/Register (RegisterReq) returns (RegisterResp)
+	@doc "账号登陆"
+	@handler aclogin
+	post /user/AccountLogin (AccountLoginReq) returns (AccountLoginResp)
+	@doc "qq登陆"
+	@handler qqlogin
+	post /user/QqLogin (QqLoginReq) returns (QqLoginResp)
+	@doc "微信登陆"
+	@handler wxlogin
+	post /user/WxLogin (WxLoginReq) returns (WxLoginResp)
+	@doc "邮箱登陆"
+	@handler emaillogin
+	post /user/EmailLogin (WxLoginReq) returns (WxLoginResp)
+	@doc "发送邮件"
+	@handler sendemail
+	post /user/SendEmail (SendEmailReq) returns (SendEmailResp)
 }
-
 
 // 调用该接口需要登陆， 因此需要鉴权
 @server(
-    prefix: usercenter/v1
-    group: user
-    jwt: JwtAuth
+	prefix: usercenter/v1
+	group: user
 )
 
 service usercenter {
-    @doc "得到用户个人信息"
-    @handler info
-    post /user/info (GetInfoReq) returns （GetInfoResp)
+	@doc "得到用户个人信息"
+	@handler getinfo
+	get /user/GetInfo (GetInfoReq) returns (GetInfoResp)
+	@doc "修改密码"
+	@handler updatepassword
+	post /user/UpdatePassword (UpdatePassWordReq) returns (UpdatePassWordResp)
+	@doc "修改邮箱"
+	@handler updateemail
+	post /user/UpdateEmail (UpdateEmailReq) returns (UpdateEmailResp)
 }
