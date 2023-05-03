@@ -4,7 +4,6 @@ import (
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
 	"CloudMind/app/usercenter/cmd/api/internal/types"
 	"context"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
