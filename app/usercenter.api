@@ -4,6 +4,80 @@ import (
 	"user/user.api"
 )
 
+syntax = "v1"
+
+type User {
+    Account int64 `json:"account"` // 账号
+    PassWord string `json:"passWord"`
+    NickName string `json:"nickName"`
+    Email string `json:"email"`
+    Sex string `json:"sex"`
+    Name string `json:"name"`
+    IdCard string `json:"idCard"`
+}
+
+type (
+    RegisterReq{
+        NickName string `json:"nickName"`
+        PassWord  string `json:"passWord"`
+        Sex string `json:"sex"`
+    }
+    RegisterResp{
+        Account string `json:"account"`
+        AccessToken string `json:"accessToken"`
+        AccessExpire int64 `json:"accessExpire"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+)
+
+type (
+    AccountLoginReq{
+        Account string `json:"account"`
+        PassWord string `json:"passWord"`
+    }
+    EmailLoginResp{
+        AccessToken string `json:"accessToken"`
+        AccessExpire int64 `json:"accessExpire"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+)
+
+type (
+    QqLoginReq{
+
+    }
+    QqLoginResp{
+    }
+)
+
+type (
+    WxLoginReq{
+
+    }
+    WxLoginResp{
+    }
+)
+
+
+type (
+    EmailLoginReq{
+
+    }
+    EmailLoginResp{
+    }
+)
+
+type (
+    SendEmailReq{
+
+    }
+    SendEmailResp{
+
+    }
+)
+
+
+
 // =================== usercenter v1 ==============================
 
 // 调用该接口不需要登陆， 因此不需要鉴权
@@ -38,7 +112,7 @@ service usercenter {
 	group: user
 )
 
-service usercenter {
+service mall-api {
 	@doc "得到用户个人信息"
 	@handler getinfo
 	get /user/GetInfo (GetInfoReq) returns (GetInfoResp)
