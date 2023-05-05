@@ -33,24 +33,22 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	switch in.AuthType {
 	case model.UserAuthTypeEmail:
 		UserInfo, errs := l.svcCtx.UserModel.FindOneByEmail(l.ctx, in.AuthKey)
-		err = errs
+		if errs != nil || UserInfo.Password != in.Password {
+			return nil, errors.New("账号或密码错误")
+		}
 		userId = UserInfo.Id
 	case model.UserAuthTypeQq:
 	case model.UserAuthTypeWx:
 	default:
-		return nil, xerr.NewErrCode(xerr.SERVER_COMMON_ERROR)
-	}
-	if err != nil {
-		return nil, errors.Wrapf(ErrLoginError, "GenerateToken userId: %d", userId)
+		return nil, errors.New("不存在这种登录方式")
 	}
 	geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
 	TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
 		UserId: userId,
 	})
 	if err != nil {
-		return nil, errors.Wrapf(ErrGenerateTokenError, "GenerateToken userId: %d", userId)
+		return nil, err
 	}
-	//
 	return &pb.LoginResp{
 		AccessToken:  TokenResp.AccessToken,
 		AccessExpire: TokenResp.AccessExpire,

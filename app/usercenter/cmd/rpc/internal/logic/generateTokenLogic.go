@@ -32,7 +32,7 @@ func (l *GenerateTokenLogic) GenerateToken(in *pb.GenerateTokenReq) (*pb.Generat
 	accessExpire := l.svcCtx.Config.JwtAuth.AccessExpire
 	accessToken, err := l.getJwtToken(l.svcCtx.Config.JwtAuth.AccessSecret, now, accessExpire, in.UserId)
 	if err != nil {
-		return nil, errors.Wrapf(ErrGenerateTokenError, "get JwtToken err userId : %d, err:%v", in.UserId, err)
+		return nil, errors.New("JwtToken获取失败")
 	}
 	return &pb.GenerateTokenResp{
 		AccessToken:  accessToken,
