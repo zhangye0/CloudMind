@@ -1,8 +1,7 @@
 package model
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/cache"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"gorm.io/gorm"
 )
 
 var _ UserModel = (*customUserModel)(nil)
@@ -20,8 +19,8 @@ type (
 )
 
 // NewUserModel returns a model for the database table.
-func NewUserModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Option) UserModel {
+func NewUserModel(conn *gorm.DB) UserModel {
 	return &customUserModel{
-		defaultUserModel: newUserModel(conn, c, opts...),
+		defaultUserModel: newUserModel(conn),
 	}
 }
