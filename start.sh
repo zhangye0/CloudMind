@@ -1,2 +1,3 @@
 go mod tidy
-go run mall.go -f etc/mall.yaml
+cd app/usercenter/cmd/api
+go run usercenter.go -f etc/usercenter.yaml

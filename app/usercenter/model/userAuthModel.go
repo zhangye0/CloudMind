@@ -6,6 +6,9 @@ import (
 )
 
 var _ UserAuthModel = (*customUserAuthModel)(nil)
+var UserAuthTypeEmail = "email"
+var UserAuthTypeWx = "wx"
+var UserAuthTypeQq = "qq"
 
 type (
 	// UserAuthModel is an interface to be customized, add more methods here,

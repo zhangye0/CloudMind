@@ -7,11 +7,11 @@ type (
             Email       string    `json:"email"`
             Code        string    `json:"code"`
     }
-
     RegisterResp{
             AccessToken string `json:"accessToken"`
             AccessExpire int64 `json:"accessExpire"`
             RefreshAfter int64 `json:"refreshAfter"`
+            Error        string `json:"error"`
     }
 
     EmailLoginReq {
@@ -23,6 +23,7 @@ type (
             AccessToken   string `json:"accessToken"`
             AccessExpire  int64  `json:"accessExpire"`
             RefreshAfter  int64  `json:"refreshAfter"`
+            Error        string `json:"error"`
     }
 
     QqLoginReq {
@@ -33,6 +34,7 @@ type (
         AccessToken   string `json:"accessToken"`
         AccessExpire  int64  `json:"accessExpire"`
         RefreshAfter  int64  `json:"refreshAfter"`
+        Error        string `json:"error"`
     }
 
     WxLoginReq {
@@ -43,6 +45,7 @@ type (
         AccessToken   string `json:"accessToken"`
         AccessExpire  int64  `json:"accessExpire"`
         RefreshAfter  int64  `json:"refreshAfter"`
+        Error        string `json:"error"`
     }
 
     SendEmailReq {
@@ -50,37 +53,5 @@ type (
     }
 
     SendEmailResp {
-
     }
 )
-
-// 调用该接口不需要登陆， 因此不需要鉴权
-@server (
-	prefix: usercenter/v1
-	group: login
-)
-service mall {
-	@doc "注册"
-	@handler register
-	post /login/Register (RegisterReq) returns (RegisterResp)
-	@doc "邮箱登录"
-	@handler EmailLogin
-	post /login/EmailLogin (EmailLoginReq) returns (EmailLoginResp)
-	@doc "qq登陆"
-	@handler Qqlogin
-	post /login/QqLogin (QqLoginReq) returns (QqLoginResp)
-	@doc "微信登陆"
-	@handler Wxlogin
-	post /login/WxLogin (WxLoginReq) returns (WxLoginResp)
-}
-
-@server (
-	prefix: usercenter/v1
-	group: tools
-)
-
-service mall {
-    @doc "发送邮件"
-    @handler SendEmail
-    post /tools/SendEmail (SendEmailReq) returns (SendEmailResp)
-}

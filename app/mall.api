@@ -1,3 +1,0 @@
-syntax = "v1"
-
-import "usercenter.api"

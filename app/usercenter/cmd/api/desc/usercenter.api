@@ -1,0 +1,25 @@
+syntax = "v1"
+
+import "user/user.api"
+// 调用该接口不需要登陆， 因此不需要鉴权
+@server (
+	prefix: usercenter/v1
+	group: login
+)
+service usercenter {
+	@doc "注册"
+	@handler Register
+	post /login/Register (RegisterReq) returns (RegisterResp)
+	@doc "邮箱登录"
+	@handler EmailLogin
+	post /login/EmailLogin (EmailLoginReq) returns (EmailLoginResp)
+	@doc "qq登陆"
+	@handler Qqlogin
+	post /login/QqLogin (QqLoginReq) returns (QqLoginResp)
+	@doc "微信登陆"
+	@handler Wxlogin
+	post /login/WxLogin (WxLoginReq) returns (WxLoginResp)
+	@doc "发送邮件"
+	@handler SendEmail
+	post /login/SendEmail (SendEmailReq) returns (SendEmailResp)
+}
