@@ -1,7 +1,9 @@
 package login
 
 import (
+	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"context"
+	"github.com/jinzhu/copier"
 
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
 	"CloudMind/app/usercenter/cmd/api/internal/types"
@@ -23,8 +25,17 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 	}
 }
 
-func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+func (l *RegisterLogic) Register(req *types.RegisterReq) (*types.RegisterResp, error) {
+	Resp, err := l.svcCtx.UsercenterRpc.Register(l.ctx, &pb.RegisterReq{
+		NickName: req.NickName,
+		PassWord: req.PassWord,
+		Email:    req.Email,
+		Code:     req.Code,
+	})
+	if err != nil {
+		return nil, err
+	}
+	var resp types.RegisterResp
+	_ = copier.Copy(&resp, Resp)
+	return &resp, nil
 }

@@ -11,6 +11,8 @@ require (
 	github.com/zeromicro/go-zero v1.5.2
 	google.golang.org/grpc v1.54.0
 	google.golang.org/protobuf v1.30.0
+	gorm.io/driver/mysql v1.5.0
+	gorm.io/gorm v1.25.0
 )
 
 require (
@@ -40,6 +42,8 @@ require (
 	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect

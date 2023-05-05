@@ -1,15 +1,14 @@
 package model
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/cache"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"gorm.io/gorm"
 )
-
-var _ UserAuthModel = (*customUserAuthModel)(nil)
 
 var UserAuthTypeEmail = "email"
 var UserAuthTypeQq = "qq"
 var UserAuthTypeWx = "wx"
+
+var _ UserAuthModel = (*customUserAuthModel)(nil)
 
 type (
 	// UserAuthModel is an interface to be customized, add more methods here,
@@ -24,8 +23,8 @@ type (
 )
 
 // NewUserAuthModel returns a model for the database table.
-func NewUserAuthModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Option) UserAuthModel {
+func NewUserAuthModel(conn *gorm.DB) UserAuthModel {
 	return &customUserAuthModel{
-		defaultUserAuthModel: newUserAuthModel(conn, c, opts...),
+		defaultUserAuthModel: newUserAuthModel(conn),
 	}
 }

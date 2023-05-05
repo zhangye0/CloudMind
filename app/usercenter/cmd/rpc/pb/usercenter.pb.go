@@ -100,7 +100,6 @@ type RegisterResp struct {
 	AccessToken  string `protobuf:"bytes,1,opt,name=AccessToken,proto3" json:"AccessToken"`
 	AccessExpire int64  `protobuf:"varint,2,opt,name=AccessExpire,proto3" json:"AccessExpire"`
 	RefreshAfter int64  `protobuf:"varint,3,opt,name=RefreshAfter,proto3" json:"RefreshAfter"`
-	Error        string `protobuf:"bytes,4,opt,name=Error,proto3" json:"Error"`
 }
 
 func (x *RegisterResp) Reset() {
@@ -154,13 +153,6 @@ func (x *RegisterResp) GetRefreshAfter() int64 {
 		return x.RefreshAfter
 	}
 	return 0
-}
-
-func (x *RegisterResp) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
 }
 
 type LoginReq struct {

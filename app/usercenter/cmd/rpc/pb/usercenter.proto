@@ -16,7 +16,6 @@ message RegisterResp {
   string AccessToken = 1;
   int64  AccessExpire = 2;
   int64  RefreshAfter = 3;
-  string Error = 4;
 }
 
 message LoginReq {

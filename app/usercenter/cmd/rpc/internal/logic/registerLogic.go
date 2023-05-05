@@ -1,12 +1,13 @@
 package logic
 
 import (
-	"context"
-
 	"CloudMind/app/usercenter/cmd/rpc/internal/svc"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
-
+	"CloudMind/app/usercenter/model"
+	"context"
+	"errors"
 	"github.com/zeromicro/go-zero/core/logx"
+	"time"
 )
 
 type RegisterLogic struct {
@@ -24,7 +25,39 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 }
 
 func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
-	// todo: add your logic here and delete this line
+	_, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, in.Email)
+	if err != nil && err != model.ErrNotFound {
+		return nil, err
+	}
+	if err != nil {
+		generateToken := NewGenerateTokenLogic(l.ctx, l.svcCtx)
+		_, err := l.svcCtx.UserModel.Insert(l.ctx, &model.User{
+			Email:      in.Email,
+			Nickname:   in.NickName,
+			Password:   in.PassWord,
+			CreateTime: time.Now(),
+			UpdateTime: time.Now(),
+			DeleteTime: time.Now(),
+		})
+		if err != nil {
+			return nil, err
+		}
 
-	return &pb.RegisterResp{}, nil
+		count, err := l.svcCtx.UserModel.FindCount(l.ctx, []model.Query{})
+
+		TokenResp, err := generateToken.GenerateToken(&pb.GenerateTokenReq{
+			UserId: count,
+		})
+
+		if err != nil {
+			return nil, err
+		}
+		return &pb.RegisterResp{
+			AccessToken:  TokenResp.AccessToken,
+			AccessExpire: TokenResp.AccessExpire,
+			RefreshAfter: TokenResp.RefreshAfter,
+		}, nil
+
+	}
+	return nil, errors.New("该邮箱已经注册过，请勿重复注册")
 }
