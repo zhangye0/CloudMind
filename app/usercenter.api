@@ -1,125 +1,86 @@
 syntax = "v1"
 
-import (
-	"user/user.api"
-)
-
-syntax = "v1"
-
-type User {
-    Account int64 `json:"account"` // 账号
-    PassWord string `json:"passWord"`
-    NickName string `json:"nickName"`
-    Email string `json:"email"`
-    Sex string `json:"sex"`
-    Name string `json:"name"`
-    IdCard string `json:"idCard"`
-}
-
 type (
-    RegisterReq{
-        NickName string `json:"nickName"`
-        PassWord  string `json:"passWord"`
-        Sex string `json:"sex"`
+    RegisterReq {
+            NickName    string    `json:"nickName"`
+            PassWord    string    `json:"passWord"`
+            Email       string    `json:"email"`
+            Code        string    `json:"code"`
     }
+
     RegisterResp{
-        Account string `json:"account"`
-        AccessToken string `json:"accessToken"`
-        AccessExpire int64 `json:"accessExpire"`
-        RefreshAfter int64 `json:"refreshAfter"`
+            AccessToken string `json:"accessToken"`
+            AccessExpire int64 `json:"accessExpire"`
+            RefreshAfter int64 `json:"refreshAfter"`
     }
-)
 
-type (
-    AccountLoginReq{
-        Account string `json:"account"`
-        PassWord string `json:"passWord"`
+    EmailLoginReq {
+                Email     string `json:"email"`
+                passWord  string `json:"passWord"`
     }
+
     EmailLoginResp{
-        AccessToken string `json:"accessToken"`
-        AccessExpire int64 `json:"accessExpire"`
-        RefreshAfter int64 `json:"refreshAfter"`
+            AccessToken   string `json:"accessToken"`
+            AccessExpire  int64  `json:"accessExpire"`
+            RefreshAfter  int64  `json:"refreshAfter"`
     }
-)
 
-type (
-    QqLoginReq{
+    QqLoginReq {
 
     }
-    QqLoginResp{
+
+    QqLoginResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
     }
-)
 
-type (
-    WxLoginReq{
-
-    }
-    WxLoginResp{
-    }
-)
-
-
-type (
-    EmailLoginReq{
+    WxLoginReq {
 
     }
-    EmailLoginResp{
-    }
-)
 
-type (
-    SendEmailReq{
-
+    WxLoginResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
     }
-    SendEmailResp{
+
+    SendEmailReq {
+            email   string `json:"email"`
+    }
+
+    SendEmailResp {
 
     }
 )
-
-
-
-// =================== usercenter v1 ==============================
 
 // 调用该接口不需要登陆， 因此不需要鉴权
 @server (
 	prefix: usercenter/v1
-	group: user
+	group: login
 )
-service usercenter {
+service mall {
 	@doc "注册"
 	@handler register
-	post /user/Register (RegisterReq) returns (RegisterResp)
-	@doc "账号登陆"
-	@handler aclogin
-	post /user/AccountLogin (AccountLoginReq) returns (AccountLoginResp)
+	post /login/Register (RegisterReq) returns (RegisterResp)
+	@doc "邮箱登录"
+	@handler EmailLogin
+	post /login/EmailLogin (EmailLoginReq) returns (EmailLoginResp)
 	@doc "qq登陆"
-	@handler qqlogin
-	post /user/QqLogin (QqLoginReq) returns (QqLoginResp)
+	@handler Qqlogin
+	post /login/QqLogin (QqLoginReq) returns (QqLoginResp)
 	@doc "微信登陆"
-	@handler wxlogin
-	post /user/WxLogin (WxLoginReq) returns (WxLoginResp)
-	@doc "邮箱登陆"
-	@handler emaillogin
-	post /user/EmailLogin (WxLoginReq) returns (WxLoginResp)
-	@doc "发送邮件"
-	@handler sendemail
-	post /user/SendEmail (SendEmailReq) returns (SendEmailResp)
+	@handler Wxlogin
+	post /login/WxLogin (WxLoginReq) returns (WxLoginResp)
 }
 
-// 调用该接口需要登陆， 因此需要鉴权
-@server(
+@server (
 	prefix: usercenter/v1
-	group: user
+	group: tools
 )
 
-service mall-api {
-	@doc "得到用户个人信息"
-	@handler getinfo
-	get /user/GetInfo (GetInfoReq) returns (GetInfoResp)
-	@doc "修改密码"
-	@handler updatepassword
-	post /user/UpdatePassword (UpdatePassWordReq) returns (UpdatePassWordResp)
-	@doc "修改邮箱"
-	@handler updateemail
-	post /user/UpdateEmail (UpdateEmailReq) returns (UpdateEmailResp)
+service mall {
+    @doc "发送邮件"
+    @handler SendEmail
+    post /tools/SendEmail (SendEmailReq) returns (SendEmailResp)
 }

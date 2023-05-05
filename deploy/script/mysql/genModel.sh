@@ -13,7 +13,7 @@ modeldir=./genModel
 # 数据库配置
 host=127.0.0.1
 port=33069
-dbname=CloudMind_$1
+dbname=cloudmind_$1
 username=root
 passwd=PXDN93VRKUm8TeE7
 
