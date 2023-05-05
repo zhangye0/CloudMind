@@ -12,7 +12,6 @@ type RegisterResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
-	Error        string `json:"error"`
 }
 
 type EmailLoginReq struct {
@@ -24,7 +23,6 @@ type EmailLoginResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
-	Error        string `json:"error"`
 }
 
 type QqLoginReq struct {
@@ -34,7 +32,6 @@ type QqLoginResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
-	Error        string `json:"error"`
 }
 
 type WxLoginReq struct {
@@ -44,7 +41,6 @@ type WxLoginResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
-	Error        string `json:"error"`
 }
 
 type SendEmailReq struct {

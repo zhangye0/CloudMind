@@ -22,7 +22,7 @@ Telemetry:
 Log:
   ServiceName: usercenter-api
   Level: error
-  Mode: file
+  Mode: console
 
 ##WxMiniConf
 #WxMiniConf:
@@ -32,5 +32,5 @@ Log:
 #rpc service
 UsercenterRpcConf:
   Endpoints:
-    - 127.0.0.1:2001
+    - 127.0.0.1:2002
   NonBlock: true

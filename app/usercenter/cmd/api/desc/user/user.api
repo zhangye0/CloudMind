@@ -11,7 +11,6 @@ type (
             AccessToken string `json:"accessToken"`
             AccessExpire int64 `json:"accessExpire"`
             RefreshAfter int64 `json:"refreshAfter"`
-            Error        string `json:"error"`
     }
 
     EmailLoginReq {
@@ -23,7 +22,6 @@ type (
             AccessToken   string `json:"accessToken"`
             AccessExpire  int64  `json:"accessExpire"`
             RefreshAfter  int64  `json:"refreshAfter"`
-            Error        string `json:"error"`
     }
 
     QqLoginReq {
@@ -34,7 +32,6 @@ type (
         AccessToken   string `json:"accessToken"`
         AccessExpire  int64  `json:"accessExpire"`
         RefreshAfter  int64  `json:"refreshAfter"`
-        Error        string `json:"error"`
     }
 
     WxLoginReq {
@@ -45,7 +42,6 @@ type (
         AccessToken   string `json:"accessToken"`
         AccessExpire  int64  `json:"accessExpire"`
         RefreshAfter  int64  `json:"refreshAfter"`
-        Error        string `json:"error"`
     }
 
     SendEmailReq {

@@ -6,7 +6,6 @@ import (
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"context"
 	"github.com/jinzhu/copier"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,7 +32,6 @@ func (l *EmailLoginLogic) EmailLogin(req *types.EmailLoginReq) (*types.EmailLogi
 	if err != nil {
 		return nil, err
 	}
-
 	var resp types.EmailLoginResp
 
 	_ = copier.Copy(&resp, Resp)

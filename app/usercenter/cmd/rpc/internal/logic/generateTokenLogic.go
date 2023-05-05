@@ -48,5 +48,5 @@ func (l *GenerateTokenLogic) getJwtToken(secret string, now int64, expire int64,
 	claims[ctxdata.CtxKeyJwtUserId] = id
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
-	return token.SignedString(secret)
+	return token.SignedString([]byte(secret))
 }

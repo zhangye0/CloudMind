@@ -7,7 +7,6 @@ import (
 	"CloudMind/common/xerr"
 	"context"
 	"github.com/pkg/errors"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -18,6 +17,7 @@ type LoginLogic struct {
 }
 
 var ErrGenerateTokenError = xerr.NewErrMsg("生成token失败")
+var ErrLoginError = xerr.NewErrMsg("账号或密码错误")
 
 func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic {
 	return &LoginLogic{
@@ -40,17 +40,20 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	default:
 		return nil, xerr.NewErrCode(xerr.SERVER_COMMON_ERROR)
 	}
+	if err != nil {
+		return nil, errors.Wrapf(ErrLoginError, "GenerateToken userId: %d", userId)
+	}
 	geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
-	tokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
+	TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
 		UserId: userId,
 	})
 	if err != nil {
 		return nil, errors.Wrapf(ErrGenerateTokenError, "GenerateToken userId: %d", userId)
 	}
-
+	//
 	return &pb.LoginResp{
-		AccessToken:  tokenResp.AccessToken,
-		AccessExpire: tokenResp.AccessExpire,
-		RefreshAfter: tokenResp.RefreshAfter,
+		AccessToken:  TokenResp.AccessToken,
+		AccessExpire: TokenResp.AccessExpire,
+		RefreshAfter: TokenResp.RefreshAfter,
 	}, nil
 }
