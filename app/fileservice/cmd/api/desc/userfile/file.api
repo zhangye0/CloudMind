@@ -1,0 +1,150 @@
+
+syntax = "v1"
+
+type File {
+    Id string  `json:"id"` // 文件编号
+    Name string `json:"name"` // 文件名
+    Type string `json:"type"` // 文件类型
+    Path string `json:"path"` // 文件路径
+    Size string `json:"size"` // 文件大小
+    ShareLink string `json:"sharelink"` // 分享链接
+}
+
+// 文件上传
+type (
+    FileUploadReq {
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+        Labels []string `json:"labels"` // 文件标签集
+        Path string `json:"path"` // 文件路径
+        Size string `json:"size"` // 文件大小
+    }
+
+    FileUploadResp {
+        Id string `json:"id"` // 文件编号
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+    }
+)
+
+// 文件下载
+type(
+    FileDownloadReq {
+        Id string `json:"id"` // 文件编号
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+    }
+
+    FileDownloadResp {}
+)
+
+// 获取文件列表
+type(
+    FileListReq{
+
+    }
+
+    FileListResp{
+
+    }
+)
+
+// 修改文件名
+type(
+    FileNameUpdateReq{
+        Id string `json:"id"` // 文件编号
+        Name string `json:"name"` // 文件名
+    }
+
+    FileNameUpdateResp{}
+)
+
+// 新建文件夹
+type(
+    FileCreateReq{
+        ParentId string `json:"name"` // 父文件夹编号
+        Name string `json:"name"` // 文件名
+    }
+
+    FileCreateResp{}
+)
+
+// 删除文件
+type(
+    FileDeletionReq{
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileDeletionResp{}
+)
+
+// 文件移动
+type(
+    FileMoveReq{
+        ParentId string `json:"name"` // 父文件夹编号
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileMoveResp{}
+)
+
+// 文件分享
+type(
+    FileShareReq{
+        Id string `json:"id"` // 文件编号
+        ExpiredTime int64 `json:"expiredtime"` // 过期时间
+    }
+
+    FileShareResp{
+        ShareLink string `json:"sharelink"` // 分享链接
+    }
+)
+
+// 通过分享链接保存资源
+type(
+    FileShareSaveReq{
+        ParentId string `json:"name"` // 父文件夹编号
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileShareSaveResp{
+        Id string `json:"id"` // 文件编号
+    }
+)
+
+// 文件转换
+type(
+    FileConversionReq{
+
+    }
+
+    FileConversionResp{
+
+    }
+)
+
+// 文件分片上传
+type(
+    FileMultipartUploadReq{
+
+    }
+
+    FileMultipartUploadResp{
+
+    }
+)
+
+// 查看文件详情
+type(
+    FileDetailsReq{
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileDetailsResp{
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+        Path string `json:"path"` // 文件路径
+        Size string `json:"size"` // 文件大小
+        Time string `json:"time"` // 文件创建时间
+    }
+)
