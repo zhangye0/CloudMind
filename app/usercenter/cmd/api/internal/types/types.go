@@ -73,3 +73,32 @@ type UpdateNickNameReq struct {
 
 type UpdateNickNameResp struct {
 }
+
+type UpdatePassWordReq struct {
+	PassWord string `json:"passWord"`
+}
+
+type UpdatePassWordResp struct {
+}
+
+type UpdateSexReq struct {
+	Sex int64 `json:"sex"`
+}
+
+type UpdateSexResp struct {
+}
+
+type UpdateAvatarReq struct {
+	Avatar string `json:"avatar"`
+}
+
+type UpdateAvatarResp struct {
+}
+
+type RealNameAuthenticationReq struct {
+	Name   string `json:"name"`
+	IdCard string `json:"idCard"`
+}
+
+type RealNameAuthenticationResp struct {
+}

@@ -73,4 +73,38 @@ type (
     UpdateNickNameResp {
 
     }
+
+    UpdatePassWordReq {
+            PassWord string `json:"passWord"`
+    }
+
+    UpdatePassWordResp {
+
+    }
+
+    UpdateSexReq {
+            Sex int64 `json:"sex"`
+    }
+
+    UpdateSexResp {
+
+    }
+
+    UpdateAvatarReq {
+            Avatar string `json:"avatar"`
+    }
+
+    UpdateAvatarResp {
+
+    }
+
+    RealNameAuthenticationReq {
+            Name string `json:"name"`
+            IdCard string `json:"idCard"`
+    }
+
+    RealNameAuthenticationResp {
+
+    }
+
 )

@@ -11,30 +11,30 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UpdateNickNameLogic struct {
+type UpdateAvatarLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewUpdateNickNameLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateNickNameLogic {
-	return &UpdateNickNameLogic{
+func NewUpdateAvatarLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateAvatarLogic {
+	return &UpdateAvatarLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *UpdateNickNameLogic) UpdateNickName(req *types.UpdateNickNameReq) (*types.UpdateNickNameResp, error) {
+func (l *UpdateAvatarLogic) UpdateAvatar(req *types.UpdateAvatarReq) (*types.UpdateAvatarResp, error) {
 	userId := ctxdata.GetUidFromCtx(l.ctx)
 	_, err := l.svcCtx.UsercenterRpc.UpdateUserInfo(l.ctx, &pb.UpdateUserInfoReq{
 		UserId:     userId,
-		UpdateType: "NickName",
-		Field1:     req.NickName,
+		UpdateType: "Avatar",
+		Field1:     req.Avatar,
 		Field2:     0,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &types.UpdateNickNameResp{}, nil
+	return &types.UpdateAvatarResp{}, nil
 }

@@ -55,6 +55,26 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/UpdateNickName",
 				Handler: user.UpdateNickNameHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdatePassWord",
+				Handler: user.UpdatePassWordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateSex",
+				Handler: user.UpdateSexHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateAvatar",
+				Handler: user.UpdateAvatarHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/RealNameAuthentication",
+				Handler: user.RealNameAuthenticationHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/usercenter/v1"),

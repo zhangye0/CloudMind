@@ -57,7 +57,12 @@ func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoRe
 	return l.GetUserInfo(in)
 }
 
-func (s *UsercenterServer) UpdateUserNickName(ctx context.Context, in *pb.UpdateUserNickNameReq) (*pb.UpdateUserNickNameResp, error) {
-	l := logic.NewUpdateUserNickNameLogic(ctx, s.svcCtx)
-	return l.UpdateUserNickName(in)
+func (s *UsercenterServer) UpdateUserInfo(ctx context.Context, in *pb.UpdateUserInfoReq) (*pb.UpdateUserInfoResp, error) {
+	l := logic.NewUpdateUserInfoLogic(ctx, s.svcCtx)
+	return l.UpdateUserInfo(in)
+}
+
+func (s *UsercenterServer) RealNameAuthentication(ctx context.Context, in *pb.RealNameAuthenticationReq) (*pb.RealNameAuthenticationResp, error) {
+	l := logic.NewRealNameAuthenticationLogic(ctx, s.svcCtx)
+	return l.RealNameAuthentication(in)
 }

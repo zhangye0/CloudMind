@@ -37,5 +37,16 @@ service usercenter {
 	@doc "修改用户名"
 	@handler UpdateNickName
 	post /user/UpdateNickName (UpdateNickNameReq) returns (UpdateNickNameResp)
-	
+	@doc "修改密码"
+	@handler UpdatePassWord
+	post /user/UpdatePassWord (UpdatePassWordReq) returns (UpdatePassWordResp)
+	@doc "修改性别"
+	@handler UpdateSex
+	post /user/UpdateSex (UpdateSexReq) returns (UpdateSexResp)
+	@doc "修改头像"
+	@handler UpdateAvatar
+	post /user/UpdateAvatar (UpdateAvatarReq) returns (UpdateAvatarResp)
+	@doc "实名认证"
+	@handler RealNameAuthentication
+	post /user/RealNameAuthentication (RealNameAuthenticationReq) returns (RealNameAuthenticationResp)
 }
