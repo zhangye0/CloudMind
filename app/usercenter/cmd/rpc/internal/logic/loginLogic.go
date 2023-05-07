@@ -30,7 +30,6 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	Resp, err := l.svcCtx.Cache.Take(in.AuthKey+in.Password, func() (interface{}, error) {
-		l.Logger.Info("成功的登录请求！")
 		var err error
 		var userId int64
 		switch in.AuthType {
@@ -44,6 +43,7 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 		default:
 			return nil, errors.New("不存在这种登录方式")
 		}
+
 		geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
 		TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
 			UserId: userId,
