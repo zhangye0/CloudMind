@@ -6,8 +6,6 @@ import (
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"CloudMind/common/ctxdata"
 	"context"
-	"github.com/jinzhu/copier"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -34,8 +32,15 @@ func (l *GetUserInfoLogic) GetUserInfo(req *types.GetUserInfoReq) (*types.GetUse
 		return nil, err
 	}
 
-	var resp types.GetUserInfoResp
-	_ = copier.Copy(&resp, Resp)
-	return &resp, nil
-	return nil, nil
+	return &types.GetUserInfoResp{
+		UserInfo: types.User{
+			Id:       Resp.UserInfo.Id,
+			Email:    Resp.UserInfo.Email,
+			NickName: Resp.UserInfo.Nickname,
+			Sex:      Resp.UserInfo.Sex,
+			Avatar:   Resp.UserInfo.Avatar,
+			Name:     Resp.UserInfo.Name,
+			IdCard:   Resp.UserInfo.IdCard,
+		},
+	}, nil
 }

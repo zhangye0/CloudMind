@@ -66,3 +66,10 @@ type GetUserInfoReq struct {
 type GetUserInfoResp struct {
 	UserInfo User `json:"userInfo"`
 }
+
+type UpdateNickNameReq struct {
+	NickName string `json:"nickName"`
+}
+
+type UpdateNickNameResp struct {
+}

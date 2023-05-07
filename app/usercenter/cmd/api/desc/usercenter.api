@@ -34,5 +34,8 @@ service usercenter {
 	@doc "获取用户信息"
 	@handler GetUserInfo
 	get /user/GetUserInfo (GetUserInfoReq) returns (GetUserInfoResp)
+	@doc "修改用户名"
+	@handler UpdateNickName
+	post /user/UpdateNickName (UpdateNickNameReq) returns (UpdateNickNameResp)
 	
 }

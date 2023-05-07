@@ -56,3 +56,8 @@ func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoRe
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)
 }
+
+func (s *UsercenterServer) UpdateUserNickName(ctx context.Context, in *pb.UpdateUserNickNameReq) (*pb.UpdateUserNickNameResp, error) {
+	l := logic.NewUpdateUserNickNameLogic(ctx, s.svcCtx)
+	return l.UpdateUserNickName(in)
+}

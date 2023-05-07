@@ -86,6 +86,14 @@ message GetUserInfoResp {
   User UserInfo = 1;
 }
 
+message UpdateUserNickNameReq {
+  int64 UserId = 1;
+  string NickName = 2;
+}
+
+message UpdateUserNickNameResp {
+}
+
 //service
 service usercenter {
   rpc Register (RegisterReq) returns (RegisterResp);
@@ -95,4 +103,5 @@ service usercenter {
   rpc getUserAuthByUserId(GetUserAuthByUserIdReq) returns(GetUserAuthyUserIdResp);
   rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
   rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
+  rpc UpdateUserNickName(UpdateUserNickNameReq) returns(UpdateUserNickNameResp);
 }

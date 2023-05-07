@@ -21,7 +21,7 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-rpc
-  Level: info
+  Level: error
   Encoding: plain
 
 Redis:

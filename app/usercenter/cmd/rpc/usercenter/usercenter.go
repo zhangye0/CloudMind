@@ -27,6 +27,8 @@ type (
 	RegisterResp             = pb.RegisterResp
 	SendEmailReq             = pb.SendEmailReq
 	SendEmailResp            = pb.SendEmailResp
+	UpdateUserNickNameReq    = pb.UpdateUserNickNameReq
+	UpdateUserNickNameResp   = pb.UpdateUserNickNameResp
 	User                     = pb.User
 	UserAuth                 = pb.UserAuth
 
@@ -38,6 +40,7 @@ type (
 		GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 		GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
 		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+		UpdateUserNickName(ctx context.Context, in *UpdateUserNickNameReq, opts ...grpc.CallOption) (*UpdateUserNickNameResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -84,4 +87,9 @@ func (m *defaultUsercenter) GenerateToken(ctx context.Context, in *GenerateToken
 func (m *defaultUsercenter) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
 	return client.GetUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) UpdateUserNickName(ctx context.Context, in *UpdateUserNickNameReq, opts ...grpc.CallOption) (*UpdateUserNickNameResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.UpdateUserNickName(ctx, in, opts...)
 }

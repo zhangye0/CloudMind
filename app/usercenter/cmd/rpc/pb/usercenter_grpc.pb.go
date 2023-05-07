@@ -26,6 +26,7 @@ const (
 	Usercenter_GetUserAuthByUserId_FullMethodName  = "/pb.usercenter/getUserAuthByUserId"
 	Usercenter_GenerateToken_FullMethodName        = "/pb.usercenter/generateToken"
 	Usercenter_GetUserInfo_FullMethodName          = "/pb.usercenter/GetUserInfo"
+	Usercenter_UpdateUserNickName_FullMethodName   = "/pb.usercenter/UpdateUserNickName"
 )
 
 // UsercenterClient is the client API for Usercenter service.
@@ -39,6 +40,7 @@ type UsercenterClient interface {
 	GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
 	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+	UpdateUserNickName(ctx context.Context, in *UpdateUserNickNameReq, opts ...grpc.CallOption) (*UpdateUserNickNameResp, error)
 }
 
 type usercenterClient struct {
@@ -112,6 +114,15 @@ func (c *usercenterClient) GetUserInfo(ctx context.Context, in *GetUserInfoReq, 
 	return out, nil
 }
 
+func (c *usercenterClient) UpdateUserNickName(ctx context.Context, in *UpdateUserNickNameReq, opts ...grpc.CallOption) (*UpdateUserNickNameResp, error) {
+	out := new(UpdateUserNickNameResp)
+	err := c.cc.Invoke(ctx, Usercenter_UpdateUserNickName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsercenterServer is the server API for Usercenter service.
 // All implementations must embed UnimplementedUsercenterServer
 // for forward compatibility
@@ -123,6 +134,7 @@ type UsercenterServer interface {
 	GetUserAuthByUserId(context.Context, *GetUserAuthByUserIdReq) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(context.Context, *GenerateTokenReq) (*GenerateTokenResp, error)
 	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
+	UpdateUserNickName(context.Context, *UpdateUserNickNameReq) (*UpdateUserNickNameResp, error)
 	mustEmbedUnimplementedUsercenterServer()
 }
 
@@ -150,6 +162,9 @@ func (UnimplementedUsercenterServer) GenerateToken(context.Context, *GenerateTok
 }
 func (UnimplementedUsercenterServer) GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserInfo not implemented")
+}
+func (UnimplementedUsercenterServer) UpdateUserNickName(context.Context, *UpdateUserNickNameReq) (*UpdateUserNickNameResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserNickName not implemented")
 }
 func (UnimplementedUsercenterServer) mustEmbedUnimplementedUsercenterServer() {}
 
@@ -290,6 +305,24 @@ func _Usercenter_GetUserInfo_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usercenter_UpdateUserNickName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserNickNameReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).UpdateUserNickName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_UpdateUserNickName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).UpdateUserNickName(ctx, req.(*UpdateUserNickNameReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usercenter_ServiceDesc is the grpc.ServiceDesc for Usercenter service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -324,6 +357,10 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserInfo",
 			Handler:    _Usercenter_GetUserInfo_Handler,
+		},
+		{
+			MethodName: "UpdateUserNickName",
+			Handler:    _Usercenter_UpdateUserNickName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

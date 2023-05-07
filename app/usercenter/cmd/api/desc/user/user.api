@@ -65,4 +65,12 @@ type (
     GetUserInfoResp {
         UserInfo User `json:"userInfo"`
     }
+
+    UpdateNickNameReq {
+        NickName string `json:"nickName"`
+    }
+
+    UpdateNickNameResp {
+
+    }
 )
