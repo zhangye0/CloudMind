@@ -6,6 +6,7 @@ import (
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/xerr"
 	"context"
+	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -28,30 +29,50 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 }
 
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
-	var userId int64
-	var err error
-	switch in.AuthType {
-	case model.UserAuthTypeEmail:
-		UserInfo, errs := l.svcCtx.UserModel.FindOneByEmail(l.ctx, in.AuthKey)
-		if errs != nil || UserInfo.Password != in.Password {
-			return nil, errors.New("账号或密码错误")
+	Resp, err := l.svcCtx.Cache.Take(in.AuthKey+in.Password, func() (interface{}, error) {
+		l.Logger.Info("成功的登录请求！")
+		var err error
+		var userId int64
+		switch in.AuthType {
+		case model.UserAuthTypeEmail:
+			userId, err = l.EmailLogin(in.AuthKey, in.Password)
+			if err != nil {
+				return nil, err
+			}
+		case model.UserAuthTypeQq:
+		case model.UserAuthTypeWx:
+		default:
+			return nil, errors.New("不存在这种登录方式")
 		}
-		userId = UserInfo.Id
-	case model.UserAuthTypeQq:
-	case model.UserAuthTypeWx:
-	default:
-		return nil, errors.New("不存在这种登录方式")
-	}
-	geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
-	TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
-		UserId: userId,
+		geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
+		TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
+			UserId: userId,
+		})
+		if err != nil {
+			return nil, err
+		}
+		return &pb.LoginResp{
+			AccessToken:  TokenResp.AccessToken,
+			AccessExpire: TokenResp.AccessExpire,
+			RefreshAfter: TokenResp.RefreshAfter,
+		}, nil
 	})
-	if err != nil {
-		return nil, err
+	var resp pb.LoginResp
+	_ = copier.Copy(&resp, Resp)
+	return &resp, err
+}
+
+func (l *LoginLogic) EmailLogin(email, password string) (int64, error) {
+	// 去数据库中找
+	User, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, email)
+	if err != nil && err == model.ErrNotFound {
+		return 0, errors.New("邮箱不存在")
 	}
-	return &pb.LoginResp{
-		AccessToken:  TokenResp.AccessToken,
-		AccessExpire: TokenResp.AccessExpire,
-		RefreshAfter: TokenResp.RefreshAfter,
-	}, nil
+	if err != nil {
+		return 0, err
+	}
+	if User.Password != password {
+		return 0, errors.New("密码错误")
+	}
+	return User.Id, nil
 }

@@ -21,8 +21,9 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-api
-  Level: error
+  Level: info
   Mode: console
+  Encoding: plain
 
 ##WxMiniConf
 #WxMiniConf:

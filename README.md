@@ -21,6 +21,12 @@ golang：服务搭建文件夹
 bash run.sh
 3. 创建数据库
 通过Navicat连接mysql，创建数据库，然后创建对应的表，并导入数据
-4. 运行服务启动脚本
-bash start.sh
+注意第一次使用需要配置mysql
+
+docker exec -it mysql mysql -uroot -p
+##输入密码：PXDN93VRKUm8TeE7
+use mysql;
+update user set host='%' where user='root';
+FLUSH PRIVILEGES;
+
 
