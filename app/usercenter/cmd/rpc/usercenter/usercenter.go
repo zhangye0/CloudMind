@@ -19,12 +19,15 @@ type (
 	GetUserAuthByAuthKeyResp = pb.GetUserAuthByAuthKeyResp
 	GetUserAuthByUserIdReq   = pb.GetUserAuthByUserIdReq
 	GetUserAuthyUserIdResp   = pb.GetUserAuthyUserIdResp
+	GetUserInfoReq           = pb.GetUserInfoReq
+	GetUserInfoResp          = pb.GetUserInfoResp
 	LoginReq                 = pb.LoginReq
 	LoginResp                = pb.LoginResp
 	RegisterReq              = pb.RegisterReq
 	RegisterResp             = pb.RegisterResp
 	SendEmailReq             = pb.SendEmailReq
 	SendEmailResp            = pb.SendEmailResp
+	User                     = pb.User
 	UserAuth                 = pb.UserAuth
 
 	Usercenter interface {
@@ -34,6 +37,7 @@ type (
 		GetUserAuthByAuthKey(ctx context.Context, in *GetUserAuthByAuthKeyReq, opts ...grpc.CallOption) (*GetUserAuthByAuthKeyResp, error)
 		GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 		GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
+		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -75,4 +79,9 @@ func (m *defaultUsercenter) GetUserAuthByUserId(ctx context.Context, in *GetUser
 func (m *defaultUsercenter) GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
 	return client.GenerateToken(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.GetUserInfo(ctx, in, opts...)
 }

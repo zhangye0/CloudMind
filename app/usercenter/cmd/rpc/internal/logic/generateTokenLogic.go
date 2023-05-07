@@ -50,3 +50,5 @@ func (l *GenerateTokenLogic) getJwtToken(secret string, now int64, expire int64,
 	token.Claims = claims
 	return token.SignedString([]byte(secret))
 }
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODM0MjE1NjIsImlhdCI6MTY4MzQyMTU1Miwiand0VXNlcklkIjoyfQ.itZx7pO6gouzfs6EdE-OAMqsONjy8AXNYIbGIpZ5YRo

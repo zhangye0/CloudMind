@@ -1,10 +1,9 @@
 package login
 
 import (
-	"context"
-
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
 	"CloudMind/app/usercenter/cmd/api/internal/types"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +23,5 @@ func NewWxloginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WxloginLo
 }
 
 func (l *WxloginLogic) Wxlogin(req *types.WxLoginReq) (resp *types.WxLoginResp, err error) {
-	// todo: add your logic here and delete this line
-
 	return
 }

@@ -23,3 +23,16 @@ service usercenter {
 	@handler SendEmail
 	post /login/SendEmail (SendEmailReq) returns (SendEmailResp)
 }
+
+@server (
+	prefix: usercenter/v1
+	group: user
+	jwt:JwtAuth
+)
+
+service usercenter {
+	@doc "获取用户信息"
+	@handler GetUserInfo
+	get /user/GetUserInfo (GetUserInfoReq) returns (GetUserInfoResp)
+	
+}
