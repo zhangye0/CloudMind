@@ -1,60 +1,52 @@
 syntax = "v1"
 
 import (
-    "userfile/file.api"
+	"userfile/file.api"
 )
 
 @server(
-    prefix: file/v1
-    group: file
+	prefix: file-api/v1
+	group: file
 )
 
 service FileService{
-    @doc "文件上传"
-    @handler fileupload
-    post /file/FileUpload (FileUploadReq) returns (FileUploadResp)
-
-    @doc "文件下载"
-    @handler filedownload
-    get /file/FileDownload (FileDownloadReq) returns (FileDownloadResp)
-
-    @doc "获取文件列表"
-    @handler filelist
-    get /file/FileList (FileListReq) returns (FileListResp)
-
-    @doc "修改文件名"
-    @handler filenameupdate
-    post /file/FileNameUpdate (FileNameUpdateReq) returns (FileNameUpdateResp)
-
-    @doc "创建文件夹"
-    @handler filecreate
-    post /file/FileCreate (FileCreateReq) returns (FileCreateResp)
-
-    @doc "删除文件"
-    @handler filedeletion
-    delete /file/FileDeletion (FileDeletionReq) returns (FileDeletionResp)
-
-    @doc "文件移动"
-    @handler filemove
-    put /file/FileMove (FileMoveReq) returns (FileMoveResp)
-
-    @doc "文件分享"
-    @handler fileshare
-    post /file/FileShare (FileShareReq) returns (FileShareResp)
-
-    @doc "通过分享链接保存资源"
-    @handler filesharesave
-    post /file/FileShareSave (FileShareSaveReq) returns (FileShareSaveResp)
-
-    @doc "文件转换"
-    @handler fileconversion
-    get /file/FileConversion (FileConversionReq) returns (FileConversionResp)
-
-    @doc "文件分片上传"
-    @handler filemultipartupload
-    post /file/FileMultipartUpload (FileMultipartUploadReq) returns (FileMultipartUploadResp)
-
-    @doc "查看文件详情"
-    @handler viewfiledetails
-    get /file/ViewFileDetails (FileDetailsReq) returns (FileDetailsResp)
+	@doc "文件上传"
+	@handler fileupload
+	post /file/FileUpload (FileUploadReq) returns (FileUploadResp)
+	
+	@doc "文件下载"
+	@handler filedownload
+	get /file/FileDownload (FileDownloadReq) returns (FileDownloadResp)
+	
+	@doc "获取文件列表"
+	@handler filelist
+	get /file/FileList (FileListReq) returns (FileListResp)
+	
+	@doc "修改文件名"
+	@handler filenameupdate
+	post /file/FileNameUpdate (FileNameUpdateReq) returns (FileNameUpdateResp)
+	
+	@doc "创建文件夹"
+	@handler filecreate
+	post /file/FileCreate (FileCreateReq) returns (FileCreateResp)
+	
+	@doc "删除文件"
+	@handler filedeletion
+	delete /file/FileDeletion (FileDeletionReq) returns (FileDeletionResp)
+	
+	@doc "文件移动"
+	@handler filemove
+	put /file/FileMove (FileMoveReq) returns (FileMoveResp)
+	
+	@doc "文件分享"
+	@handler fileshare
+	post /file/FileShare (FileShareReq) returns (FileShareResp)
+	
+	@doc "通过分享链接保存资源"
+	@handler filesharesave
+	post /file/FileShareSave (FileShareSaveReq) returns (FileShareSaveResp)
+	
+	@doc "查看文件详情"
+	@handler viewfiledetails
+	get /file/ViewFileDetails (FileDetailsReq) returns (FileDetailsResp)
 }
