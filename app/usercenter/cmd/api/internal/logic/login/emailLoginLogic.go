@@ -5,6 +5,7 @@ import (
 	"CloudMind/app/usercenter/cmd/api/internal/types"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"context"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -33,7 +34,7 @@ func (l *EmailLoginLogic) EmailLogin(req *types.EmailLoginReq) (*types.EmailLogi
 		return nil, err
 	}
 	var resp types.EmailLoginResp
-
+	fmt.Println("登录成功！")
 	_ = copier.Copy(&resp, Resp)
 	return &resp, nil
 

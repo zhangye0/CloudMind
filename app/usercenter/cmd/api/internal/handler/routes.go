@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	login "CloudMind/app/usercenter/cmd/api/internal/handler/login"
+	user "CloudMind/app/usercenter/cmd/api/internal/handler/user"
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -39,6 +40,43 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: login.SendEmailHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/usercenter/v1"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/GetUserInfo",
+				Handler: user.GetUserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateNickName",
+				Handler: user.UpdateNickNameHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdatePassWord",
+				Handler: user.UpdatePassWordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateSex",
+				Handler: user.UpdateSexHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateAvatar",
+				Handler: user.UpdateAvatarHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/RealNameAuthentication",
+				Handler: user.RealNameAuthenticationHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/usercenter/v1"),
 	)
 }

@@ -24,5 +24,6 @@ func NewQqloginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *QqloginLo
 }
 
 func (l *QqloginLogic) Qqlogin(req *types.QqLoginReq) (resp *types.QqLoginResp, err error) {
+	// todo: add your logic here and delete this line
 	return
 }

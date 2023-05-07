@@ -1,5 +1,14 @@
 syntax = "v1"
 
+type User {
+    Id       int64  `json:"id"`
+    Email   string `json:"email"`
+    NickName string `json:"nickName"`
+    Sex      int64  `json:"sex"`
+    Avatar   string `json:"avatar"`
+    Name     string `json:"name"`
+    IdCard     string `json:"idCard"`
+}
 type (
     RegisterReq {
             NickName    string    `json:"nickName"`
@@ -35,7 +44,6 @@ type (
     }
 
     WxLoginReq {
-
     }
 
     WxLoginResp {
@@ -50,4 +58,53 @@ type (
 
     SendEmailResp {
     }
+
+    GetUserInfoReq{
+    }
+
+    GetUserInfoResp {
+        UserInfo User `json:"userInfo"`
+    }
+
+    UpdateNickNameReq {
+        NickName string `json:"nickName"`
+    }
+
+    UpdateNickNameResp {
+
+    }
+
+    UpdatePassWordReq {
+            PassWord string `json:"passWord"`
+    }
+
+    UpdatePassWordResp {
+
+    }
+
+    UpdateSexReq {
+            Sex int64 `json:"sex"`
+    }
+
+    UpdateSexResp {
+
+    }
+
+    UpdateAvatarReq {
+            Avatar string `json:"avatar"`
+    }
+
+    UpdateAvatarResp {
+
+    }
+
+    RealNameAuthenticationReq {
+            Name string `json:"name"`
+            IdCard string `json:"idCard"`
+    }
+
+    RealNameAuthenticationResp {
+
+    }
+
 )

@@ -13,19 +13,26 @@ import (
 )
 
 type (
-	GenerateTokenReq         = pb.GenerateTokenReq
-	GenerateTokenResp        = pb.GenerateTokenResp
-	GetUserAuthByAuthKeyReq  = pb.GetUserAuthByAuthKeyReq
-	GetUserAuthByAuthKeyResp = pb.GetUserAuthByAuthKeyResp
-	GetUserAuthByUserIdReq   = pb.GetUserAuthByUserIdReq
-	GetUserAuthyUserIdResp   = pb.GetUserAuthyUserIdResp
-	LoginReq                 = pb.LoginReq
-	LoginResp                = pb.LoginResp
-	RegisterReq              = pb.RegisterReq
-	RegisterResp             = pb.RegisterResp
-	SendEmailReq             = pb.SendEmailReq
-	SendEmailResp            = pb.SendEmailResp
-	UserAuth                 = pb.UserAuth
+	GenerateTokenReq           = pb.GenerateTokenReq
+	GenerateTokenResp          = pb.GenerateTokenResp
+	GetUserAuthByAuthKeyReq    = pb.GetUserAuthByAuthKeyReq
+	GetUserAuthByAuthKeyResp   = pb.GetUserAuthByAuthKeyResp
+	GetUserAuthByUserIdReq     = pb.GetUserAuthByUserIdReq
+	GetUserAuthyUserIdResp     = pb.GetUserAuthyUserIdResp
+	GetUserInfoReq             = pb.GetUserInfoReq
+	GetUserInfoResp            = pb.GetUserInfoResp
+	LoginReq                   = pb.LoginReq
+	LoginResp                  = pb.LoginResp
+	RealNameAuthenticationReq  = pb.RealNameAuthenticationReq
+	RealNameAuthenticationResp = pb.RealNameAuthenticationResp
+	RegisterReq                = pb.RegisterReq
+	RegisterResp               = pb.RegisterResp
+	SendEmailReq               = pb.SendEmailReq
+	SendEmailResp              = pb.SendEmailResp
+	UpdateUserInfoReq          = pb.UpdateUserInfoReq
+	UpdateUserInfoResp         = pb.UpdateUserInfoResp
+	User                       = pb.User
+	UserAuth                   = pb.UserAuth
 
 	Usercenter interface {
 		Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
@@ -34,6 +41,9 @@ type (
 		GetUserAuthByAuthKey(ctx context.Context, in *GetUserAuthByAuthKeyReq, opts ...grpc.CallOption) (*GetUserAuthByAuthKeyResp, error)
 		GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 		GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
+		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+		UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error)
+		RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -75,4 +85,19 @@ func (m *defaultUsercenter) GetUserAuthByUserId(ctx context.Context, in *GetUser
 func (m *defaultUsercenter) GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
 	return client.GenerateToken(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.GetUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.UpdateUserInfo(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.RealNameAuthentication(ctx, in, opts...)
 }

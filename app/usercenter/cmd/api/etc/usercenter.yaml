@@ -21,7 +21,7 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-api
-  Level: info
+  Level: error
   Mode: console
   Encoding: plain
 

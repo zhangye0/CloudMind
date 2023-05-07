@@ -4,6 +4,16 @@ option go_package = "./pb";
 
 package pb;
 
+message User {
+  int64 id = 1;
+  string email = 2;
+  string nickname =3;
+  int64  sex = 4;
+  string avatar = 5;
+  string Name = 6;
+  string IdCard = 7;
+}
+
 //req 、resp
 message RegisterReq {
   string NickName  = 1;
@@ -68,6 +78,32 @@ message SendEmailReq {
 message SendEmailResp {
 }
 
+message GetUserInfoReq {
+  int64 UserId = 1;
+}
+
+message GetUserInfoResp {
+  User UserInfo = 1;
+}
+
+message UpdateUserInfoReq {
+  int64 UserId = 1;
+  string UpdateType = 2;
+  string Field1 = 3;
+  int64 Field2 = 4;
+}
+
+message UpdateUserInfoResp {
+}
+
+message RealNameAuthenticationReq {
+
+}
+
+message RealNameAuthenticationResp {
+}
+
+
 //service
 service usercenter {
   rpc Register (RegisterReq) returns (RegisterResp);
@@ -76,4 +112,8 @@ service usercenter {
   rpc getUserAuthByAuthKey(GetUserAuthByAuthKeyReq) returns(GetUserAuthByAuthKeyResp);
   rpc getUserAuthByUserId(GetUserAuthByUserIdReq) returns(GetUserAuthyUserIdResp);
   rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
+  rpc UpdateUserInfo(UpdateUserInfoReq) returns(UpdateUserInfoResp);
+  rpc RealNameAuthentication(RealNameAuthenticationReq) returns(RealNameAuthenticationResp);
+
 }

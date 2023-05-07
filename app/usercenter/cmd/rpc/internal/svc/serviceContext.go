@@ -4,6 +4,7 @@ import (
 	"CloudMind/app/usercenter/cmd/rpc/internal/config"
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/gormlogger"
+	"github.com/geiqin/thirdparty/oauth"
 	"github.com/zeromicro/go-zero/core/collection"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"gorm.io/driver/mysql"
@@ -18,6 +19,7 @@ type ServiceContext struct {
 	RedisClient   *redis.Redis
 	GormDB        *gorm.DB
 	Cache         *collection.Cache
+	wxAuth        *oauth.AuthWxWechat
 	UserModel     model.UserModel
 	UserAuthModel model.UserAuthModel
 }
@@ -30,6 +32,13 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		},
 		Logger: gormlogger.New(gormlogger.Config{LogLevel: logger.Info}),
 	})
+
+	wxConf := &oauth.AuthConfig{
+		ClientId:     "wx4f9b6ad3ffd3a295",
+		ClientSecret: "a1df664c4379e1a71aff7af68aed3c25",
+		RedirectUrl:  "",
+	}
+
 	if err != nil {
 		panic(err)
 	}
@@ -56,6 +65,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 			r.Pass = c.Redis.Pass
 		}),
 		Cache:         cache,
+		wxAuth:        oauth.NewAuthWxWechat(wxConf),
 		UserAuthModel: model.NewUserAuthModel(gormDB),
 		UserModel:     model.NewUserModel(gormDB),
 	}
