@@ -60,17 +60,15 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	db.SetConnMaxLifetime(time.Minute)
 
 	cache, err := collection.NewCache(time.Minute, collection.WithLimit(10000))
-	store := redis.New(c.Redis.Host, func(r *redis.Redis) {
-		r.Type = redis.NodeType
+	Redis := redis.New(c.Redis.Host, func(r *redis.Redis) {
+		r.Type = c.Redis.Type
+		r.Pass = c.Redis.Pass
 	})
 	return &ServiceContext{
-		Config: c,
-		RedisClient: redis.New(c.Redis.Host, func(r *redis.Redis) {
-			r.Type = c.Redis.Type
-			r.Pass = c.Redis.Pass
-		}),
+		Config:          c,
+		RedisClient:     Redis,
 		Cache:           cache,
-		Bloom:           bloom.New(store, "bloom", 1024),
+		Bloom:           bloom.New(Redis, "bloom", 1024),
 		wxAuth:          oauth.NewAuthWxWechat(wxConf),
 		UserAuthModel:   model.NewUserAuthModel(gormDB),
 		UserModel:       model.NewUserModel(gormDB),
