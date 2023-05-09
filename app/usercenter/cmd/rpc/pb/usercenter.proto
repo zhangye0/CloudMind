@@ -12,7 +12,13 @@ message User {
   string avatar = 5;
   string Name = 6;
   string IdCard = 7;
+  int64 Create_time = 8;
+  int64 Update_time = 9;
+  double Memory = 10;
+  double Flow = 11;
+  double Money = 12;
 }
+
 
 //req 、resp
 message RegisterReq {
@@ -20,6 +26,7 @@ message RegisterReq {
   string PassWord  = 2;
   string Email     = 3;
   string Code      = 4;
+  UserAuth userAuth = 5;
 }
 
 message RegisterResp {
@@ -92,6 +99,7 @@ message UpdateUserInfoReq {
   string Field1 = 3;
   string Filed2 = 4;
   int64 Filed3 = 5;
+  double Filed4 = 6;
 }
 
 message UpdateUserInfoResp {
@@ -116,5 +124,4 @@ service usercenter {
   rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
   rpc UpdateUserInfo(UpdateUserInfoReq) returns(UpdateUserInfoResp);
   rpc RealNameAuthentication(RealNameAuthenticationReq) returns(RealNameAuthenticationResp);
-
 }

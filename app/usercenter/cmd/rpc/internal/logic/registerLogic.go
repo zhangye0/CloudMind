@@ -35,9 +35,8 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 			Email:      in.Email,
 			Nickname:   in.NickName,
 			Password:   in.PassWord,
-			CreateTime: time.Now(),
-			UpdateTime: time.Now(),
-			DeleteTime: time.Now(),
+			CreateTime: time.Now().Unix(),
+			UpdateTime: time.Now().Unix(),
 		})
 		if err != nil {
 			return nil, err
@@ -48,10 +47,25 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		TokenResp, err := generateToken.GenerateToken(&pb.GenerateTokenReq{
 			UserId: count,
 		})
-
+		if in.UserAuth.AuthKey == model.UserAuthTypeEmail {
+			in.UserAuth.UserId = count
+		}
 		if err != nil {
 			return nil, err
 		}
+		_, err = l.svcCtx.UserAuthModel.Insert(l.ctx, &model.UserAuth{
+			UserId:     count,
+			AuthKey:    in.UserAuth.AuthKey,
+			AuthType:   in.UserAuth.AuthType,
+			CreateTime: time.Time{},
+			UpdateTime: time.Time{},
+			DeleteTime: time.Time{},
+			DelState:   0,
+		})
+		if err != nil {
+			return nil, err
+		}
+
 		return &pb.RegisterResp{
 			AccessToken:  TokenResp.AccessToken,
 			AccessExpire: TokenResp.AccessExpire,

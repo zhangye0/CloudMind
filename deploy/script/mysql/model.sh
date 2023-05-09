@@ -3,6 +3,7 @@
 # 使用方法：
 # bash model.sh usercenter user
 # bash model.sh usercenter user_auth
+# bash model.sh usercenter user_avatar
 
 #生成的表名
 tables=$2

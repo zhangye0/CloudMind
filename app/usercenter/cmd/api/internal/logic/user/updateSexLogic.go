@@ -30,8 +30,6 @@ func (l *UpdateSexLogic) UpdateSex(req *types.UpdateSexReq) (*types.UpdateSexRes
 	_, err := l.svcCtx.UsercenterRpc.UpdateUserInfo(l.ctx, &pb.UpdateUserInfoReq{
 		UserId:     userId,
 		UpdateType: "Sex",
-		Field1:     "",
-		Filed2:     "",
 		Filed3:     req.Sex,
 	})
 

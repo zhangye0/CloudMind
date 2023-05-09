@@ -8,6 +8,11 @@ type User {
     Avatar   string `json:"avatar"`
     Name     string `json:"name"`
     IdCard     string `json:"idCard"`
+    Create_time int64 `json:"create_time"`
+    Update_time int64 `json:"update_time"`
+    Memory float64 `json:"memory"`
+    Flow float64 `json:"flow"`
+    Money float64 `json:"money"`
 }
 type (
     RegisterReq {
@@ -103,6 +108,36 @@ type (
     }
 
     RealNameAuthenticationResp {
+
+    }
+
+    UpdateMemoryReq {
+        Memory float64 `json:"memory"`
+    }
+
+    UpdateMemoryResp {
+
+    }
+
+    UpdateFlowReq {
+        Flow float64 `json:"flow"`
+    }
+
+    UpdateFlowResp {
+
+    }
+
+    UpdateMoneyReq {
+        Money float64 `json:"money"`
+    }
+
+    UpdateMoneyResp {
+
+    }
+    UpdateStarReq {
+        Id int64 `json:"id"`
+    }
+    UpdateStarResp {
 
     }
 

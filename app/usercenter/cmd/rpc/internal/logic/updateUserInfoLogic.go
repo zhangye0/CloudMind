@@ -39,6 +39,37 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
 			Sex: in.Filed3,
 		})
+	case "Memory":
+		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
+		if err != nil {
+			return nil, err
+		}
+		memory := User.Memory
+
+		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
+			Memory: memory + in.Filed4,
+		})
+	case "Flow":
+		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
+		if err != nil {
+			return nil, err
+		}
+		flow := User.Flow
+
+		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
+			Flow: flow + in.Filed4,
+		})
+	case "Money":
+		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
+		if err != nil {
+			return nil, err
+		}
+		money := User.Money
+
+		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
+			Money: money + in.Filed4,
+		})
+	case "Star":
 	default:
 		err = errors.New("修改信息类型错误")
 	}
