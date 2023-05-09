@@ -4,7 +4,9 @@ package model
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
 	"gorm.io/gorm"
 	"time"
 )
