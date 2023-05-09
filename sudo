@@ -1,0 +1,17 @@
+Generate the autocompletion script for goctl for the specified shell.
+See each sub-command's help for details on how to use the generated script.
+
+[94mUsage:[0m
+  [92mgoctl completion[0m [command]
+
+[94mAvailable Commands:[0m
+  [94mbash       [0m Generate the autocompletion script for bash
+  [93mfish       [0m Generate the autocompletion script for fish
+  [93mpowershell [0m Generate the autocompletion script for powershell
+  [93mzsh        [0m Generate the autocompletion script for zsh
+
+[94mFlags:[0m
+[92m  -h, --help   help for completion
+[0m
+
+Use "[92mgoctl completion[0m [command] --help" for more information about a command.
