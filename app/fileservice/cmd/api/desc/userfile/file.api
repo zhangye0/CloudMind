@@ -1,0 +1,129 @@
+syntax = "v1"
+
+type File {
+    Id string  `json:"id"` // 文件编号
+    Name string `json:"name"` // 文件名
+    Type string `json:"type"` // 文件类型
+    Path string `json:"path"` // 文件路径
+    Size float64 `json:"size"` // 文件大小
+    ShareLink string `json:"sharelink"` // 分享链接
+    ModifyTime string `json:"modifyTime"` //文件最后修改时间
+}
+
+// 文件上传
+type (
+    FileUploadReq {
+        Name string `json:"name"` // 文件名
+        Type string  `json:"type"` // 文件类型
+        FileSize int64 `json:"fileSize"` // 文件大小
+        SourcePath string `json:"sourcePath"` // 源文件本地路径
+        Size int `json:"size, default = 100 * 1024"` // 分片大小
+        Routines int `json:"routines, optional"` // 并发数
+    }
+
+    FileUploadResp{}
+)
+
+// 文件下载
+type(
+    FileDownloadReq {
+        Id string `json:"id"` // 文件编号
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+    }
+
+    FileDownloadResp {}
+)
+
+// 获取文件列表
+type(
+    FileListReq{
+        Id string `json:"id"` // 文件编号
+        Page int `json:"page"` // 页码
+        Size int `json:"size"` // 每页展示记录条数
+    }
+
+    FileListResp{
+        List []*File `json:"list"` // 文件列表
+        Count int  `json:"count"` // 记录总数
+    }
+)
+
+// 修改文件名
+type(
+    FileNameUpdateReq{
+        Id string `json:"id"` // 文件编号
+        Name string `json:"name"` // 文件名
+    }
+
+    FileNameUpdateResp{}
+)
+
+// 新建文件夹
+type(
+    FileCreateReq{
+        ParentId string `json:"name"` // 父文件夹编号
+        Name string `json:"name"` // 文件名
+    }
+
+    FileCreateResp{}
+)
+
+// 删除文件
+type(
+    FileDeletionReq{
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileDeletionResp{}
+)
+
+// 文件移动
+type(
+    FileMoveReq{
+        LastParentId string `json:"lastParentId"` // 原父文件夹编号
+        PreParentId string `json:"preParentId"` // 目标文件夹编号
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileMoveResp{}
+)
+
+// 文件分享
+type(
+    FileShareReq{
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileShareResp{
+        ShareLink string `json:"shareLink"` // 分享链接
+    }
+)
+
+// 通过分享链接保存资源
+type(
+    FileShareSaveReq{
+        ParentId string `json:"name"` // 父文件夹编号
+        ShareLink string `json:"shareLink"` // 分享链接
+        Name string `json:"name"` // 文件名
+    }
+
+    FileShareSaveResp{
+        Id string `json:"id"` // 文件编号
+    }
+)
+
+// 查看文件详情
+type(
+    FileDetailsReq{
+        Id string `json:"id"` // 文件编号
+    }
+
+    FileDetailsResp{
+        Name string `json:"name"` // 文件名
+        Type string `json:"type"` // 文件类型
+        Path string `json:"path"` // 文件路径
+        Size string `json:"size"` // 文件大小
+        Time string `json:"time"` // 文件创建时间
+    }
+)
