@@ -31,7 +31,8 @@ func (l *UpdateSexLogic) UpdateSex(req *types.UpdateSexReq) (*types.UpdateSexRes
 		UserId:     userId,
 		UpdateType: "Sex",
 		Field1:     "",
-		Field2:     req.Sex,
+		Filed2:     "",
+		Filed3:     req.Sex,
 	})
 
 	if err != nil {

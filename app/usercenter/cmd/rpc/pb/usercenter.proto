@@ -90,7 +90,8 @@ message UpdateUserInfoReq {
   int64 UserId = 1;
   string UpdateType = 2;
   string Field1 = 3;
-  int64 Field2 = 4;
+  string Filed2 = 4;
+  int64 Filed3 = 5;
 }
 
 message UpdateUserInfoResp {

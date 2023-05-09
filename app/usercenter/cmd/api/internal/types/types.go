@@ -90,6 +90,7 @@ type UpdateSexResp struct {
 
 type UpdateAvatarReq struct {
 	Avatar string `json:"avatar"`
+	Md5    string `json:"md5"`
 }
 
 type UpdateAvatarResp struct {

@@ -5,39 +5,46 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-                        `id` bigint NOT NULL AUTO_INCREMENT,
-                        `email` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-                        `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-                        `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                        `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 0:男 1:女',
-                        `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-                        `name` varchar(30) NOT NULL DEFAULT '',
-                        `idcard` varchar(20) NOT NULL DEFAULT '',
-                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                        `delete_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        `del_state` tinyint NOT NULL DEFAULT '0',
-                        PRIMARY KEY (`id`),
-                        UNIQUE KEY `idx_mobile` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户表';
+create table user
+(
+    id          bigint auto_increment
+        primary key,
+    email       varchar(255)                           not null comment '邮箱号',
+    nickname    varchar(20)                            not null,
+    password    varchar(255)                           not null,
+    sex         tinyint(1)   default 0                 null comment '性别 0:男 1:女',
+    avatar      varchar(255) default ''                null,
+    name        varchar(30)  default ''                null,
+    idcard      varchar(20)  default ''                null,
+    create_time datetime     default CURRENT_TIMESTAMP null,
+    update_time datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+    delete_time datetime     default CURRENT_TIMESTAMP null,
+    del_state   tinyint      default 0                 null,
+    constraint idx_mobile
+        unique (email)
+)
+    comment '用户表';
+
 
 -- ----------------------------
 -- Table structure for user_auth
 -- ----------------------------
 DROP TABLE IF EXISTS `user_auth`;
-CREATE TABLE `user_auth` (
-                             `id` bigint NOT NULL AUTO_INCREMENT,
-                             `user_id` bigint NOT NULL DEFAULT '0',
-                             `auth_key` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '平台唯一id',
-                             `auth_type` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '平台类型',
-                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `delete_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `del_state` tinyint NOT NULL DEFAULT '0',
-                             PRIMARY KEY (`id`),
-                             UNIQUE KEY `idx_type_key` (`auth_type`,`auth_key`) USING BTREE,
-                             UNIQUE KEY `idx_userId_key` (`user_id`,`auth_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户授权表';
+create table user_auth
+(
+    id          bigint auto_increment
+        primary key,
+    user_id     bigint      default 0                 not null,
+    auth_key    varchar(64) default ''                not null comment '平台唯一id',
+    auth_type   varchar(12) default ''                not null comment '平台类型',
+    create_time datetime    default CURRENT_TIMESTAMP not null,
+    update_time datetime    default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+    delete_time datetime    default CURRENT_TIMESTAMP not null,
+    del_state   tinyint     default 0                 not null,
+    constraint idx_type_key
+        unique (auth_type, auth_key),
+    constraint idx_userId_key
+        unique (user_id, auth_type)
+)
+    comment '用户授权表';
 
-SET FOREIGN_KEY_CHECKS = 1;

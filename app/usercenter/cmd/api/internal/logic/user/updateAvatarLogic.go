@@ -31,7 +31,8 @@ func (l *UpdateAvatarLogic) UpdateAvatar(req *types.UpdateAvatarReq) (*types.Upd
 		UserId:     userId,
 		UpdateType: "Avatar",
 		Field1:     req.Avatar,
-		Field2:     0,
+		Filed2:     req.Md5,
+		Filed3:     0,
 	})
 	if err != nil {
 		return nil, err

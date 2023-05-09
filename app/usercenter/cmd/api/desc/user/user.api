@@ -92,6 +92,7 @@ type (
 
     UpdateAvatarReq {
             Avatar string `json:"avatar"`
+            Md5    string `json:"md5"`
     }
 
     UpdateAvatarResp {

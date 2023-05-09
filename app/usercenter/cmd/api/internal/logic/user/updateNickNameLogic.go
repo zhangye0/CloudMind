@@ -31,7 +31,8 @@ func (l *UpdateNickNameLogic) UpdateNickName(req *types.UpdateNickNameReq) (*typ
 		UserId:     userId,
 		UpdateType: "NickName",
 		Field1:     req.NickName,
-		Field2:     0,
+		Filed2:     "",
+		Filed3:     0,
 	})
 	if err != nil {
 		return nil, err

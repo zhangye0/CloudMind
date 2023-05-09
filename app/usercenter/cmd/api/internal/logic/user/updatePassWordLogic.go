@@ -31,7 +31,8 @@ func (l *UpdatePassWordLogic) UpdatePassWord(req *types.UpdatePassWordReq) (*typ
 		UserId:     userId,
 		UpdateType: "PassWord",
 		Field1:     req.PassWord,
-		Field2:     0,
+		Filed2:     "",
+		Filed3:     0,
 	})
 
 	if err != nil {
