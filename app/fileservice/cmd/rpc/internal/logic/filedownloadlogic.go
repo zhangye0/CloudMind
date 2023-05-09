@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/svc"
-	"CloudMind/app/fileservice/cmd/rpc/pb/pb"
+	"CloudMind/app/fileservice/cmd/rpc/internal/svc"
+	"CloudMind/app/fileservice/cmd/rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

@@ -1,7 +1,9 @@
 package file
 
 import (
+	"CloudMind/app/fileservice/cmd/rpc/filecenter"
 	"context"
+	"github.com/jinzhu/copier"
 
 	"CloudMind/app/fileservice/cmd/api/internal/svc"
 	"CloudMind/app/fileservice/cmd/api/internal/types"
@@ -25,5 +27,17 @@ func NewViewfiledetailsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *V
 
 func (l *ViewfiledetailsLogic) Viewfiledetails(req *types.FileDetailsReq) (resp *types.FileDetailsResp, err error) {
 
-	return
+	FileId := req.Id
+	fileDetailsResp, err := l.svcCtx.FileRpc.FileDetails(l.ctx, &filecenter.FileDetailsReq{
+		Id: FileId,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	var filedetails types.FileDetailsResp
+	_ = copier.Copy(&filedetails, fileDetailsResp)
+
+	return &filedetails, nil
 }

@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/config"
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/server"
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/svc"
-	"CloudMind/app/fileservice/cmd/rpc/pb/pb"
+	"CloudMind/app/fileservice/cmd/rpc/internal/config"
+	"CloudMind/app/fileservice/cmd/rpc/internal/server"
+	"CloudMind/app/fileservice/cmd/rpc/internal/svc"
+	"CloudMind/app/fileservice/cmd/rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"

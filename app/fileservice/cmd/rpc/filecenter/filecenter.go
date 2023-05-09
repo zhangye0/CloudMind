@@ -6,7 +6,7 @@ package filecenter
 import (
 	"context"
 
-	"CloudMind/app/fileservice/cmd/rpc/pb/pb"
+	"CloudMind/app/fileservice/cmd/rpc/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

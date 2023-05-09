@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/logic"
-	"CloudMind/app/fileservice/cmd/rpc/pb/internal/svc"
-	"CloudMind/app/fileservice/cmd/rpc/pb/pb"
+	"CloudMind/app/fileservice/cmd/rpc/internal/logic"
+	"CloudMind/app/fileservice/cmd/rpc/internal/svc"
+	"CloudMind/app/fileservice/cmd/rpc/pb"
 )
 
 type FilecenterServer struct {

@@ -7,8 +7,11 @@ import (
 
 type Config struct {
 	zrpc.RpcServerConf
+
 	DB struct {
 		DataSource string
 	}
-	Cache cache.CacheConf
+
+	Cache       cache.CacheConf
+	FileRpcConf zrpc.RpcClientConf
 }
