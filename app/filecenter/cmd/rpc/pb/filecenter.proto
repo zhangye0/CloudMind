@@ -5,28 +5,28 @@ option go_package = "./pb";
 package pb;
 
 message File{
-  string Id = 1;
+  int64 Id = 1;
   string Name = 2;
   string Type = 3;
   string Path = 4;
   string Size = 5;
   string ShareLink = 6;
-  string ModifyTime = 7;
+  int64 ModifyTime = 7;
 }
 
 message FileUploadReq{
   string Name = 1;
-  string Type = 6;
-  int64 FileSize = 2;
-  string SourcePath = 3;
+  string Type = 2;
+  int64 FileSize = 3;
+  string SourcePath = 4;
   int64 Size = 5;
-  int64 Routines = 4;
+  int64 Routines = 6;
 }
 
 message FileUploadResp {}
 
 message FileDownloadReq{
-  string Id = 1;
+  int64 Id = 1;
   string Name = 2;
   string Type = 3;
 }
@@ -34,7 +34,7 @@ message FileDownloadReq{
 message FileDownloadResp {}
 
 message FileListReq{
-  string Id = 1;
+  int64 Id = 1;
   int64 Page = 2;
   int64 Size = 3;
 }
@@ -45,35 +45,35 @@ message FileListResp{
 }
 
 message FileNameUpdateReq{
-  string Id = 1;
+  int64 Id = 1;
   string Mame = 2;
 }
 
 message FileNameUpdateResp{}
 
 message FileCreateReq{
-  string ParentId = 1;
+  int64 ParentId = 1;
   string Name = 2;
 }
 
 message FileCreateResp{}
 
 message FileDeletionReq{
-  string Id = 1;
+  int64 Id = 1;
 }
 
 message FileDeletionResp{}
 
 message FileMoveReq{
-  string LastParentId = 1;
-  string PreParentId = 2;
-  string Id = 3;
+  int64 LastParentId = 1;
+  int64 PreParentId = 2;
+  int64 Id = 3;
 }
 
 message FileMoveResp{}
 
 message FileShareReq{
-  string Id = 1;
+  int64 Id = 1;
 }
 
 message FileShareResp{
@@ -81,17 +81,17 @@ message FileShareResp{
 }
 
 message FileShareSaveReq{
-  string ParentId = 1;
+  int64 ParentId = 1;
   string ShareLink = 2;
   string Name = 3;
 }
 
 message FileShareSaveResp{
-  string Id = 1;
+  int64 Id = 1;
 }
 
 message FileDetailsReq{
-  string Id = 1;
+  int64 Id = 1;
 }
 
 message FileDetailsResp{

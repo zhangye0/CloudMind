@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.19.4
-// source: file.proto
+// source: filecenter.proto
 
 package pb
 
@@ -438,5 +438,5 @@ var Filecenter_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "file.proto",
+	Metadata: "filecenter.proto",
 }

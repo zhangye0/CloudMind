@@ -1,8 +1,7 @@
 package model
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/cache"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"gorm.io/gorm"
 )
 
 var _ FileModel = (*customFileModel)(nil)
@@ -20,8 +19,8 @@ type (
 )
 
 // NewFileModel returns a model for the database table.
-func NewFileModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Option) FileModel {
+func NewFileModel(conn *gorm.DB) FileModel {
 	return &customFileModel{
-		defaultFileModel: newFileModel(conn, c, opts...),
+		defaultFileModel: newFileModel(conn),
 	}
 }

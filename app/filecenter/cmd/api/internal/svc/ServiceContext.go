@@ -13,7 +13,7 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
-		c,
-		filecenter.NewFilecenter(zrpc.MustNewClient(c.FileRpcConf)),
+		Config:  c,
+		FileRpc: filecenter.NewFilecenter(zrpc.MustNewClient(c.FileRpcConf)),
 	}
 }

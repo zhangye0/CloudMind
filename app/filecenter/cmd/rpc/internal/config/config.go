@@ -12,6 +12,5 @@ type Config struct {
 		DataSource string
 	}
 
-	Cache       cache.CacheConf
-	FileRpcConf zrpc.RpcClientConf
+	Cache cache.CacheConf
 }

@@ -1,15 +1,13 @@
 syntax = "v1"
 
-import (
-	"userfile/file.api"
-)
+import "file/file.api"
 
 @server(
 	prefix: file-api/v1
 	group: file
 )
 
-service FileService{
+service filecenter{
 	@doc "文件上传"
 	@handler fileupload
 	post /file/FileUpload (FileUploadReq) returns (FileUploadResp)
@@ -47,6 +45,6 @@ service FileService{
 	post /file/FileShareSave (FileShareSaveReq) returns (FileShareSaveResp)
 	
 	@doc "查看文件详情"
-	@handler viewfiledetails
-	get /file/ViewFileDetails (FileDetailsReq) returns (FileDetailsResp)
+	@handler filedetails
+	get /file/FileDetails (FileDetailsReq) returns (FileDetailsResp)
 }

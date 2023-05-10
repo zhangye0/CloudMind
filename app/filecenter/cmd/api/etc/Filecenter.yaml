@@ -5,14 +5,13 @@ Port: 2003
 Log:
   ServiceName: FileService-api
   level: error
-#
-#Prometheus:
-#  Host: 0.0.0.0
-#  Port: 4002
-#  Path: /metrics
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4002
+  Path: /metrics
 
 FileRpcConf:
   Endpoints:
     - 127.0.0.1:2004
   NonBlock: true
-

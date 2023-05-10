@@ -1,11 +1,10 @@
 package logic
 
 import (
-	"CloudMind/app/filecenter/model"
-	"CloudMind/common/xerr"
 	"context"
 	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
 
 	"CloudMind/app/filecenter/cmd/rpc/internal/svc"
 	"CloudMind/app/filecenter/cmd/rpc/pb"
@@ -30,16 +29,13 @@ func NewFileDetailsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileD
 func (l *FileDetailsLogic) FileDetails(in *pb.FileDetailsReq) (*pb.FileDetailsResp, error) {
 	Filex, err := l.svcCtx.FileModel.FindOne(l.ctx, in.Id)
 
-	if err != nil && err != model.ErrNotFound {
-		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), " HomestayDetail db err , id : %d ", in.Id)
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, errors.New("出错了")
 	}
-
-	l.Logger.Error("没错")
 
 	var pbFile pb.FileDetailsResp
 	if Filex != nil {
 		_ = copier.Copy(&pbFile, Filex)
 	}
-
-	return &pbFile, nil
+	return &pb.FileDetailsResp{}, nil
 }

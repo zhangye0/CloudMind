@@ -60,8 +60,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/file/ViewFileDetails",
-				Handler: file.ViewfiledetailsHandler(serverCtx),
+				Path:    "/file/FileDetails",
+				Handler: file.FiledetailsHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/file-api/v1"),
