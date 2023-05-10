@@ -6,7 +6,6 @@ import (
 	"CloudMind/app/usercenter/model"
 	"context"
 	"errors"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -36,8 +35,8 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 			Nickname: in.Field1,
 		})
 	case "Sex":
-		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
-			Sex: in.Filed3,
+		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
+			"Sex": in.Filed3,
 		})
 	case "Memory":
 		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
@@ -46,8 +45,8 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 		}
 		memory := User.Memory
 
-		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
-			Memory: memory + in.Filed4,
+		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
+			"Memory": memory + in.Filed4,
 		})
 	case "Flow":
 		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
@@ -56,8 +55,8 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 		}
 		flow := User.Flow
 
-		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
-			Flow: flow + in.Filed4,
+		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
+			"Flow": flow + in.Filed4,
 		})
 	case "Money":
 		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
@@ -65,9 +64,8 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 			return nil, err
 		}
 		money := User.Money
-
-		_, err = l.svcCtx.UserModel.Update(l.ctx, in.UserId, &model.User{
-			Money: money + in.Filed4,
+		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
+			"Money": money + in.Filed4,
 		})
 	case "Star":
 	default:

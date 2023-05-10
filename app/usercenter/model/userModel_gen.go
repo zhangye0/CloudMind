@@ -19,6 +19,7 @@ type (
 		Finds(ctx context.Context, queries []Query, orders []Order) ([]*User, error)                          // 按条件查询，不分页
 		FindsByPage(ctx context.Context, queries []Query, page *Page, orders []Order) ([]*User, int64, error) // 分页查询
 		FindCount(ctx context.Context, queries []Query) (int64, error)
+		FindLast(ctx context.Context) (*User, error)
 
 		FindOneByEmail(ctx context.Context, email string) (*User, error) // 通过指定字段查找数据
 
@@ -276,6 +277,23 @@ func (d *defaultUserModel) FindOne(ctx context.Context, id int64) (*User, error)
 			return nil, ErrNotFound
 		}
 		logx.WithContext(ctx).Errorf("findOne error:%+v", err)
+		return nil, ReadDataFailed
+	}
+
+	return &result, nil
+}
+
+// 找到id最大的记录
+func (d *defaultUserModel) FindLast(ctx context.Context) (*User, error) {
+	logx.WithContext(ctx).Infof("findLast data")
+
+	var result User
+	err := d.DB.Debug().WithContext(ctx).Order("id DESC").First(&result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("findLast error:%+v", err)
 		return nil, ReadDataFailed
 	}
 

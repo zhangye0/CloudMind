@@ -29,6 +29,8 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 	if err != nil && err != model.ErrNotFound {
 		return nil, err
 	}
+
+	// 没有注册过
 	if err != nil {
 		generateToken := NewGenerateTokenLogic(l.ctx, l.svcCtx)
 		_, err := l.svcCtx.UserModel.Insert(l.ctx, &model.User{
@@ -42,25 +44,24 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 			return nil, err
 		}
 
-		count, err := l.svcCtx.UserModel.FindCount(l.ctx, []model.Query{})
+		User, err := l.svcCtx.UserModel.FindLast(l.ctx)
 
 		TokenResp, err := generateToken.GenerateToken(&pb.GenerateTokenReq{
-			UserId: count,
+			UserId: User.Id,
 		})
-		if in.UserAuth.AuthKey == model.UserAuthTypeEmail {
-			in.UserAuth.UserId = count
+		if in.UserAuth.AuthType == model.UserAuthTypeEmail {
+			in.UserAuth.AuthKey = in.Email
 		}
 		if err != nil {
 			return nil, err
 		}
 		_, err = l.svcCtx.UserAuthModel.Insert(l.ctx, &model.UserAuth{
-			UserId:     count,
+			UserId:     User.Id,
 			AuthKey:    in.UserAuth.AuthKey,
 			AuthType:   in.UserAuth.AuthType,
-			CreateTime: time.Time{},
-			UpdateTime: time.Time{},
-			DeleteTime: time.Time{},
-			DelState:   0,
+			CreateTime: time.Now(),
+			UpdateTime: time.Now(),
+			DeleteTime: time.Now(),
 		})
 		if err != nil {
 			return nil, err
