@@ -1,12 +1,12 @@
 Name: mqueue-job
 Host: 0.0.0.0
-Port: 3002
+Port: 2002
 Mode: dev
 
 #监控
 Prometheus:
   Host: 0.0.0.0
-  Port: 4010
+  Port: 3003
   Path: /metrics
 
 #Link Tracking
@@ -25,18 +25,9 @@ Redis:
   Type: node
   Pass: G62m50oigInC30sf
 
-#WxMiniConf
-WxMiniConf:
-  AppId: wx2add729fadddddd
-  Secret: 20365395b3de9b2a9351ddddddd
-
 #rpc service.
-OrderRpcConf:
-  Endpoints:
-    - 127.0.0.1:2001
-  NonBlock: true
 
 UsercenterRpcConf:
   Endpoints:
-    - 127.0.0.1:2004
+    - 127.0.0.1:4001
   NonBlock: true

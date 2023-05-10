@@ -2,6 +2,7 @@ package logic
 
 import (
 	"CloudMind/app/mqueue/cmd/job/internal/svc"
+	"CloudMind/app/mqueue/cmd/job/jobtype"
 	"context"
 	"github.com/hibiken/asynq"
 )
@@ -24,7 +25,7 @@ func (l *CronJob) Register() *asynq.ServeMux {
 	mux := asynq.NewServeMux()
 
 	//scheduler job
-	//mux.Handle(jobtype.ScheduleSettleRecord,NewSettleRecordHandler(l.svcCtx))
+	mux.Handle(jobtype.ScheduleAddFlow, NewAddFlowHandler(l.svcCtx))
 
 	//defer job
 	//mux.Handle(jobtype.DeferCloseHomestayOrder,NewCloseHomestayOrderHandler(l.svcCtx))

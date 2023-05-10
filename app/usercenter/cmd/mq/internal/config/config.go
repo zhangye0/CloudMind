@@ -8,7 +8,11 @@ import (
 
 type Config struct {
 	service.ServiceConf
-	Redis             redis.RedisConf
-	AddRpcConf        zrpc.RpcClientConf
+
+	Redis redis.RedisConf
+
+	// kq : pub sub
+
+	// rpc
 	UsercenterRpcConf zrpc.RpcClientConf
 }
