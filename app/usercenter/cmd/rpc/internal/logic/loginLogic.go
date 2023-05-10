@@ -6,6 +6,7 @@ import (
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/xerr"
 	"context"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -30,6 +31,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	Resp, err := l.svcCtx.Cache.Take(in.AuthKey+in.Password, func() (interface{}, error) {
+		fmt.Println("登录成功！")
 		var err error
 		var userId int64
 		switch in.AuthType {

@@ -34,13 +34,18 @@ func (l *GetUserInfoLogic) GetUserInfo(req *types.GetUserInfoReq) (*types.GetUse
 
 	return &types.GetUserInfoResp{
 		UserInfo: types.User{
-			Id:       Resp.UserInfo.Id,
-			Email:    Resp.UserInfo.Email,
-			NickName: Resp.UserInfo.Nickname,
-			Sex:      Resp.UserInfo.Sex,
-			Avatar:   Resp.UserInfo.Avatar,
-			Name:     Resp.UserInfo.Name,
-			IdCard:   Resp.UserInfo.IdCard,
+			Id:          Resp.UserInfo.Id,
+			Email:       Resp.UserInfo.Email,
+			NickName:    Resp.UserInfo.Nickname,
+			Sex:         Resp.UserInfo.Sex,
+			Avatar:      Resp.UserInfo.Avatar,
+			Name:        Resp.UserInfo.Name,
+			IdCard:      Resp.UserInfo.IdCard,
+			Create_time: Resp.UserInfo.CreateTime,
+			Update_time: Resp.UserInfo.UpdateTime,
+			Memory:      Resp.UserInfo.Memory,
+			Flow:        Resp.UserInfo.Flow,
+			Money:       Resp.UserInfo.Money,
 		},
 	}, nil
 }

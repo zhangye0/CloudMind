@@ -24,10 +24,6 @@ func NewUpdateAvatarLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Upda
 }
 
 func (l *UpdateAvatarLogic) UpdateAvatar(req *types.UpdateAvatarReq) (*types.UpdateAvatarResp, error) {
-	//userId := ctxdata.GetUidFromCtx(l.ctx)
-	// 需要调用文件服务的rpc来上传头像
-	//if err != nil {
-	//	return nil, err
-	//}
+	// todo
 	return &types.UpdateAvatarResp{}, nil
 }

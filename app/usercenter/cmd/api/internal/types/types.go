@@ -2,13 +2,18 @@
 package types
 
 type User struct {
-	Id       int64  `json:"id"`
-	Email    string `json:"email"`
-	NickName string `json:"nickName"`
-	Sex      int64  `json:"sex"`
-	Avatar   string `json:"avatar"`
-	Name     string `json:"name"`
-	IdCard   string `json:"idCard"`
+	Id          int64   `json:"id"`
+	Email       string  `json:"email"`
+	NickName    string  `json:"nickName"`
+	Sex         int64   `json:"sex"`
+	Avatar      string  `json:"avatar"`
+	Name        string  `json:"name"`
+	IdCard      string  `json:"idCard"`
+	Create_time int64   `json:"create_time"`
+	Update_time int64   `json:"update_time"`
+	Memory      float64 `json:"memory"`
+	Flow        float64 `json:"flow"`
+	Money       float64 `json:"money"`
 }
 
 type RegisterReq struct {
@@ -101,4 +106,32 @@ type RealNameAuthenticationReq struct {
 }
 
 type RealNameAuthenticationResp struct {
+}
+
+type UpdateMemoryReq struct {
+	Memory float64 `json:"memory"`
+}
+
+type UpdateMemoryResp struct {
+}
+
+type UpdateFlowReq struct {
+	Flow float64 `json:"flow"`
+}
+
+type UpdateFlowResp struct {
+}
+
+type UpdateMoneyReq struct {
+	Money float64 `json:"money"`
+}
+
+type UpdateMoneyResp struct {
+}
+
+type UpdateStarReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateStarResp struct {
 }
