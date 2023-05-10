@@ -23,5 +23,6 @@ func NewSendEmailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SendEma
 }
 
 func (l *SendEmailLogic) SendEmail(in *pb.SendEmailReq) (*pb.SendEmailResp, error) {
+	// todo: add your logic here and delete this line
 	return &pb.SendEmailResp{}, nil
 }

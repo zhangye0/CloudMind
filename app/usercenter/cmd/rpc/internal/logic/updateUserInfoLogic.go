@@ -38,36 +38,22 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
 			"Sex": in.Filed3,
 		})
-	case "Memory":
-		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
+	case "Memory", "Flow", "Money":
+		_, err := l.svcCtx.UserModel.AddOne(l.ctx, in.UserId, in.UpdateType, in.Filed4)
 		if err != nil {
 			return nil, err
 		}
-		memory := User.Memory
-
-		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
-			"Memory": memory + in.Filed4,
-		})
-	case "Flow":
-		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
-		if err != nil {
-			return nil, err
-		}
-		flow := User.Flow
-
-		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
-			"Flow": flow + in.Filed4,
-		})
-	case "Money":
-		User, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
-		if err != nil {
-			return nil, err
-		}
-		money := User.Money
-		_, err = l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
-			"Money": money + in.Filed4,
-		})
 	case "Star":
+	case "AllFlow":
+		_, err := l.svcCtx.UserModel.AddAll(l.ctx, "Flow", in.Filed4)
+		if err != nil {
+			return nil, err
+		}
+	case "AllMemory":
+		_, err := l.svcCtx.UserModel.AddAll(l.ctx, "Memory", in.Filed4)
+		if err != nil {
+			return nil, err
+		}
 	default:
 		err = errors.New("修改信息类型错误")
 	}

@@ -27,6 +27,8 @@ type (
 		TxUpdate(ctx context.Context, tx *gorm.DB, id int64, data *User) (int64, error)                            // 用于事务更新数据，由上层(如rpc层)调用Transaction去实现，零值不可更新，返回受影响行数
 		UpdateOneMapById(ctx context.Context, id int64, data map[string]interface{}) (int64, error)                // 通过主键id更新字段，map参数为数据库需要更新的字段，返回受影响行数
 		TxUpdateOneMapById(ctx context.Context, tx *gorm.DB, id int64, data map[string]interface{}) (int64, error) // 用于事务更新字段，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
+		AddAll(ctx context.Context, field string, num interface{}) (int64, error)
+		AddOne(ctx context.Context, Userid int64, field string, num interface{}) (int64, error)
 
 		Delete(ctx context.Context, id int64) (int64, error)                    // 通过主键id删除数据，返回受影响行数
 		TxDelete(ctx context.Context, tx *gorm.DB, id int64) (int64, error)     // 用于事务删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
@@ -186,6 +188,30 @@ func (d *defaultUserModel) TxUpdateOneMapById(ctx context.Context, tx *gorm.DB, 
 		return 0, WriteDataFailed
 	}
 
+	return result.RowsAffected, nil
+}
+
+// AddAll 给列field加上num
+func (d *defaultUserModel) AddAll(ctx context.Context, field string, num interface{}) (int64, error) {
+	logx.WithContext(ctx).Infof("AddAll data")
+
+	result := d.DB.Debug().WithContext(ctx).Model(&User{}).Where("1=1").UpdateColumn(field, gorm.Expr(fmt.Sprintf("%s + ?", field), num))
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("AddAll error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+	return result.RowsAffected, nil
+}
+
+// AddAll 给列field加上num
+func (d *defaultUserModel) AddOne(ctx context.Context, Userid int64, field string, num interface{}) (int64, error) {
+	logx.WithContext(ctx).Infof("AddAll data")
+
+	result := d.DB.Debug().WithContext(ctx).Model(&User{}).Where("`id` = ?", Userid).UpdateColumn(field, gorm.Expr(fmt.Sprintf("%s + ?", field), num))
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("AddAll error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
 	return result.RowsAffected, nil
 }
 
