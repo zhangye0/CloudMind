@@ -1,51 +1,64 @@
 syntax = "v1"
 
-import (
-	"user/user.api"
-)
-
-// =================== usercenter v1 ==============================
-
+import "user/user.api"
 // 调用该接口不需要登陆， 因此不需要鉴权
 @server (
 	prefix: usercenter/v1
-	group: user
+	group: login
 )
 service usercenter {
 	@doc "注册"
-	@handler register
-	post /user/Register (RegisterReq) returns (RegisterResp)
-	@doc "账号登陆"
-	@handler aclogin
-	post /user/AccountLogin (AccountLoginReq) returns (AccountLoginResp)
+	@handler Register
+	post /login/Register (RegisterReq) returns (RegisterResp)
+	@doc "邮箱登录"
+	@handler EmailLogin
+	post /login/EmailLogin (EmailLoginReq) returns (EmailLoginResp)
 	@doc "qq登陆"
-	@handler qqlogin
-	post /user/QqLogin (QqLoginReq) returns (QqLoginResp)
+	@handler Qqlogin
+	post /login/QqLogin (QqLoginReq) returns (QqLoginResp)
 	@doc "微信登陆"
-	@handler wxlogin
-	post /user/WxLogin (WxLoginReq) returns (WxLoginResp)
-	@doc "邮箱登陆"
-	@handler emaillogin
-	post /user/EmailLogin (WxLoginReq) returns (WxLoginResp)
+	@handler Wxlogin
+	post /login/WxLogin (WxLoginReq) returns (WxLoginResp)
 	@doc "发送邮件"
-	@handler sendemail
-	post /user/SendEmail (SendEmailReq) returns (SendEmailResp)
+	@handler SendEmail
+	post /login/SendEmail (SendEmailReq) returns (SendEmailResp)
 }
 
-// 调用该接口需要登陆， 因此需要鉴权
-@server(
+@server (
 	prefix: usercenter/v1
 	group: user
+	jwt:JwtAuth
 )
 
 service usercenter {
-	@doc "得到用户个人信息"
-	@handler getinfo
-	get /user/GetInfo (GetInfoReq) returns (GetInfoResp)
+	@doc "获取用户信息"
+	@handler GetUserInfo
+	get /user/GetUserInfo (GetUserInfoReq) returns (GetUserInfoResp)
+	@doc "修改用户名"
+	@handler UpdateNickName
+	post /user/UpdateNickName (UpdateNickNameReq) returns (UpdateNickNameResp)
 	@doc "修改密码"
-	@handler updatepassword
-	post /user/UpdatePassword (UpdatePassWordReq) returns (UpdatePassWordResp)
-	@doc "修改邮箱"
-	@handler updateemail
-	post /user/UpdateEmail (UpdateEmailReq) returns (UpdateEmailResp)
+	@handler UpdatePassWord
+	post /user/UpdatePassWord (UpdatePassWordReq) returns (UpdatePassWordResp)
+	@doc "修改性别"
+	@handler UpdateSex
+	post /user/UpdateSex (UpdateSexReq) returns (UpdateSexResp)
+	@doc "修改头像"
+	@handler UpdateAvatar
+	post /user/UpdateAvatar (UpdateAvatarReq) returns (UpdateAvatarResp)
+	@doc "修改内存"
+	@handler UpdateMemory
+	post /user/UpdateMemory (UpdateMemoryReq) returns (UpdateMemoryResp)
+	@doc "修改流量"
+	@handler UpdateFlow
+	post /user/UpdateFlow (UpdateFlowReq) returns (UpdateFlowResp)
+	@doc "修改余额"
+	@handler UpdateMoney
+	post /user/UpdateMoney (UpdateMoneyReq) returns (UpdateMoneyResp)
+	@doc "修改文件收藏"
+	@handler UpdateStar
+	post /user/UpdateStar (UpdateStarReq) returns (UpdateStarResp)
+	@doc "实名认证"
+	@handler RealNameAuthentication
+	post /user/RealNameAuthentication (RealNameAuthenticationReq) returns (RealNameAuthenticationResp)
 }

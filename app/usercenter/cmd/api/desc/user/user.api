@@ -1,98 +1,144 @@
 syntax = "v1"
 
 type User {
-    Account int64 `json:"account"` // 账号
-    PassWord string `json:"passWord"`
+    Id       int64  `json:"id"`
+    Email   string `json:"email"`
     NickName string `json:"nickName"`
-    Email string `json:"email"`
-    Sex string `json:"sex"`
-    Name string `json:"name"`
-    IdCard string `json:"idCard"`
+    Sex      int64  `json:"sex"`
+    Avatar   string `json:"avatar"`
+    Name     string `json:"name"`
+    IdCard     string `json:"idCard"`
+    Create_time int64 `json:"create_time"`
+    Update_time int64 `json:"update_time"`
+    Memory float64 `json:"memory"`
+    Flow float64 `json:"flow"`
+    Money float64 `json:"money"`
 }
-
 type (
-    RegisterReq{
-        NickName string `json:"nickName"`
-        PassWord  string `json:"passWord"`
-        Sex string `json:"sex"`
+    RegisterReq {
+            NickName    string    `json:"nickName"`
+            PassWord    string    `json:"passWord"`
+            Email       string    `json:"email"`
+            Code        string    `json:"code"`
     }
     RegisterResp{
-        Account string `json:"account"`
-        AccessToken string `json:"accessToken"`
-        AccessExpire int64 `json:"accessExpire"`
-        RefreshAfter int64 `json:"refreshAfter"`
+            AccessToken string `json:"accessToken"`
+            AccessExpire int64 `json:"accessExpire"`
+            RefreshAfter int64 `json:"refreshAfter"`
     }
-)
 
-type (
-    AccountLoginReq{
-        Account string `json:"account"`
-        PassWord string `json:"passWord"`
+    EmailLoginReq {
+                Email     string `json:"email"`
+                passWord  string `json:"passWord"`
     }
-    AccountLoginResp{
-        AccessToken string `json:"accessToken"`
-        AccessExpire int64 `json:"accessExpire"`
-        RefreshAfter int64 `json:"refreshAfter"`
-    }
-)
 
-type (
-    GetInfoReq{
+    EmailLoginResp{
+            AccessToken   string `json:"accessToken"`
+            AccessExpire  int64  `json:"accessExpire"`
+            RefreshAfter  int64  `json:"refreshAfter"`
     }
-    GetInfoResp{
+
+    QqLoginReq {
+
+    }
+
+    QqLoginResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
+    }
+
+    WxLoginReq {
+    }
+
+    WxLoginResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
+    }
+
+    SendEmailReq {
+            email   string `json:"email"`
+    }
+
+    SendEmailResp {
+    }
+
+    GetUserInfoReq{
+    }
+
+    GetUserInfoResp {
         UserInfo User `json:"userInfo"`
     }
-)
-type (
-    QqLoginReq{
+
+    UpdateNickNameReq {
+        NickName string `json:"nickName"`
+    }
+
+    UpdateNickNameResp {
 
     }
-    QqLoginResp{
+
+    UpdatePassWordReq {
+            PassWord string `json:"passWord"`
     }
-)
 
-type (
-    WxLoginReq{
-
-    }
-    WxLoginResp{
-    }
-)
-
-
-type (
-    EmailLoginReq{
+    UpdatePassWordResp {
 
     }
-    EmailLoginResp{
+
+    UpdateSexReq {
+            Sex int64 `json:"sex"`
+    }
+
+    UpdateSexResp {
 
     }
-)
 
-type (
-    SendEmailReq{
+    UpdateAvatarReq {
+        File []byte `form:"file"`
+    }
+
+    UpdateAvatarResp {
+    }
+
+    RealNameAuthenticationReq {
+            Name string `json:"name"`
+            IdCard string `json:"idCard"`
+    }
+
+    RealNameAuthenticationResp {
 
     }
-    SendEmailResp{
+
+    UpdateMemoryReq {
+        Memory float64 `json:"memory"`
+    }
+
+    UpdateMemoryResp {
 
     }
-)
 
+    UpdateFlowReq {
+        Flow float64 `json:"flow"`
+    }
 
-type (
-    UpdateEmailReq{
+    UpdateFlowResp {
 
     }
-    UpdateEmailResp{
+
+    UpdateMoneyReq {
+        Money float64 `json:"money"`
+    }
+
+    UpdateMoneyResp {
 
     }
-)
-
-type (
-    UpdatePassWordReq{
+    UpdateStarReq {
+        Id int64 `json:"id"`
+    }
+    UpdateStarResp {
 
     }
-    UpdatePassWordResp{
 
-    }
 )

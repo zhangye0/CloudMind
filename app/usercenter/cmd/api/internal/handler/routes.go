@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	login "CloudMind/app/usercenter/cmd/api/internal/handler/login"
 	user "CloudMind/app/usercenter/cmd/api/internal/handler/user"
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
 
@@ -15,33 +16,28 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/Register",
-				Handler: user.RegisterHandler(serverCtx),
+				Path:    "/login/Register",
+				Handler: login.RegisterHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/AccountLogin",
-				Handler: user.AcloginHandler(serverCtx),
+				Path:    "/login/EmailLogin",
+				Handler: login.EmailLoginHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/QqLogin",
-				Handler: user.QqloginHandler(serverCtx),
+				Path:    "/login/QqLogin",
+				Handler: login.QqloginHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/WxLogin",
-				Handler: user.WxloginHandler(serverCtx),
+				Path:    "/login/WxLogin",
+				Handler: login.WxloginHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/EmailLogin",
-				Handler: user.EmailloginHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/user/SendEmail",
-				Handler: user.SendemailHandler(serverCtx),
+				Path:    "/login/SendEmail",
+				Handler: login.SendEmailHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/usercenter/v1"),
@@ -51,20 +47,56 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/user/GetInfo",
-				Handler: user.GetinfoHandler(serverCtx),
+				Path:    "/user/GetUserInfo",
+				Handler: user.GetUserInfoHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/UpdatePassword",
-				Handler: user.UpdatepasswordHandler(serverCtx),
+				Path:    "/user/UpdateNickName",
+				Handler: user.UpdateNickNameHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/user/UpdateEmail",
-				Handler: user.UpdateemailHandler(serverCtx),
+				Path:    "/user/UpdatePassWord",
+				Handler: user.UpdatePassWordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateSex",
+				Handler: user.UpdateSexHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateAvatar",
+				Handler: user.UpdateAvatarHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateMemory",
+				Handler: user.UpdateMemoryHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateFlow",
+				Handler: user.UpdateFlowHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateMoney",
+				Handler: user.UpdateMoneyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/UpdateStar",
+				Handler: user.UpdateStarHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/RealNameAuthentication",
+				Handler: user.RealNameAuthenticationHandler(serverCtx),
 			},
 		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
 		rest.WithPrefix("/usercenter/v1"),
 	)
 }

@@ -1,40 +1,50 @@
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+create table user
+(
+    id          bigint auto_increment
+        primary key,
+    email       varchar(255)            not null comment '邮箱号',
+    nickname    varchar(20)             not null,
+    password    varchar(255)            not null,
+    sex         tinyint(1)   default 0  null comment '性别 0:男 1:女',
+    avatar      varchar(255) default '' null,
+    name        varchar(30)  default '' null,
+    idcard      varchar(20)  default '' null,
+    create_time bigint       default 0  null comment '注册时间',
+    update_time bigint       default 0  null comment '上次修改用户名的时间',
+    logout_time bigint       default 0  null comment '离线时间',
+    del_state   tinyint      default 0  null comment '在线状态',
+    Memory      double       default 0  null comment '内存',
+    Flow        double       default 0  null comment '流量',
+    Money       double       default 0  null comment '余额',
+    constraint idx_email
+        unique (email)
+)
+    comment '用户表';
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-                        `account` bigint NOT NULL AUTO_INCREMENT,
-                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                        `delete_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                        `del_state` tinyint NOT NULL DEFAULT '0',
-                        `version` bigint NOT NULL DEFAULT '0' COMMENT '版本号',
-                        `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-                        `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-                        `sex` char(1) NOT NULL DEFAULT '0' COMMENT '性别 男, 女',
-                        `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-                        PRIMARY KEY (`account`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户表';
+create table user_auth
+(
+    id          bigint auto_increment
+        primary key,
+    user_id     bigint      default 0                 not null,
+    auth_key    varchar(64) default ''                not null comment '平台唯一id',
+    auth_type   varchar(12) default ''                not null comment '平台类型',
+    create_time datetime    default CURRENT_TIMESTAMP not null,
+    update_time datetime    default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+    delete_time datetime    default CURRENT_TIMESTAMP not null,
+    del_state   tinyint     default 0                 not null,
+    constraint idx_type_key
+        unique (auth_type, auth_key),
+    constraint idx_userId_key
+        unique (user_id, auth_type)
+)
+    comment '用户授权表';
 
--- ----------------------------
--- Table structure for user_auth
--- ----------------------------
-DROP TABLE IF EXISTS `user_auth`;
-CREATE TABLE `user_auth` (
-                             `account` bigint NOT NULL AUTO_INCREMENT,
-                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                             `delete_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                             `del_state` tinyint NOT NULL DEFAULT '0',
-                             `version` bigint NOT NULL DEFAULT '0' COMMENT '版本号',
-                             `auth_key` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '平台唯一id',
-                             `auth_type` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '平台类型',
-                             PRIMARY KEY (`account`),
-                             UNIQUE KEY `idx_type_key` (`auth_type`,`auth_key`) USING BTREE,
-                             UNIQUE KEY `idx_userId_key` (`account`,`auth_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户授权表';
+create table user_avatar
+(
+    id   int auto_increment comment '头像编号'
+        primary key,
+    md5  varchar(255) null comment '图片的md值',
+    Path int          null comment '文件路径'
+)
+    comment '用户头像表';
 
-SET FOREIGN_KEY_CHECKS = 1;

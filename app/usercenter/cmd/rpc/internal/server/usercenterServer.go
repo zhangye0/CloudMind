@@ -22,19 +22,19 @@ func NewUsercenterServer(svcCtx *svc.ServiceContext) *UsercenterServer {
 	}
 }
 
-func (s *UsercenterServer) Aclogin(ctx context.Context, in *pb.AccountLoginReq) (*pb.AccountLoginResp, error) {
-	l := logic.NewAcloginLogic(ctx, s.svcCtx)
-	return l.Aclogin(in)
-}
-
 func (s *UsercenterServer) Register(ctx context.Context, in *pb.RegisterReq) (*pb.RegisterResp, error) {
 	l := logic.NewRegisterLogic(ctx, s.svcCtx)
 	return l.Register(in)
 }
 
-func (s *UsercenterServer) Getinfo(ctx context.Context, in *pb.GetInfoReq) (*pb.GetInfoResp, error) {
-	l := logic.NewGetinfoLogic(ctx, s.svcCtx)
-	return l.Getinfo(in)
+func (s *UsercenterServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginResp, error) {
+	l := logic.NewLoginLogic(ctx, s.svcCtx)
+	return l.Login(in)
+}
+
+func (s *UsercenterServer) SendEmail(ctx context.Context, in *pb.SendEmailReq) (*pb.SendEmailResp, error) {
+	l := logic.NewSendEmailLogic(ctx, s.svcCtx)
+	return l.SendEmail(in)
 }
 
 func (s *UsercenterServer) GetUserAuthByAuthKey(ctx context.Context, in *pb.GetUserAuthByAuthKeyReq) (*pb.GetUserAuthByAuthKeyResp, error) {
@@ -50,4 +50,19 @@ func (s *UsercenterServer) GetUserAuthByUserId(ctx context.Context, in *pb.GetUs
 func (s *UsercenterServer) GenerateToken(ctx context.Context, in *pb.GenerateTokenReq) (*pb.GenerateTokenResp, error) {
 	l := logic.NewGenerateTokenLogic(ctx, s.svcCtx)
 	return l.GenerateToken(in)
+}
+
+func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
+	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
+	return l.GetUserInfo(in)
+}
+
+func (s *UsercenterServer) UpdateUserInfo(ctx context.Context, in *pb.UpdateUserInfoReq) (*pb.UpdateUserInfoResp, error) {
+	l := logic.NewUpdateUserInfoLogic(ctx, s.svcCtx)
+	return l.UpdateUserInfo(in)
+}
+
+func (s *UsercenterServer) RealNameAuthentication(ctx context.Context, in *pb.RealNameAuthenticationReq) (*pb.RealNameAuthenticationResp, error) {
+	l := logic.NewRealNameAuthenticationLogic(ctx, s.svcCtx)
+	return l.RealNameAuthentication(in)
 }

@@ -19,24 +19,30 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Usercenter_Aclogin_FullMethodName              = "/pb.usercenter/aclogin"
-	Usercenter_Register_FullMethodName             = "/pb.usercenter/register"
-	Usercenter_Getinfo_FullMethodName              = "/pb.usercenter/getinfo"
-	Usercenter_GetUserAuthByAuthKey_FullMethodName = "/pb.usercenter/getUserAuthByAuthKey"
-	Usercenter_GetUserAuthByUserId_FullMethodName  = "/pb.usercenter/getUserAuthByUserId"
-	Usercenter_GenerateToken_FullMethodName        = "/pb.usercenter/generateToken"
+	Usercenter_Register_FullMethodName               = "/pb.usercenter/Register"
+	Usercenter_Login_FullMethodName                  = "/pb.usercenter/Login"
+	Usercenter_SendEmail_FullMethodName              = "/pb.usercenter/SendEmail"
+	Usercenter_GetUserAuthByAuthKey_FullMethodName   = "/pb.usercenter/getUserAuthByAuthKey"
+	Usercenter_GetUserAuthByUserId_FullMethodName    = "/pb.usercenter/getUserAuthByUserId"
+	Usercenter_GenerateToken_FullMethodName          = "/pb.usercenter/generateToken"
+	Usercenter_GetUserInfo_FullMethodName            = "/pb.usercenter/GetUserInfo"
+	Usercenter_UpdateUserInfo_FullMethodName         = "/pb.usercenter/UpdateUserInfo"
+	Usercenter_RealNameAuthentication_FullMethodName = "/pb.usercenter/RealNameAuthentication"
 )
 
 // UsercenterClient is the client API for Usercenter service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsercenterClient interface {
-	Aclogin(ctx context.Context, in *AccountLoginReq, opts ...grpc.CallOption) (*AccountLoginResp, error)
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
-	Getinfo(ctx context.Context, in *GetInfoReq, opts ...grpc.CallOption) (*GetInfoResp, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
+	SendEmail(ctx context.Context, in *SendEmailReq, opts ...grpc.CallOption) (*SendEmailResp, error)
 	GetUserAuthByAuthKey(ctx context.Context, in *GetUserAuthByAuthKeyReq, opts ...grpc.CallOption) (*GetUserAuthByAuthKeyResp, error)
 	GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error)
+	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+	UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error)
+	RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error)
 }
 
 type usercenterClient struct {
@@ -45,15 +51,6 @@ type usercenterClient struct {
 
 func NewUsercenterClient(cc grpc.ClientConnInterface) UsercenterClient {
 	return &usercenterClient{cc}
-}
-
-func (c *usercenterClient) Aclogin(ctx context.Context, in *AccountLoginReq, opts ...grpc.CallOption) (*AccountLoginResp, error) {
-	out := new(AccountLoginResp)
-	err := c.cc.Invoke(ctx, Usercenter_Aclogin_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *usercenterClient) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
@@ -65,9 +62,18 @@ func (c *usercenterClient) Register(ctx context.Context, in *RegisterReq, opts .
 	return out, nil
 }
 
-func (c *usercenterClient) Getinfo(ctx context.Context, in *GetInfoReq, opts ...grpc.CallOption) (*GetInfoResp, error) {
-	out := new(GetInfoResp)
-	err := c.cc.Invoke(ctx, Usercenter_Getinfo_FullMethodName, in, out, opts...)
+func (c *usercenterClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, Usercenter_Login_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) SendEmail(ctx context.Context, in *SendEmailReq, opts ...grpc.CallOption) (*SendEmailResp, error) {
+	out := new(SendEmailResp)
+	err := c.cc.Invoke(ctx, Usercenter_SendEmail_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,16 +107,46 @@ func (c *usercenterClient) GenerateToken(ctx context.Context, in *GenerateTokenR
 	return out, nil
 }
 
+func (c *usercenterClient) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
+	out := new(GetUserInfoResp)
+	err := c.cc.Invoke(ctx, Usercenter_GetUserInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error) {
+	out := new(UpdateUserInfoResp)
+	err := c.cc.Invoke(ctx, Usercenter_UpdateUserInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usercenterClient) RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error) {
+	out := new(RealNameAuthenticationResp)
+	err := c.cc.Invoke(ctx, Usercenter_RealNameAuthentication_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsercenterServer is the server API for Usercenter service.
 // All implementations must embed UnimplementedUsercenterServer
 // for forward compatibility
 type UsercenterServer interface {
-	Aclogin(context.Context, *AccountLoginReq) (*AccountLoginResp, error)
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
-	Getinfo(context.Context, *GetInfoReq) (*GetInfoResp, error)
+	Login(context.Context, *LoginReq) (*LoginResp, error)
+	SendEmail(context.Context, *SendEmailReq) (*SendEmailResp, error)
 	GetUserAuthByAuthKey(context.Context, *GetUserAuthByAuthKeyReq) (*GetUserAuthByAuthKeyResp, error)
 	GetUserAuthByUserId(context.Context, *GetUserAuthByUserIdReq) (*GetUserAuthyUserIdResp, error)
 	GenerateToken(context.Context, *GenerateTokenReq) (*GenerateTokenResp, error)
+	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
+	UpdateUserInfo(context.Context, *UpdateUserInfoReq) (*UpdateUserInfoResp, error)
+	RealNameAuthentication(context.Context, *RealNameAuthenticationReq) (*RealNameAuthenticationResp, error)
 	mustEmbedUnimplementedUsercenterServer()
 }
 
@@ -118,14 +154,14 @@ type UsercenterServer interface {
 type UnimplementedUsercenterServer struct {
 }
 
-func (UnimplementedUsercenterServer) Aclogin(context.Context, *AccountLoginReq) (*AccountLoginResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Aclogin not implemented")
-}
 func (UnimplementedUsercenterServer) Register(context.Context, *RegisterReq) (*RegisterResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedUsercenterServer) Getinfo(context.Context, *GetInfoReq) (*GetInfoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Getinfo not implemented")
+func (UnimplementedUsercenterServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedUsercenterServer) SendEmail(context.Context, *SendEmailReq) (*SendEmailResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendEmail not implemented")
 }
 func (UnimplementedUsercenterServer) GetUserAuthByAuthKey(context.Context, *GetUserAuthByAuthKeyReq) (*GetUserAuthByAuthKeyResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserAuthByAuthKey not implemented")
@@ -135,6 +171,15 @@ func (UnimplementedUsercenterServer) GetUserAuthByUserId(context.Context, *GetUs
 }
 func (UnimplementedUsercenterServer) GenerateToken(context.Context, *GenerateTokenReq) (*GenerateTokenResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateToken not implemented")
+}
+func (UnimplementedUsercenterServer) GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserInfo not implemented")
+}
+func (UnimplementedUsercenterServer) UpdateUserInfo(context.Context, *UpdateUserInfoReq) (*UpdateUserInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserInfo not implemented")
+}
+func (UnimplementedUsercenterServer) RealNameAuthentication(context.Context, *RealNameAuthenticationReq) (*RealNameAuthenticationResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RealNameAuthentication not implemented")
 }
 func (UnimplementedUsercenterServer) mustEmbedUnimplementedUsercenterServer() {}
 
@@ -147,24 +192,6 @@ type UnsafeUsercenterServer interface {
 
 func RegisterUsercenterServer(s grpc.ServiceRegistrar, srv UsercenterServer) {
 	s.RegisterService(&Usercenter_ServiceDesc, srv)
-}
-
-func _Usercenter_Aclogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AccountLoginReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UsercenterServer).Aclogin(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Usercenter_Aclogin_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsercenterServer).Aclogin(ctx, req.(*AccountLoginReq))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Usercenter_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -185,20 +212,38 @@ func _Usercenter_Register_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Usercenter_Getinfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetInfoReq)
+func _Usercenter_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsercenterServer).Getinfo(ctx, in)
+		return srv.(UsercenterServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Usercenter_Getinfo_FullMethodName,
+		FullMethod: Usercenter_Login_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsercenterServer).Getinfo(ctx, req.(*GetInfoReq))
+		return srv.(UsercenterServer).Login(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_SendEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendEmailReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).SendEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_SendEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).SendEmail(ctx, req.(*SendEmailReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -257,6 +302,60 @@ func _Usercenter_GenerateToken_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usercenter_GetUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).GetUserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_GetUserInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).GetUserInfo(ctx, req.(*GetUserInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_UpdateUserInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).UpdateUserInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_UpdateUserInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).UpdateUserInfo(ctx, req.(*UpdateUserInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Usercenter_RealNameAuthentication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RealNameAuthenticationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).RealNameAuthentication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_RealNameAuthentication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).RealNameAuthentication(ctx, req.(*RealNameAuthenticationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usercenter_ServiceDesc is the grpc.ServiceDesc for Usercenter service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -265,16 +364,16 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UsercenterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "aclogin",
-			Handler:    _Usercenter_Aclogin_Handler,
-		},
-		{
-			MethodName: "register",
+			MethodName: "Register",
 			Handler:    _Usercenter_Register_Handler,
 		},
 		{
-			MethodName: "getinfo",
-			Handler:    _Usercenter_Getinfo_Handler,
+			MethodName: "Login",
+			Handler:    _Usercenter_Login_Handler,
+		},
+		{
+			MethodName: "SendEmail",
+			Handler:    _Usercenter_SendEmail_Handler,
 		},
 		{
 			MethodName: "getUserAuthByAuthKey",
@@ -287,6 +386,18 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "generateToken",
 			Handler:    _Usercenter_GenerateToken_Handler,
+		},
+		{
+			MethodName: "GetUserInfo",
+			Handler:    _Usercenter_GetUserInfo_Handler,
+		},
+		{
+			MethodName: "UpdateUserInfo",
+			Handler:    _Usercenter_UpdateUserInfo_Handler,
+		},
+		{
+			MethodName: "RealNameAuthentication",
+			Handler:    _Usercenter_RealNameAuthentication_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

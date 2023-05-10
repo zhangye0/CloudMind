@@ -2,78 +2,136 @@
 package types
 
 type User struct {
-	Account  int64  `json:"account"` // 账号
-	PassWord string `json:"passWord"`
-	NickName string `json:"nickName"`
-	Email    string `json:"email"`
-	Sex      string `json:"sex"`
-	Name     string `json:"name"`
-	IdCard   string `json:"idCard"`
+	Id          int64   `json:"id"`
+	Email       string  `json:"email"`
+	NickName    string  `json:"nickName"`
+	Sex         int64   `json:"sex"`
+	Avatar      string  `json:"avatar"`
+	Name        string  `json:"name"`
+	IdCard      string  `json:"idCard"`
+	Create_time int64   `json:"create_time"`
+	Update_time int64   `json:"update_time"`
+	Memory      float64 `json:"memory"`
+	Flow        float64 `json:"flow"`
+	Money       float64 `json:"money"`
 }
 
 type RegisterReq struct {
 	NickName string `json:"nickName"`
 	PassWord string `json:"passWord"`
-	Sex      string `json:"sex"`
+	Email    string `json:"email"`
+	Code     string `json:"code"`
 }
 
 type RegisterResp struct {
-	Account      string `json:"account"`
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
 }
 
-type AccountLoginReq struct {
-	Account  string `json:"account"`
+type EmailLoginReq struct {
+	Email    string `json:"email"`
 	PassWord string `json:"passWord"`
 }
 
-type AccountLoginResp struct {
+type EmailLoginResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 	RefreshAfter int64  `json:"refreshAfter"`
-}
-
-type GetInfoReq struct {
-}
-
-type GetInfoResp struct {
-	UserInfo User `json:"userInfo"`
 }
 
 type QqLoginReq struct {
 }
 
 type QqLoginResp struct {
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
 }
 
 type WxLoginReq struct {
 }
 
 type WxLoginResp struct {
-}
-
-type EmailLoginReq struct {
-}
-
-type EmailLoginResp struct {
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
 }
 
 type SendEmailReq struct {
+	Email string `json:"email"`
 }
 
 type SendEmailResp struct {
 }
 
-type UpdateEmailReq struct {
+type GetUserInfoReq struct {
 }
 
-type UpdateEmailResp struct {
+type GetUserInfoResp struct {
+	UserInfo User `json:"userInfo"`
+}
+
+type UpdateNickNameReq struct {
+	NickName string `json:"nickName"`
+}
+
+type UpdateNickNameResp struct {
 }
 
 type UpdatePassWordReq struct {
+	PassWord string `json:"passWord"`
 }
 
 type UpdatePassWordResp struct {
+}
+
+type UpdateSexReq struct {
+	Sex int64 `json:"sex"`
+}
+
+type UpdateSexResp struct {
+}
+
+type UpdateAvatarReq struct {
+	File []byte `form:"file"`
+}
+
+type UpdateAvatarResp struct {
+}
+
+type RealNameAuthenticationReq struct {
+	Name   string `json:"name"`
+	IdCard string `json:"idCard"`
+}
+
+type RealNameAuthenticationResp struct {
+}
+
+type UpdateMemoryReq struct {
+	Memory float64 `json:"memory"`
+}
+
+type UpdateMemoryResp struct {
+}
+
+type UpdateFlowReq struct {
+	Flow float64 `json:"flow"`
+}
+
+type UpdateFlowResp struct {
+}
+
+type UpdateMoneyReq struct {
+	Money float64 `json:"money"`
+}
+
+type UpdateMoneyResp struct {
+}
+
+type UpdateStarReq struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateStarResp struct {
 }

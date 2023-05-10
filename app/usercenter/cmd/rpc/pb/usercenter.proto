@@ -4,63 +4,65 @@ option go_package = "./pb";
 
 package pb;
 
-message User{
-  string Account = 1;
-  string PassWord = 2;
-  string NickName = 3;
-  string Email = 4;
-  string Sex = 5;
+message User {
+  int64 id = 1;
+  string email = 2;
+  string nickname =3;
+  int64  sex = 4;
+  string avatar = 5;
   string Name = 6;
   string IdCard = 7;
+  int64 Create_time = 8;
+  int64 Update_time = 9;
+  double Memory = 10;
+  double Flow = 11;
+  double Money = 12;
 }
-message UserAuth{
-  string Account = 1;
-  string authType = 2;
-  string authKey = 3;
-}
+
 
 //req 、resp
 message RegisterReq {
-  string NickName = 1;
-  string PassWord = 2;
-  string Sex = 3;
-  string AuthKey = 4;
-  string AuthType = 5;
+  string NickName  = 1;
+  string PassWord  = 2;
+  string Email     = 3;
+  string Code      = 4;
+  UserAuth userAuth = 5;
 }
+
 message RegisterResp {
   string AccessToken = 1;
   int64  AccessExpire = 2;
   int64  RefreshAfter = 3;
 }
 
-message AccountLoginReq {
-  string AuthType = 1;
-  string AuthKey = 2;
-  string Password = 3;
+message LoginReq {
+  string  authType = 1;
+  string authKey = 2;
+  string  password = 3;
 }
-message AccountLoginResp {
-  string AccessToken = 1;
-  int64  AccessExpire = 2;
-  int64  RefreshAfter = 3;
+message LoginResp {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
 }
 
-message GetInfoReq {
-  string  Account = 1;
-}
-message GetInfoResp {
-  User user = 1;
+message UserAuth {
+  int64  id = 1;
+  int64  userId = 2;
+  string authType = 3;
+  string authKey = 4;
 }
 
 message GetUserAuthByAuthKeyReq {
-  string  AuthKey = 1;
-  string  AuthType = 2;
+  string  authKey = 1;
+  string  authType = 2;
 }
 message GetUserAuthByAuthKeyResp {
   UserAuth userAuth = 1;
 }
 
 message GetUserAuthByUserIdReq {
-  string  Account = 1;
+  int64  userId = 1;
   string  authType = 2;
 }
 message GetUserAuthyUserIdResp {
@@ -68,7 +70,7 @@ message GetUserAuthyUserIdResp {
 }
 
 message GenerateTokenReq {
-  string account = 1;
+  int64 userId = 1;
 }
 message GenerateTokenResp {
   string accessToken = 1;
@@ -76,11 +78,50 @@ message GenerateTokenResp {
   int64  refreshAfter = 3;
 }
 
+message SendEmailReq {
+   string Email = 1;
+}
+
+message SendEmailResp {
+}
+
+message GetUserInfoReq {
+  int64 UserId = 1;
+}
+
+message GetUserInfoResp {
+  User UserInfo = 1;
+}
+
+message UpdateUserInfoReq {
+  int64 UserId = 1;
+  string UpdateType = 2;
+  string Field1 = 3;
+  string Filed2 = 4;
+  int64 Filed3 = 5;
+  double Filed4 = 6;
+}
+
+message UpdateUserInfoResp {
+}
+
+message RealNameAuthenticationReq {
+
+}
+
+message RealNameAuthenticationResp {
+}
+
+
+//service
 service usercenter {
-  rpc aclogin(AccountLoginReq) returns(AccountLoginResp);
-  rpc register(RegisterReq) returns(RegisterResp);
-  rpc getinfo(GetInfoReq) returns(GetInfoResp);
+  rpc Register (RegisterReq) returns (RegisterResp);
+  rpc Login (LoginReq) returns (LoginResp);
+  rpc SendEmail (SendEmailReq) returns (SendEmailResp);
   rpc getUserAuthByAuthKey(GetUserAuthByAuthKeyReq) returns(GetUserAuthByAuthKeyResp);
   rpc getUserAuthByUserId(GetUserAuthByUserIdReq) returns(GetUserAuthyUserIdResp);
   rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
+  rpc UpdateUserInfo(UpdateUserInfoReq) returns(UpdateUserInfoResp);
+  rpc RealNameAuthentication(RealNameAuthenticationReq) returns(RealNameAuthenticationResp);
 }

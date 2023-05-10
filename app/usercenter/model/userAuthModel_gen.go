@@ -4,210 +4,411 @@ package model
 
 import (
 	"context"
-	"database/sql"
+	"errors"
 	"fmt"
-	"strings"
+	"github.com/zeromicro/go-zero/core/logx"
+	"gorm.io/gorm"
 	"time"
-
-	"CloudMind/common/globalkey"
-	"CloudMind/common/xerr"
-
-	"github.com/zeromicro/go-zero/core/stores/builder"
-	"github.com/zeromicro/go-zero/core/stores/cache"
-	"github.com/zeromicro/go-zero/core/stores/sqlc"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zeromicro/go-zero/core/stringx"
-)
-
-var (
-	userAuthFieldNames          = builder.RawFieldNames(&UserAuth{})
-	userAuthRows                = strings.Join(userAuthFieldNames, ",")
-	userAuthRowsExpectAutoSet   = strings.Join(stringx.Remove(userAuthFieldNames, "`account`", "`create_time`", "`update_time`"), ",")
-	userAuthRowsWithPlaceHolder = strings.Join(stringx.Remove(userAuthFieldNames, "`account`", "`create_time`", "`update_time`"), "=?,") + "=?"
-
-	cacheCloudMindUsercenterUserAuthAccountPrefix         = "cache:cloudMindUsercenter:userAuth:account:"
-	cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix = "cache:cloudMindUsercenter:userAuth:account:authType:"
-	cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix = "cache:cloudMindUsercenter:userAuth:authType:authKey:"
 )
 
 type (
 	userAuthModel interface {
-		Insert(ctx context.Context, session sqlx.Session, data *UserAuth) (sql.Result, error)
-		FindOne(ctx context.Context, account int64) (*UserAuth, error)
-		FindOneByAccountAuthType(ctx context.Context, account int64, authType string) (*UserAuth, error)
-		FindOneByAuthTypeAuthKey(ctx context.Context, authType string, authKey string) (*UserAuth, error)
-		Update(ctx context.Context, session sqlx.Session, data *UserAuth) (sql.Result, error)
-		UpdateWithVersion(ctx context.Context, session sqlx.Session, data *UserAuth) error
-		Delete(ctx context.Context, session sqlx.Session, account int64) error
+		Insert(ctx context.Context, data *UserAuth) (int64, error)                // 返回的是受影响行数，如需获取自增id，请通过data参数获取
+		TxInsert(ctx context.Context, tx *gorm.DB, data *UserAuth) (int64, error) // 用于事务新增数据，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
+
+		FindOne(ctx context.Context, id int64) (*UserAuth, error)                                                 // 通过主键id查找数据
+		Finds(ctx context.Context, queries []Query, orders []Order) ([]*UserAuth, error)                          // 按条件查询，不分页
+		FindsByPage(ctx context.Context, queries []Query, page *Page, orders []Order) ([]*UserAuth, int64, error) // 分页查询
+		FindCount(ctx context.Context, queries []Query) (int64, error)
+
+		FindOneByAuthTypeAuthKey(ctx context.Context, authType string, authKey string) (*UserAuth, error) // 通过指定字段查找数据
+
+		FindOneByUserIdAuthType(ctx context.Context, userId int64, authType string) (*UserAuth, error) // 通过指定字段查找数据
+
+		Update(ctx context.Context, id int64, data *UserAuth) (int64, error)                                       // 通过主键id更新指定字段，零值不可更新，返回受影响行数
+		TxUpdate(ctx context.Context, tx *gorm.DB, id int64, data *UserAuth) (int64, error)                        // 用于事务更新数据，由上层(如rpc层)调用Transaction去实现，零值不可更新，返回受影响行数
+		UpdateOneMapById(ctx context.Context, id int64, data map[string]interface{}) (int64, error)                // 通过主键id更新字段，map参数为数据库需要更新的字段，返回受影响行数
+		TxUpdateOneMapById(ctx context.Context, tx *gorm.DB, id int64, data map[string]interface{}) (int64, error) // 用于事务更新字段，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
+
+		Delete(ctx context.Context, id int64) (int64, error)                    // 通过主键id删除数据，返回受影响行数
+		TxDelete(ctx context.Context, tx *gorm.DB, id int64) (int64, error)     // 用于事务删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
+		Deletes(ctx context.Context, ids []int64) (int64, error)                // 通过主键id批量删除数据，返回受影响行数
+		TxDeletes(ctx context.Context, tx *gorm.DB, ids []int64) (int64, error) // 用于事务批量删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
+
 	}
 
 	defaultUserAuthModel struct {
-		sqlc.CachedConn
-		table string
+		DB *gorm.DB
 	}
 
 	UserAuth struct {
-		Account    int64     `db:"account"`
+		Id int64 `db:"id"`
+
+		UserId int64 `db:"user_id"`
+
+		AuthKey string `db:"auth_key"`
+		// 平台唯一id
+		AuthType string `db:"auth_type"`
+		// 平台类型
 		CreateTime time.Time `db:"create_time"`
+
 		UpdateTime time.Time `db:"update_time"`
+
 		DeleteTime time.Time `db:"delete_time"`
-		DelState   int64     `db:"del_state"`
-		Version    int64     `db:"version"`   // 版本号
-		AuthKey    string    `db:"auth_key"`  // 平台唯一id
-		AuthType   string    `db:"auth_type"` // 平台类型
+
+		DelState int64 `db:"del_state"`
 	}
 )
 
-func newUserAuthModel(conn sqlx.SqlConn, c cache.CacheConf) *defaultUserAuthModel {
+func newUserAuthModel(conn *gorm.DB) *defaultUserAuthModel {
 	return &defaultUserAuthModel{
-		CachedConn: sqlc.NewConn(conn, c),
-		table:      "`user_auth`",
+		DB: conn,
 	}
 }
 
-func (m *defaultUserAuthModel) Insert(ctx context.Context, session sqlx.Session, data *UserAuth) (sql.Result, error) {
-	data.DeleteTime = time.Unix(0, 0)
-	cloudMindUsercenterUserAuthAccountAuthTypeKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix, data.Account, data.AuthType)
-	cloudMindUsercenterUserAuthAccountKey := fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, data.Account)
-	cloudMindUsercenterUserAuthAuthTypeAuthKeyKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix, data.AuthType, data.AuthKey)
-	return m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?)", m.table, userAuthRowsExpectAutoSet)
-		if session != nil {
-			return session.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType)
-		}
-		return conn.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType)
-	}, cloudMindUsercenterUserAuthAccountAuthTypeKey, cloudMindUsercenterUserAuthAccountKey, cloudMindUsercenterUserAuthAuthTypeAuthKeyKey)
+// Insert 返回的是受影响行数，如需获取自增id，请通过data参数获取
+func (d *defaultUserAuthModel) Insert(ctx context.Context, data *UserAuth) (int64, error) {
+	logx.WithContext(ctx).Infof("insert data:%+v", data)
+
+	if data == nil {
+		logx.WithContext(ctx).Errorf("insert error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := d.DB.Debug().WithContext(ctx).Create(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("insert error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
 }
 
-func (m *defaultUserAuthModel) FindOne(ctx context.Context, account int64) (*UserAuth, error) {
-	cloudMindUsercenterUserAuthAccountKey := fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, account)
-	var resp UserAuth
-	err := m.QueryRowCtx(ctx, &resp, cloudMindUsercenterUserAuthAccountKey, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) error {
-		query := fmt.Sprintf("select %s from %s where `account` = ? and del_state = ? limit 1", userAuthRows, m.table)
-		return conn.QueryRowCtx(ctx, v, query, account, globalkey.DelStateNo)
-	})
-	switch err {
-	case nil:
-		return &resp, nil
-	case sqlc.ErrNotFound:
-		return nil, ErrNotFound
-	default:
+// TxInsert // 用于事务新增数据，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
+// tx：上层传递时请加上context
+func (d *defaultUserAuthModel) TxInsert(ctx context.Context, tx *gorm.DB, data *UserAuth) (int64, error) {
+	logx.WithContext(ctx).Infof("txInsert data:%+v", data)
+
+	if data == nil {
+		logx.WithContext(ctx).Errorf("txInsert error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := tx.Debug().WithContext(ctx).Create(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("txInsert error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// Update 通过主键id更新指定字段，零值不可更新，返回受影响行数
+func (d *defaultUserAuthModel) Update(ctx context.Context, id int64, data *UserAuth) (int64, error) {
+	logx.WithContext(ctx).Infof("update data:%+v", data)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("update error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := d.DB.Debug().WithContext(ctx).Where("`id` = ?", id).Updates(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("update error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// TxUpdate 用于事务更新数据，由上层(如rpc层)调用Transaction去实现，零值不可更新，返回受影响行数
+func (d *defaultUserAuthModel) TxUpdate(ctx context.Context, tx *gorm.DB, id int64, data *UserAuth) (int64, error) {
+	logx.WithContext(ctx).Infof("txUpdate data:%+v", data)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("txUpdate error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := tx.Debug().WithContext(ctx).Where("`id` = ?", id).Updates(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("update error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// UpdateOneMapById 通过主键id更新字段，map参数为数据库需要更新的字段，返回受影响行数
+func (d *defaultUserAuthModel) UpdateOneMapById(ctx context.Context, id int64, data map[string]interface{}) (int64, error) {
+	logx.WithContext(ctx).Infof("updateOneMapById data:%+v", data)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("updateOneMapById error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := d.DB.Debug().WithContext(ctx).Model(&UserAuth{}).Where("`id` = ?", id).Updates(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("updateOneMapById error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// TxUpdateOneMapById 用于事务更新字段，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
+// tx：上层传递时请加上context
+func (d *defaultUserAuthModel) TxUpdateOneMapById(ctx context.Context, tx *gorm.DB, id int64, data map[string]interface{}) (int64, error) {
+	logx.WithContext(ctx).Infof("txUpdateOneMapById data:%+v", data)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("txUpdateOneMapById error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := tx.Debug().WithContext(ctx).Model(&UserAuth{}).Where("`id` = ?", id).Updates(data)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("txUpdateOneMapById error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// Delete 通过主键id删除数据，返回受影响行数
+func (d *defaultUserAuthModel) Delete(ctx context.Context, id int64) (int64, error) {
+	logx.WithContext(ctx).Infof("delete data:%+v", id)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("delete error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := d.DB.Debug().WithContext(ctx).Where("`id` = ?", id).Delete(&UserAuth{})
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("delete error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// TxDelete 用于事务删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
+func (d *defaultUserAuthModel) TxDelete(ctx context.Context, tx *gorm.DB, id int64) (int64, error) {
+	logx.WithContext(ctx).Infof("txDelete data:%+v", id)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("txDelete error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := tx.Debug().WithContext(ctx).Where("`id` = ?", id).Delete(&UserAuth{})
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("txDelete error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// Deletes 通过主键id批量删除数据，返回受影响行数
+func (d *defaultUserAuthModel) Deletes(ctx context.Context, ids []int64) (int64, error) {
+	logx.WithContext(ctx).Infof("deletes data:%+v", ids)
+
+	if len(ids) == 0 {
+		logx.WithContext(ctx).Errorf("deletes error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := d.DB.Debug().WithContext(ctx).Where("`id` in ?", ids).Delete(&UserAuth{})
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("deletes error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// TxDeletes 用于事务批量删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
+func (d *defaultUserAuthModel) TxDeletes(ctx context.Context, tx *gorm.DB, ids []int64) (int64, error) {
+	logx.WithContext(ctx).Infof("txDeletes data:%+v", ids)
+
+	if len(ids) == 0 {
+		logx.WithContext(ctx).Errorf("txDeletes error:%+v", "param invalid")
+		return 0, InputParamInvalid
+	}
+
+	result := tx.Debug().WithContext(ctx).Where("`id` in ?", ids).Delete(&UserAuth{})
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("txDeletes error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+
+	return result.RowsAffected, nil
+}
+
+// FindOne 通过主键id查找数据
+func (d *defaultUserAuthModel) FindOne(ctx context.Context, id int64) (*UserAuth, error) {
+	logx.WithContext(ctx).Infof("findOne data:%+v", id)
+
+	if id <= 0 {
+		logx.WithContext(ctx).Errorf("findOne error:%+v", "param invalid")
+		return nil, InputParamInvalid
+	}
+
+	var result UserAuth
+	err := d.DB.Debug().WithContext(ctx).Where("`id` = ?", id).First(&result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("findOne error:%+v", err)
+		return nil, ReadDataFailed
+	}
+
+	return &result, nil
+}
+
+// Finds 按条件查询，不分页
+// queries: 查询条件集合;
+// orders: 排序字符串
+func (d *defaultUserAuthModel) Finds(ctx context.Context, queries []Query, orders []Order) ([]*UserAuth, error) {
+	logx.WithContext(ctx).Infof("finds queries: %+v, orders: %+v", queries, orders)
+
+	var result []*UserAuth
+	db := d.DB.Debug().WithContext(ctx)
+	for _, query := range queries {
+		db = db.Where(fmt.Sprintf("`%s` %s ?", query.Field, query.Condition), query.Value)
+	}
+
+	for _, order := range orders {
+		if order.ASC {
+			db = db.Order(fmt.Sprintf("%s asc", order.Field))
+		} else {
+			db = db.Order(fmt.Sprintf("%s desc", order.Field))
+		}
+	}
+
+	err := db.Find(&result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("finds error:%+v", err)
+		return nil, ReadDataFailed
+	}
+
+	return result, nil
+}
+
+// FindsByPage 分页查询
+// queries: 查询条件集合;
+// page: 分页条件
+// orders: 排序字符串
+func (d *defaultUserAuthModel) FindsByPage(ctx context.Context, queries []Query, page *Page, orders []Order) ([]*UserAuth, int64, error) {
+	logx.WithContext(ctx).Infof("findsByPage queries: %+v, page: %+v, orders: %+v", queries, page, orders)
+
+	var result []*UserAuth
+	var count int64
+	db := d.DB.Debug().WithContext(ctx)
+	for _, query := range queries {
+		db = db.Where(fmt.Sprintf("`%s` %s ?", query.Field, query.Condition), query.Value)
+	}
+
+	err := db.Model(&UserAuth{}).Count(&count).Error
+	if err != nil {
+		logx.WithContext(ctx).Errorf("findsByPage error:%+v", err)
+		return nil, 0, ReadDataFailed
+	}
+
+	for _, order := range orders {
+		if order.ASC {
+			db = db.Order(fmt.Sprintf("%s asc", order.Field))
+		} else {
+			db = db.Order(fmt.Sprintf("%s desc", order.Field))
+		}
+	}
+
+	if page != nil {
+		if page.PageIndex < 0 {
+			page.PageIndex = 0
+		}
+		if page.PageSize <= 0 {
+			page.PageSize = 20
+		}
+		if page.PageSize >= 100 {
+			page.PageSize = 100
+		}
+
+		db = db.Offset(page.PageIndex * page.PageSize).Limit(page.PageSize)
+	}
+
+	err = db.Find(result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, 0, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("findsByPage error:%+v", err)
+		return nil, 0, ReadDataFailed
+	}
+
+	return result, count, nil
+}
+
+// FindCount 按条件查询记录条数
+// queries: 查询条件集合;
+func (d *defaultUserAuthModel) FindCount(ctx context.Context, queries []Query) (int64, error) {
+	logx.WithContext(ctx).Infof("findCount queries: %+v", queries)
+
+	db := d.DB.Debug().WithContext(ctx)
+	for _, query := range queries {
+		db = db.Where(fmt.Sprintf("`%s` %s ?", query.Field, query.Condition), query.Value)
+	}
+
+	var count int64
+	err := db.Model(&UserAuth{}).Count(&count).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return 0, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("findCount error:%+v", err)
+		return 0, ReadDataFailed
+	}
+
+	return count, nil
+}
+
+// FindOneByAuthTypeAuthKey 通过指定字段查找数据
+func (d *defaultUserAuthModel) FindOneByAuthTypeAuthKey(ctx context.Context, authType string, authKey string) (*UserAuth, error) {
+	logx.WithContext(ctx).Infof("findOneByAuthTypeAuthKey data:%+v", authType, authKey)
+
+	var result UserAuth
+	err := d.DB.Debug().WithContext(ctx).Where("`auth_type` = ? and `auth_key` = ?", authType, authKey).First(&result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
+		}
+		logx.WithContext(ctx).Errorf("findOneByAuthTypeAuthKey error:%+v", err)
 		return nil, err
 	}
+
+	return &result, nil
 }
 
-func (m *defaultUserAuthModel) FindOneByAccountAuthType(ctx context.Context, account int64, authType string) (*UserAuth, error) {
-	cloudMindUsercenterUserAuthAccountAuthTypeKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix, account, authType)
-	var resp UserAuth
-	err := m.QueryRowIndexCtx(ctx, &resp, cloudMindUsercenterUserAuthAccountAuthTypeKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
-		query := fmt.Sprintf("select %s from %s where `account` = ? and `auth_type` = ? and del_state = ? limit 1", userAuthRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, account, authType, globalkey.DelStateNo); err != nil {
-			return nil, err
+// FindOneByUserIdAuthType 通过指定字段查找数据
+func (d *defaultUserAuthModel) FindOneByUserIdAuthType(ctx context.Context, userId int64, authType string) (*UserAuth, error) {
+	logx.WithContext(ctx).Infof("findOneByUserIdAuthType data:%+v", userId, authType)
+
+	var result UserAuth
+	err := d.DB.Debug().WithContext(ctx).Where("`user_id` = ? and `auth_type` = ?", userId, authType).First(&result).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrNotFound
 		}
-		return resp.Account, nil
-	}, m.queryPrimary)
-	switch err {
-	case nil:
-		return &resp, nil
-	case sqlc.ErrNotFound:
-		return nil, ErrNotFound
-	default:
+		logx.WithContext(ctx).Errorf("findOneByUserIdAuthType error:%+v", err)
 		return nil, err
 	}
-}
 
-func (m *defaultUserAuthModel) FindOneByAuthTypeAuthKey(ctx context.Context, authType string, authKey string) (*UserAuth, error) {
-	cloudMindUsercenterUserAuthAuthTypeAuthKeyKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix, authType, authKey)
-	var resp UserAuth
-	err := m.QueryRowIndexCtx(ctx, &resp, cloudMindUsercenterUserAuthAuthTypeAuthKeyKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v interface{}) (i interface{}, e error) {
-		query := fmt.Sprintf("select %s from %s where `auth_type` = ? and `auth_key` = ? and del_state = ? limit 1", userAuthRows, m.table)
-		if err := conn.QueryRowCtx(ctx, &resp, query, authType, authKey, globalkey.DelStateNo); err != nil {
-			return nil, err
-		}
-		return resp.Account, nil
-	}, m.queryPrimary)
-	switch err {
-	case nil:
-		return &resp, nil
-	case sqlc.ErrNotFound:
-		return nil, ErrNotFound
-	default:
-		return nil, err
-	}
-}
-
-func (m *defaultUserAuthModel) Update(ctx context.Context, session sqlx.Session, data *UserAuth) (sql.Result, error) {
-	cloudMindUsercenterUserAuthAccountAuthTypeKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix, data.Account, data.AuthType)
-	cloudMindUsercenterUserAuthAccountKey := fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, data.Account)
-	cloudMindUsercenterUserAuthAuthTypeAuthKeyKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix, data.AuthType, data.AuthKey)
-	return m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `account` = ?", m.table, userAuthRowsWithPlaceHolder)
-		if session != nil {
-			return session.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType, data.Account)
-		}
-		return conn.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType, data.Account)
-	}, cloudMindUsercenterUserAuthAccountAuthTypeKey, cloudMindUsercenterUserAuthAccountKey, cloudMindUsercenterUserAuthAuthTypeAuthKeyKey)
-}
-
-func (m *defaultUserAuthModel) UpdateWithVersion(ctx context.Context, session sqlx.Session, data *UserAuth) error {
-
-	oldVersion := data.Version
-	data.Version += 1
-
-	var sqlResult sql.Result
-	var err error
-
-	cloudMindUsercenterUserAuthAccountAuthTypeKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix, data.Account, data.AuthType)
-	cloudMindUsercenterUserAuthAccountKey := fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, data.Account)
-	cloudMindUsercenterUserAuthAuthTypeAuthKeyKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix, data.AuthType, data.AuthKey)
-	sqlResult, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `account` = ? and version = ? ", m.table, userAuthRowsWithPlaceHolder)
-		if session != nil {
-			return session.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType, data.Account, oldVersion)
-		}
-		return conn.ExecCtx(ctx, query, data.DeleteTime, data.DelState, data.Version, data.AuthKey, data.AuthType, data.Account, oldVersion)
-	}, cloudMindUsercenterUserAuthAccountAuthTypeKey, cloudMindUsercenterUserAuthAccountKey, cloudMindUsercenterUserAuthAuthTypeAuthKeyKey)
-	if err != nil {
-		return err
-	}
-	updateCount, err := sqlResult.RowsAffected()
-	if err != nil {
-		return err
-	}
-	if updateCount == 0 {
-		return xerr.NewErrCode(xerr.DB_UPDATE_AFFECTED_ZERO_ERROR)
-	}
-
-	return nil
-}
-
-func (m *defaultUserAuthModel) Delete(ctx context.Context, session sqlx.Session, account int64) error {
-	data, err := m.FindOne(ctx, account)
-	if err != nil {
-		return err
-	}
-
-	cloudMindUsercenterUserAuthAccountAuthTypeKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAccountAuthTypePrefix, data.Account, data.AuthType)
-	cloudMindUsercenterUserAuthAccountKey := fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, account)
-	cloudMindUsercenterUserAuthAuthTypeAuthKeyKey := fmt.Sprintf("%s%v:%v", cacheCloudMindUsercenterUserAuthAuthTypeAuthKeyPrefix, data.AuthType, data.AuthKey)
-	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("delete from %s where `account` = ?", m.table)
-		if session != nil {
-			return session.ExecCtx(ctx, query, account)
-		}
-		return conn.ExecCtx(ctx, query, account)
-	}, cloudMindUsercenterUserAuthAccountAuthTypeKey, cloudMindUsercenterUserAuthAccountKey, cloudMindUsercenterUserAuthAuthTypeAuthKeyKey)
-	return err
-}
-
-func (m *defaultUserAuthModel) formatPrimary(primary interface{}) string {
-	return fmt.Sprintf("%s%v", cacheCloudMindUsercenterUserAuthAccountPrefix, primary)
-}
-func (m *defaultUserAuthModel) queryPrimary(ctx context.Context, conn sqlx.SqlConn, v, primary interface{}) error {
-	query := fmt.Sprintf("select %s from %s where `account` = ? and del_state = ? limit 1", userAuthRows, m.table)
-	return conn.QueryRowCtx(ctx, v, query, primary, globalkey.DelStateNo)
-}
-
-func (m *defaultUserAuthModel) tableName() string {
-	return m.table
+	return &result, nil
 }

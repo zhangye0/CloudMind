@@ -1,12 +1,15 @@
-Name: usercenter-api
+Name: usercenter
 Host: 0.0.0.0
-Port: 1025
-Mode: dev
+Port: 2001
+
+#jwtAuth
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
 
 #监控
 Prometheus:
   Host: 0.0.0.0
-  Port: 4008
+  Port: 4001
   Path: /metrics
 
 #链路追踪
@@ -19,14 +22,16 @@ Telemetry:
 Log:
   ServiceName: usercenter-api
   Level: error
+  Mode: console
+  Encoding: plain
 
-#WxMiniConf
-WxMiniConf:
-  AppId: wx2add729fadddddd
-  Secret: 20365395b3de9b2a9351ddddddd
+##WxMiniConf
+#WxMiniConf:
+#  AppId: wx2add729fadddddd
+#  Secret: 20365395b3de9b2a9351ddddddd
 
 #rpc service
 UsercenterRpcConf:
   Endpoints:
-    - 127.0.0.1:2004
+    - 127.0.0.1:2002
   NonBlock: true
