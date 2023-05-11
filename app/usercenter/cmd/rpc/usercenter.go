@@ -1,8 +1,12 @@
 package main
 
 import (
+	"CloudMind/common/errorx"
+	"context"
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
 
 	"CloudMind/app/usercenter/cmd/rpc/internal/config"
 	"CloudMind/app/usercenter/cmd/rpc/internal/server"
@@ -33,6 +37,16 @@ func main() {
 		}
 	})
 	defer s.Stop()
+
+	// 自定义错误
+	httpx.SetErrorHandlerCtx(func(ctx context.Context, err error) (int, interface{}) {
+		switch e := err.(type) {
+		case *errorx.CodeError:
+			return http.StatusOK, e.Data()
+		default:
+			return http.StatusInternalServerError, nil
+		}
+	})
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()

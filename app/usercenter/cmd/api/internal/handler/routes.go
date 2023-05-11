@@ -70,21 +70,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/UpdateAvatar",
 				Handler: user.UpdateAvatarHandler(serverCtx),
 			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/user/UpdateMemory",
-				Handler: user.UpdateMemoryHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/user/UpdateFlow",
-				Handler: user.UpdateFlowHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/user/UpdateMoney",
-				Handler: user.UpdateMoneyHandler(serverCtx),
-			},
+
 			{
 				Method:  http.MethodPost,
 				Path:    "/user/UpdateStar",

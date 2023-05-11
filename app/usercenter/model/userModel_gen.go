@@ -29,6 +29,7 @@ type (
 		TxUpdateOneMapById(ctx context.Context, tx *gorm.DB, id int64, data map[string]interface{}) (int64, error) // 用于事务更新字段，由上层(如rpc层)调用Transaction去实现，返回受影响的行数
 		AddAll(ctx context.Context, field string, num interface{}) (int64, error)
 		AddOne(ctx context.Context, Userid int64, field string, num interface{}) (int64, error)
+		UpdateAll(ctx context.Context, field string, num interface{}) (int64, error)
 
 		Delete(ctx context.Context, id int64) (int64, error)                    // 通过主键id删除数据，返回受影响行数
 		TxDelete(ctx context.Context, tx *gorm.DB, id int64) (int64, error)     // 用于事务删除数据，由上层(如rpc层)调用Transaction去实现，返回受影响行数
@@ -203,13 +204,25 @@ func (d *defaultUserModel) AddAll(ctx context.Context, field string, num interfa
 	return result.RowsAffected, nil
 }
 
-// AddAll 给列field加上num
+// UpdateAll 把所有字段field低于num的全部变成num
+func (d *defaultUserModel) UpdateAll(ctx context.Context, field string, num interface{}) (int64, error) {
+	logx.WithContext(ctx).Infof("UpdateAll data")
+
+	result := d.DB.Debug().WithContext(ctx).Model(&User{}).Where(fmt.Sprintf("%s < %v", field, num)).Update(field, num)
+	if result.Error != nil {
+		logx.WithContext(ctx).Errorf("UpdateAll error:%+v", result.Error)
+		return 0, WriteDataFailed
+	}
+	return result.RowsAffected, nil
+}
+
+// AddAll 给编号为Userid的列field加上num
 func (d *defaultUserModel) AddOne(ctx context.Context, Userid int64, field string, num interface{}) (int64, error) {
-	logx.WithContext(ctx).Infof("AddAll data")
+	logx.WithContext(ctx).Infof("AddOne data")
 
 	result := d.DB.Debug().WithContext(ctx).Model(&User{}).Where("`id` = ?", Userid).UpdateColumn(field, gorm.Expr(fmt.Sprintf("%s + ?", field), num))
 	if result.Error != nil {
-		logx.WithContext(ctx).Errorf("AddAll error:%+v", result.Error)
+		logx.WithContext(ctx).Errorf("AddOne error:%+v", result.Error)
 		return 0, WriteDataFailed
 	}
 	return result.RowsAffected, nil

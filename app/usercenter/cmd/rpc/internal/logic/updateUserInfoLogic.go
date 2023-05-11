@@ -54,7 +54,7 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 		}
 	case "Star":
 	case "AllFlow":
-		_, err := l.svcCtx.UserModel.AddAll(l.ctx, "Flow", in.Filed4)
+		_, err := l.svcCtx.UserModel.UpdateAll(l.ctx, "Flow", in.Filed4)
 		if err != nil {
 			return nil, err
 		}
