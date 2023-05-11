@@ -19,6 +19,13 @@ message User {
   double Money = 12;
 }
 
+message UserAuth {
+  int64  id = 1;
+  int64  userId = 2;
+  string authType = 3;
+  string authKey = 4;
+}
+
 
 //req 、resp
 message RegisterReq {
@@ -27,12 +34,14 @@ message RegisterReq {
   string Email     = 3;
   string Code      = 4;
   UserAuth userAuth = 5;
+  string Error = 6;
 }
 
 message RegisterResp {
   string AccessToken = 1;
   int64  AccessExpire = 2;
   int64  RefreshAfter = 3;
+  string Error = 4;
 }
 
 message LoginReq {
@@ -44,13 +53,7 @@ message LoginResp {
   string accessToken = 1;
   int64  accessExpire = 2;
   int64  refreshAfter = 3;
-}
-
-message UserAuth {
-  int64  id = 1;
-  int64  userId = 2;
-  string authType = 3;
-  string authKey = 4;
+  string Error = 4;
 }
 
 message GetUserAuthByAuthKeyReq {
@@ -59,6 +62,7 @@ message GetUserAuthByAuthKeyReq {
 }
 message GetUserAuthByAuthKeyResp {
   UserAuth userAuth = 1;
+  string Error = 2;
 }
 
 message GetUserAuthByUserIdReq {
@@ -67,6 +71,7 @@ message GetUserAuthByUserIdReq {
 }
 message GetUserAuthyUserIdResp {
   UserAuth userAuth = 1;
+  string Error = 2;
 }
 
 message GenerateTokenReq {
@@ -76,6 +81,7 @@ message GenerateTokenResp {
   string accessToken = 1;
   int64  accessExpire = 2;
   int64  refreshAfter = 3;
+  string Error = 4;
 }
 
 message SendEmailReq {
@@ -83,6 +89,7 @@ message SendEmailReq {
 }
 
 message SendEmailResp {
+  string Error = 2;
 }
 
 message GetUserInfoReq {
@@ -91,6 +98,7 @@ message GetUserInfoReq {
 
 message GetUserInfoResp {
   User UserInfo = 1;
+  string Error = 2;
 }
 
 message UpdateUserInfoReq {
@@ -103,6 +111,7 @@ message UpdateUserInfoReq {
 }
 
 message UpdateUserInfoResp {
+  string Error = 1;
 }
 
 message RealNameAuthenticationReq {
@@ -110,8 +119,16 @@ message RealNameAuthenticationReq {
 }
 
 message RealNameAuthenticationResp {
+  string Error = 1;
 }
 
+message LogoutReq {
+  int64 UserId = 1;
+}
+
+message LogoutResp {
+  string Error = 1;
+}
 
 //service
 service usercenter {
@@ -124,4 +141,5 @@ service usercenter {
   rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
   rpc UpdateUserInfo(UpdateUserInfoReq) returns(UpdateUserInfoResp);
   rpc RealNameAuthentication(RealNameAuthenticationReq) returns(RealNameAuthenticationResp);
+  rpc Logout(LogoutReq) returns(LogoutResp);
 }

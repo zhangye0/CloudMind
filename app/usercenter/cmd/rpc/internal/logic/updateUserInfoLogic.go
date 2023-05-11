@@ -5,7 +5,7 @@ import (
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"CloudMind/app/usercenter/model"
 	"context"
-	"errors"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -64,7 +64,7 @@ func (l *UpdateUserInfoLogic) UpdateUserInfo(in *pb.UpdateUserInfoReq) (*pb.Upda
 			return nil, err
 		}
 	default:
-		err = errors.New("修改信息类型错误")
+		err = errors.New("修改类型错误")
 	}
 	if err != nil {
 		return nil, err

@@ -1,13 +1,10 @@
 package logic
 
 import (
-	"CloudMind/app/usercenter/model"
-	"context"
-	"errors"
-
 	"CloudMind/app/usercenter/cmd/rpc/internal/svc"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
-
+	"CloudMind/app/usercenter/model"
+	"context"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,7 +30,10 @@ func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoRe
 	UserInfo, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
 
 	if err != nil && err == model.ErrNotFound {
-		return nil, errors.New("非法访问")
+		return &pb.GetUserInfoResp{
+			UserInfo: nil,
+			Error:    "用户不存在",
+		}, nil
 	}
 	if err != nil {
 		return nil, err

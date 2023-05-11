@@ -108,30 +108,15 @@ type RealNameAuthenticationReq struct {
 type RealNameAuthenticationResp struct {
 }
 
-type UpdateMemoryReq struct {
-	Memory float64 `json:"memory"`
-}
-
-type UpdateMemoryResp struct {
-}
-
-type UpdateFlowReq struct {
-	Flow float64 `json:"flow"`
-}
-
-type UpdateFlowResp struct {
-}
-
-type UpdateMoneyReq struct {
-	Money float64 `json:"money"`
-}
-
-type UpdateMoneyResp struct {
-}
-
 type UpdateStarReq struct {
 	Id int64 `json:"id"`
 }
 
 type UpdateStarResp struct {
+}
+
+type LogoutReq struct {
+}
+
+type LogoutResp struct {
 }

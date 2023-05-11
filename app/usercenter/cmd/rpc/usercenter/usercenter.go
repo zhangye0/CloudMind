@@ -23,6 +23,8 @@ type (
 	GetUserInfoResp            = pb.GetUserInfoResp
 	LoginReq                   = pb.LoginReq
 	LoginResp                  = pb.LoginResp
+	LogoutReq                  = pb.LogoutReq
+	LogoutResp                 = pb.LogoutResp
 	RealNameAuthenticationReq  = pb.RealNameAuthenticationReq
 	RealNameAuthenticationResp = pb.RealNameAuthenticationResp
 	RegisterReq                = pb.RegisterReq
@@ -44,6 +46,7 @@ type (
 		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 		UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error)
 		RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error)
+		Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error)
 	}
 
 	defaultUsercenter struct {
@@ -100,4 +103,9 @@ func (m *defaultUsercenter) UpdateUserInfo(ctx context.Context, in *UpdateUserIn
 func (m *defaultUsercenter) RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error) {
 	client := pb.NewUsercenterClient(m.cli.Conn())
 	return client.RealNameAuthentication(ctx, in, opts...)
+}
+
+func (m *defaultUsercenter) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error) {
+	client := pb.NewUsercenterClient(m.cli.Conn())
+	return client.Logout(ctx, in, opts...)
 }

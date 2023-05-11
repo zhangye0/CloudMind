@@ -1,19 +1,17 @@
 package main
 
 import (
-	"CloudMind/common/errorx"
-	"context"
-	"flag"
-	"fmt"
-	"github.com/zeromicro/go-zero/rest/httpx"
-	"net/http"
-
 	"CloudMind/app/usercenter/cmd/api/internal/config"
 	"CloudMind/app/usercenter/cmd/api/internal/handler"
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
-
+	"CloudMind/common/errorx"
+	"flag"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"golang.org/x/net/context"
+	"net/http"
 )
 
 var configFile = flag.String("f", "etc/usercenter.yaml", "the config file")
