@@ -1,5 +1,5 @@
-Name: usercenter.rpc
-ListenOn: 0.0.0.0:2002
+Name: usercenter-rpc
+ListenOn: 0.0.0.0:4001
 Mode: dev
 #jwtAuth
 JwtAuth:
@@ -9,7 +9,7 @@ JwtAuth:
 #Monitoring
 Prometheus:
   Host: 0.0.0.0
-  Port: 4002
+  Port: 3002
   Path: /metrics
 
 #Link Tracking

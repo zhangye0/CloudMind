@@ -43,6 +43,9 @@ func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoRe
 			Avatar:   UserInfo.Avatar,
 			Name:     UserInfo.Name,
 			IdCard:   UserInfo.Idcard,
+			Memory:   UserInfo.Memory,
+			Flow:     UserInfo.Flow,
+			Money:    UserInfo.Money,
 		},
 	}, nil
 }
