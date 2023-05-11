@@ -1,7 +1,9 @@
 package file
 
 import (
+	"CloudMind/app/filecenter/cmd/rpc/filecenter"
 	"context"
+	"errors"
 
 	"CloudMind/app/filecenter/cmd/api/internal/svc"
 	"CloudMind/app/filecenter/cmd/api/internal/types"
@@ -23,8 +25,20 @@ func NewFilecreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Filecr
 	}
 }
 
-func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (resp *types.FileCreateResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (*types.FileCreateResp, error) {
 
-	return
+	resp, err := l.svcCtx.FileRpc.FileCreate(l.ctx, &filecenter.FileCreateReq{
+		ParentId: req.ParentId,
+		Name:     req.Name,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp != nil {
+		return nil, errors.New("创建失败")
+	}
+
+	return nil, nil
 }

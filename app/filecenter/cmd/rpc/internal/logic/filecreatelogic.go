@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"CloudMind/app/filecenter/model"
 	"context"
 
 	"CloudMind/app/filecenter/cmd/rpc/internal/svc"
@@ -24,7 +25,19 @@ func NewFileCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileCr
 }
 
 func (l *FileCreateLogic) FileCreate(in *pb.FileCreateReq) (*pb.FileCreateResp, error) {
-	// todo: add your logic here and delete this line
 
-	return &pb.FileCreateResp{}, nil
+	_, err := l.svcCtx.FileModel.Insert(l.ctx, &model.File{
+		Name:       in.Name,
+		Type:       "folder",
+		Path:       "xxxxxx",
+		Size:       "0",
+		ShareLink:  "xxxxxx",
+		ModifyTime: 0,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
 }
