@@ -1,9 +1,9 @@
-Name: FileService
+Name: filecenter-api
 Host: 0.0.0.0
 Port: 2003
 
 Log:
-  ServiceName: FileService-api
+  ServiceName: filecenter-api
   level: error
 
 Prometheus:

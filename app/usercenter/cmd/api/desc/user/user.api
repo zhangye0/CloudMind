@@ -111,29 +111,7 @@ type (
 
     }
 
-    UpdateMemoryReq {
-        Memory float64 `json:"memory"`
-    }
 
-    UpdateMemoryResp {
-
-    }
-
-    UpdateFlowReq {
-        Flow float64 `json:"flow"`
-    }
-
-    UpdateFlowResp {
-
-    }
-
-    UpdateMoneyReq {
-        Money float64 `json:"money"`
-    }
-
-    UpdateMoneyResp {
-
-    }
     UpdateStarReq {
         Id int64 `json:"id"`
     }

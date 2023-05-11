@@ -25,6 +25,5 @@ func NewGetUserAuthByAuthKeyLogic(ctx context.Context, svcCtx *svc.ServiceContex
 
 func (l *GetUserAuthByAuthKeyLogic) GetUserAuthByAuthKey(in *pb.GetUserAuthByAuthKeyReq) (*pb.GetUserAuthByAuthKeyResp, error) {
 	// todo: add your logic here and delete this line
-
 	return &pb.GetUserAuthByAuthKeyResp{}, nil
 }

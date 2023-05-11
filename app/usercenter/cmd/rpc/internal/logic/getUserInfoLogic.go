@@ -25,6 +25,10 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 	}
 }
 
+/*
+参数: 用户id(int64)
+返回值: 用户信息(User)
+*/
 func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
 	UserInfo, err := l.svcCtx.UserModel.FindOne(l.ctx, in.UserId)
 
