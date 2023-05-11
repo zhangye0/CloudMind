@@ -1,12 +1,10 @@
 package file
 
 import (
-	"CloudMind/app/filecenter/cmd/rpc/filecenter"
-	"context"
-	"errors"
-
 	"CloudMind/app/filecenter/cmd/api/internal/svc"
 	"CloudMind/app/filecenter/cmd/api/internal/types"
+	"CloudMind/app/filecenter/cmd/rpc/filecenter"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -28,8 +26,8 @@ func NewFilecreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Filecr
 func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (*types.FileCreateResp, error) {
 
 	resp, err := l.svcCtx.FileRpc.FileCreate(l.ctx, &filecenter.FileCreateReq{
-		ParentId: req.ParentId,
-		Name:     req.Name,
+		Path: req.Path,
+		Name: req.Name,
 	})
 
 	if err != nil {
@@ -37,7 +35,7 @@ func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (*types.FileCreat
 	}
 
 	if resp != nil {
-		return nil, errors.New("创建失败")
+		return nil, nil // 使用 errorx 报错
 	}
 
 	return nil, nil

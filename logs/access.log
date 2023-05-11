@@ -28,3 +28,19 @@
 2023-05-11T16:24:00.891+08:00	 info 	UpdateAll data	caller=model/userModel_gen.go:209	trace=e1ce1b5a8bef9d8852003e4644703ddf	span=fdeab1e217f348a4
 2023-05-11T16:24:00.894+08:00	 info 	gorm info	@timestamp=2023-05-11T16:24:00.894899248+08:00	level=error	caller=/usercenter/model/userModel_gen.go:211	rows=0	duration=3.3ms	sql=UPDATE `user` SET `flow`=100.000000 WHERE Flow < 100	caller=logic/updateUserInfoLogic.go:57	trace=e1ce1b5a8bef9d8852003e4644703ddf	span=fdeab1e217f348a4
 2023-05-11T16:24:00.895+08:00	 info 	127.0.0.1:41428 - /pb.usercenter/UpdateUserInfo - {"UserId":0,"UpdateType":"AllFlow","Field1":"","Filed2":"","Filed3":0,"Filed4":100}	duration=3.6ms	caller=serverinterceptors/statinterceptor.go:90	trace=e1ce1b5a8bef9d8852003e4644703ddf	span=fdeab1e217f348a4
+2023-05-11T21:37:22.831+08:00	 info 	Starting prometheus agent at 0.0.0.0:3002	caller=prometheus/agent.go:35
+2023-05-11T21:37:27.980+08:00	 info 	Starting prometheus agent at 0.0.0.0:3005	caller=prometheus/agent.go:35
+2023-05-11T21:37:30.057+08:00	 info 	Starting prometheus agent at 0.0.0.0:3004	caller=prometheus/agent.go:35
+2023-05-11T21:39:14.027+08:00	 info 	[HTTP]  404  -  GET  /usercenter/v1/user/user/UpdateStar - 172.20.0.1 - Apifox/1.0.0 (https://www.apifox.cn)	duration=0.0ms	caller=handler/loghandler.go:160	trace=998da488892911c4ba2eab82742003ab	span=c4af4e9d03f20bb9
+2023-05-11T22:54:55.840+08:00	 info 	Starting prometheus agent at 0.0.0.0:3002	caller=prometheus/agent.go:35
+2023-05-11T22:54:55.986+08:00	 info 	Starting prometheus agent at 0.0.0.0:3005	caller=prometheus/agent.go:35
+2023-05-11T22:54:56.330+08:00	 info 	Starting prometheus agent at 0.0.0.0:3004	caller=prometheus/agent.go:35
+2023-05-11T22:57:57.193+08:00	 info 	Starting prometheus agent at 0.0.0.0:3002	caller=prometheus/agent.go:35
+2023-05-11T22:57:57.362+08:00	 info 	Starting prometheus agent at 0.0.0.0:3005	caller=prometheus/agent.go:35
+2023-05-11T22:57:57.732+08:00	 info 	Starting prometheus agent at 0.0.0.0:3004	caller=prometheus/agent.go:35
+2023-05-11T23:03:14.238+08:00	 info 	Starting prometheus agent at 0.0.0.0:3002	caller=prometheus/agent.go:35
+2023-05-11T23:03:14.377+08:00	 info 	Starting prometheus agent at 0.0.0.0:3005	caller=prometheus/agent.go:35
+2023-05-11T23:03:14.803+08:00	 info 	Starting prometheus agent at 0.0.0.0:3004	caller=prometheus/agent.go:35
+2023-05-11T23:12:40.955+08:00	 info 	Starting prometheus agent at 0.0.0.0:3002	caller=prometheus/agent.go:35
+2023-05-11T23:12:41.134+08:00	 info 	Starting prometheus agent at 0.0.0.0:3005	caller=prometheus/agent.go:35
+2023-05-11T23:12:41.483+08:00	 info 	Starting prometheus agent at 0.0.0.0:3004	caller=prometheus/agent.go:35

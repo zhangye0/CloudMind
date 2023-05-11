@@ -3,6 +3,7 @@ package logic
 import (
 	"CloudMind/app/filecenter/model"
 	"context"
+	time2 "time"
 
 	"CloudMind/app/filecenter/cmd/rpc/internal/svc"
 	"CloudMind/app/filecenter/cmd/rpc/pb"
@@ -26,17 +27,22 @@ func NewFileCreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileCr
 
 func (l *FileCreateLogic) FileCreate(in *pb.FileCreateReq) (*pb.FileCreateResp, error) {
 
-	_, err := l.svcCtx.FileModel.Insert(l.ctx, &model.File{
+	t := time2.Now()
+	time := t.Unix()
+
+	_, err := l.svcCtx.FileModel.TxInsert(l.ctx, l.svcCtx.GormDB, &model.File{
 		Name:       in.Name,
 		Type:       "folder",
-		Path:       "xxxxxx",
+		Path:       in.Path,
 		Size:       "0",
 		ShareLink:  "xxxxxx",
-		ModifyTime: 0,
+		ModifyTime: time,
 	})
 
 	if err != nil {
-		return nil, err
+		return &pb.FileCreateResp{
+			Error: "创建失败",
+		}, err
 	}
 
 	return nil, nil

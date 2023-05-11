@@ -21,7 +21,9 @@ type (
         Routines int `json:"routines, optional"` // 并发数
     }
 
-    FileUploadResp{}
+    FileUploadResp{
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 文件下载
@@ -32,7 +34,9 @@ type(
         Type string `json:"type"` // 文件类型
     }
 
-    FileDownloadResp {}
+    FileDownloadResp {
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 获取文件列表
@@ -56,17 +60,21 @@ type(
         Name string `json:"name"` // 文件名
     }
 
-    FileNameUpdateResp{}
+    FileNameUpdateResp{
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 新建文件夹
 type(
     FileCreateReq{
-        ParentId int64 `json:"parentId"` // 父文件夹编号
+        Path string `json:"Path"` // 前缀路径
         Name string `json:"name"` // 文件名
     }
 
-    FileCreateResp{}
+    FileCreateResp{
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 删除文件
@@ -75,7 +83,9 @@ type(
         Id int64 `json:"id"` // 文件编号
     }
 
-    FileDeletionResp{}
+    FileDeletionResp{
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 文件移动
@@ -86,7 +96,9 @@ type(
         Id int64 `json:"id"` // 文件编号
     }
 
-    FileMoveResp{}
+    FileMoveResp{
+        flag string `json:"flag"` // 标志
+    }
 )
 
 // 文件分享
