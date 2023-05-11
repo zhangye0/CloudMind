@@ -9,7 +9,7 @@ JwtAuth:
 #Monitoring
 Prometheus:
   Host: 0.0.0.0
-  Port: 3002
+  Port: 3003
   Path: /metrics
 
 #Link Tracking
@@ -22,7 +22,8 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-rpc
-  Level: error
+  Level: info
+  Mode: file
   Encoding: plain
 
 Redis:

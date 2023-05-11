@@ -6,7 +6,7 @@ Mode: dev
 #监控
 Prometheus:
   Host: 0.0.0.0
-  Port: 3003
+  Port: 3004
   Path: /metrics
 
 #Link Tracking
@@ -18,7 +18,9 @@ Telemetry:
 
 Log:
   ServiceName: mqueue-job
-  Level: error
+  Level: info
+  Mode: file
+  Encoding: plain
 
 Redis:
   Host: redis:6379

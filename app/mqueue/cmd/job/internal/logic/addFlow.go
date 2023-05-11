@@ -4,7 +4,6 @@ import (
 	"CloudMind/app/mqueue/cmd/job/internal/svc"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"context"
-	"fmt"
 	"github.com/hibiken/asynq"
 )
 
@@ -31,6 +30,5 @@ func (l *AddFlowHandler) ProcessTask(ctx context.Context, _ *asynq.Task) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("流量增加成功!!!\n")
 	return nil
 }

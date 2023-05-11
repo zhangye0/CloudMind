@@ -59,10 +59,10 @@ FLUSH PRIVILEGES;
 
 | 类型名              | 端口号  | Prometheus监听端口号 | 
 |------------------|------|-----------------|
-| usercenter-api   | 2001 | 3001            |
-| mqueue-job       | 2002 | 3003            |
-| usercenter-rpc   | 4001 | 3002            |
-| mqueue-scheduler | 4002 | 3004            |
+| usercenter-api   | 2001 | 3002            |
+| mqueue-job       | 2002 | 3004            |
+| usercenter-rpc   | 4001 | 3003            |
+| mqueue-scheduler | 4002 | 3005            |
 
 #### tips: API的端口从20开始, RPC的端口从40开始, Prometheus端口从30开始
 
@@ -85,18 +85,18 @@ $ sudo apt install vim
 ```
 (1). 下载地址： https://golang.google.cn/doc/install
 
-// go1.15.8为例
+// go1.20.4为例
 (2). 解压压缩包至/usr/local :
-   $ tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
+   $ tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
 
 (3). 添加/usr/local/go/bin到环境变量 :
    $ vim $HOME/.profile
-   $ /export PATH=$PATH:/usr/local/go/bin
+   $ export PATH=$PATH:/usr/local/go/bin
    $ source $HOME/.profile
 
 (4). 验证安装结果
    $ go version
-   go version go1.15.1 linux/amd64
+   go version go1.20.4 linux/amd64
 ```
 
 ### 3. 安装Goland
