@@ -27,6 +27,10 @@ func NewGenerateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Gen
 	}
 }
 
+/*
+		参数： 用户id(int64)
+	    返回值： 令牌内容(string)， 过期时间(int64)， 刷新时间(int64)
+*/
 func (l *GenerateTokenLogic) GenerateToken(in *pb.GenerateTokenReq) (*pb.GenerateTokenResp, error) {
 	now := time.Now().Unix()
 	accessExpire := l.svcCtx.Config.JwtAuth.AccessExpire
@@ -41,6 +45,9 @@ func (l *GenerateTokenLogic) GenerateToken(in *pb.GenerateTokenReq) (*pb.Generat
 	}, nil
 }
 
+/*
+参数： 密钥(string)， 目前时间(int64)， 过期时间(int64)， 用户id(int64)
+*/
 func (l *GenerateTokenLogic) getJwtToken(secret string, now int64, expire int64, id int64) (string, error) {
 	claims := make(jwt.MapClaims)
 	claims["exp"] = now + expire
@@ -50,5 +57,3 @@ func (l *GenerateTokenLogic) getJwtToken(secret string, now int64, expire int64,
 	token.Claims = claims
 	return token.SignedString([]byte(secret))
 }
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODM0MjE1NjIsImlhdCI6MTY4MzQyMTU1Miwiand0VXNlcklkIjoyfQ.itZx7pO6gouzfs6EdE-OAMqsONjy8AXNYIbGIpZ5YRo

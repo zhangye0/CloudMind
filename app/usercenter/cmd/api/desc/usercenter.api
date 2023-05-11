@@ -31,7 +31,7 @@ service usercenter {
 )
 
 service usercenter {
-	@doc "获取用户信息"
+	@doc "用户获取个人信息"
 	@handler GetUserInfo
 	get /user/GetUserInfo (GetUserInfoReq) returns (GetUserInfoResp)
 	@doc "修改用户名"
@@ -46,15 +46,6 @@ service usercenter {
 	@doc "修改头像"
 	@handler UpdateAvatar
 	post /user/UpdateAvatar (UpdateAvatarReq) returns (UpdateAvatarResp)
-	@doc "修改内存"
-	@handler UpdateMemory
-	post /user/UpdateMemory (UpdateMemoryReq) returns (UpdateMemoryResp)
-	@doc "修改流量"
-	@handler UpdateFlow
-	post /user/UpdateFlow (UpdateFlowReq) returns (UpdateFlowResp)
-	@doc "修改余额"
-	@handler UpdateMoney
-	post /user/UpdateMoney (UpdateMoneyReq) returns (UpdateMoneyResp)
 	@doc "修改文件收藏"
 	@handler UpdateStar
 	post /user/UpdateStar (UpdateStarReq) returns (UpdateStarResp)

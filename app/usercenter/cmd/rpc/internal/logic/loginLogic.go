@@ -6,7 +6,6 @@ import (
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/xerr"
 	"context"
-	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,11 +28,17 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 	}
 }
 
+/*
+Login
+参数: 登录类型(string), 登录Key(string), 登录密码(string)
+
+返回值: 令牌内容(string)，过期时间(int64), 刷新时间(int64)
+*/
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	Resp, err := l.svcCtx.Cache.Take(in.AuthKey+in.Password, func() (interface{}, error) {
-		fmt.Println("登录成功！")
 		var err error
 		var userId int64
+
 		switch in.AuthType {
 		case model.UserAuthTypeEmail:
 			userId, err = l.EmailLogin(in.AuthKey, in.Password)
@@ -41,29 +46,42 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 				return nil, err
 			}
 		case model.UserAuthTypeQq:
+
 		case model.UserAuthTypeWx:
+
 		default:
 			return nil, errors.New("不存在这种登录方式")
 		}
 
-		geneateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
-		TokenResp, err := geneateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
+		// 构建生成令牌的对象
+		generateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
+
+		// 生成JWT令牌
+		TokenResp, err := generateTokenLogic.GenerateToken(&pb.GenerateTokenReq{
 			UserId: userId,
 		})
 		if err != nil {
 			return nil, err
 		}
+
 		return &pb.LoginResp{
 			AccessToken:  TokenResp.AccessToken,
 			AccessExpire: TokenResp.AccessExpire,
 			RefreshAfter: TokenResp.RefreshAfter,
 		}, nil
 	})
+
 	var resp pb.LoginResp
 	_ = copier.Copy(&resp, Resp)
 	return &resp, err
 }
 
+/*
+EmailLogin
+参数: 邮箱号(string), 登录密码(string)
+
+返回: 用户id(int64), 错误信息(error)
+*/
 func (l *LoginLogic) EmailLogin(email, password string) (int64, error) {
 	// 去数据库中找
 	User, err := l.svcCtx.UserModel.FindOneByEmail(l.ctx, email)

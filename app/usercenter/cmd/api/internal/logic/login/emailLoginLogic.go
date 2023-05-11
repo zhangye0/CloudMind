@@ -23,6 +23,9 @@ func NewEmailLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EmailL
 	}
 }
 
+/*
+通过邮箱号,密码进行登录， 返回JWT令牌
+*/
 func (l *EmailLoginLogic) EmailLogin(req *types.EmailLoginReq) (*types.EmailLoginResp, error) {
 	Resp, err := l.svcCtx.UsercenterRpc.Login(l.ctx, &pb.LoginReq{
 		AuthType: "email",

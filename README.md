@@ -75,50 +75,50 @@ Redis :  自行工具（AnotherRedisDesktopManager）查看
 - 密码 : G62m50oigInC30sf
 
 
-# Linux 环境配置
+# 三.Linux 环境配置
 
-### 一. 下载vim
+### 1. 下载vim
 ```
 $ sudo apt install vim
 ```
-### 二. 安装 Golang
+### 2. 安装 Golang
 ```
-1. 下载地址： https://golang.google.cn/doc/install
+(1). 下载地址： https://golang.google.cn/doc/install
 
 // go1.15.8为例
-2. 解压压缩包至/usr/local :
+(2). 解压压缩包至/usr/local :
    $ tar -C /usr/local -xzf go1.15.8.linux-amd64.tar.gz
 
-3. 添加/usr/local/go/bin到环境变量 :
+(3). 添加/usr/local/go/bin到环境变量 :
    $ vim $HOME/.profile
    $ /export PATH=$PATH:/usr/local/go/bin
    $ source $HOME/.profile
 
-4. 验证安装结果
+(4). 验证安装结果
    $ go version
    go version go1.15.1 linux/amd64
 ```
 
-### 三. 安装Goland
+### 3. 安装Goland
 ```
 下载地址：https://www.jetbrains.com/go/download
 完成后进入 Goland -> File -> Settings -> Go -> GOPATH 配置全局GOPATH // 选择一个文件夹即可
 ```
 
 ## 接下来的操作都在 Goland 终端操作
-### 四. Go Module设置
+### 4. Go Module设置
 ```
-1. 查看GO111MODULE开启情况
+(1). 查看GO111MODULE开启情况
    $ go env GO111MODULE
    on
 
-2. 开启GO111MODULE，如果已开启（即执行go env GO111MODULE结果为on）请跳过。
+(2). 开启GO111MODULE，如果已开启（即执行go env GO111MODULE结果为on）请跳过。
    $ go env -w GO111MODULE="on"
 
-3. 设置GOPROXY
+(3). 设置GOPROXY
    $ go env -w GOPROXY=https://goproxy.cn
 
-4. 设置GOMODCACHE
+(4). 设置GOMODCACHE
 
 查看GOMODCACHE
 $ go env GOMODCACHE
@@ -127,18 +127,18 @@ $ go env GOMODCACHE
 $ go env -w GOMODCACHE=$GOPATH/pkg/mod
 ```
 
-### 五. 安装 goctl
+### 5. 安装 goctl
 ```
 $ GOPROXY=https://goproxy.cn/,direct go install github.com/zeromicro/go-zero/tools/goctl@latest
 ```
 注意安装完后，重启终端
 
-### 六. protoc & protoc-gen-go安装
+### 6. protoc & protoc-gen-go安装
 ```
 $ goctl env check -i -f --verbose
 ```
 
-### 七. 安装配置 git
+### 7. 安装配置 git
 ```
 $ sudo apt-get install git
 $ git config --global user.name Love-YeLin // 换成你的用户名
@@ -151,7 +151,7 @@ $ vim id_rsa.pub // 这里换成你生成的 .pub文件
 复制密钥，然后去 github 创建密钥
 ```
 
-### 八. 安装 docker
+### 8. 安装 docker
 ```
 $ sudo apt install docker.io
 
@@ -161,3 +161,18 @@ sudo usermod -aG docker $USER
 sudo systemctl restart docker
 docker ps
 ```
+
+
+## 系统功能
+- [ ] usercenter
+    - [ ] 登录
+         - [x] 邮箱登录
+         - [ ] QQ登录
+         - [ ] 微信登录
+         - [ ] ...
+    - [ ] 注册
+        - [ ] 发送邮件
+    - [x] JWT鉴权
+    - [x] 退出登录
+    - [x]
+  
