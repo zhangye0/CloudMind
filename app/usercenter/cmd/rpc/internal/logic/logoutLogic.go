@@ -24,7 +24,12 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 }
 
 func (l *LogoutLogic) Logout(in *pb.LogoutReq) (*pb.LogoutResp, error) {
-	// todo: add your logic here and delete this line
+	_, err := l.svcCtx.UserModel.UpdateOneMapById(l.ctx, in.UserId, map[string]interface{}{
+		"del_state": 0,
+	})
+	if err != nil {
+		return nil, err
+	}
 
 	return &pb.LogoutResp{}, nil
 }

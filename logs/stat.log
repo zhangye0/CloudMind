@@ -1,0 +1,168 @@
+2023-05-13T19:28:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=9.8Mi, Sys=24.1Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:28:57.599+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:29:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=10.2Mi, Sys=28.1Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:29:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=13.9Mi, Sys=24.1Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:29:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:30:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=14.6Mi, Sys=28.1Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:30:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=18.1Mi, Sys=24.1Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:30:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:31:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.1Mi, TotalAlloc=18.9Mi, Sys=28.1Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:31:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=22.2Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:31:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:32:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=23.4Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:32:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=25.5Mi, Sys=28.4Mi, NumGC=10	caller=stat/usage.go:61
+2023-05-13T19:32:57.599+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:33:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.0Mi, TotalAlloc=27.8Mi, Sys=28.4Mi, NumGC=11	caller=stat/usage.go:61
+2023-05-13T19:33:57.590+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=29.7Mi, Sys=28.4Mi, NumGC=11	caller=stat/usage.go:61
+2023-05-13T19:33:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:34:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=32.2Mi, Sys=28.4Mi, NumGC=12	caller=stat/usage.go:61
+2023-05-13T19:34:14.393+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=10.6Mi, Sys=23.9Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:34:14.402+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:34:57.590+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.4Mi, TotalAlloc=33.9Mi, Sys=28.4Mi, NumGC=12	caller=stat/usage.go:61
+2023-05-13T19:34:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:35:00.315+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1822, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:35:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=36.8Mi, Sys=28.4Mi, NumGC=14	caller=stat/usage.go:61
+2023-05-13T19:35:14.394+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.6Mi, TotalAlloc=15.0Mi, Sys=27.9Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:35:14.402+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:35:57.590+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=38.0Mi, Sys=28.4Mi, NumGC=14	caller=stat/usage.go:61
+2023-05-13T19:35:57.600+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:36:00.316+08:00	 stat 	(usercenter-rpc) - qps: 0.1/s, drops: 0, avg time: 1.2ms, med: 1.6ms, 90th: 2.6ms, 99th: 2.6ms, 99.9th: 2.6ms	caller=stat/metrics.go:210
+2023-05-13T19:36:00.375+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1066, reqs: 5	caller=p2c/p2c.go:181
+2023-05-13T19:36:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=41.2Mi, Sys=28.4Mi, NumGC=15	caller=stat/usage.go:61
+2023-05-13T19:36:14.394+08:00	 stat 	CPU: 1m, MEMORY: Alloc=4.3Mi, TotalAlloc=19.4Mi, Sys=27.9Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:36:14.403+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 1, total: 5, pass: 5, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:36:57.589+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.1Mi, TotalAlloc=41.3Mi, Sys=28.4Mi, NumGC=15	caller=stat/usage.go:61
+2023-05-13T19:36:57.599+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:37:00.316+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.5ms, med: 2.9ms, 90th: 2.9ms, 99th: 2.9ms, 99.9th: 2.9ms	caller=stat/metrics.go:210
+2023-05-13T19:37:00.443+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1201, reqs: 2	caller=p2c/p2c.go:181
+2023-05-13T19:37:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=45.5Mi, Sys=28.4Mi, NumGC=17	caller=stat/usage.go:61
+2023-05-13T19:37:14.394+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=23.6Mi, Sys=27.9Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:37:14.403+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 2, pass: 2, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:38:00.316+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.7ms, 90th: 0.7ms, 99th: 0.7ms, 99.9th: 0.7ms	caller=stat/metrics.go:210
+2023-05-13T19:38:00.497+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1471, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:38:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=49.8Mi, Sys=28.4Mi, NumGC=18	caller=stat/usage.go:61
+2023-05-13T19:38:14.395+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=27.9Mi, Sys=27.9Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:38:14.403+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:38:44.895+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=9.8Mi, Sys=23.6Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:38:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:39:00.315+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.0ms, med: 1.7ms, 90th: 1.7ms, 99th: 1.7ms, 99.9th: 1.7ms	caller=stat/metrics.go:210
+2023-05-13T19:39:00.564+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1883, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:39:04.869+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=53.3Mi, Sys=28.4Mi, NumGC=19	caller=stat/usage.go:61
+2023-05-13T19:39:14.394+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.6Mi, TotalAlloc=32.1Mi, Sys=27.9Mi, NumGC=10	caller=stat/usage.go:61
+2023-05-13T19:39:14.402+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:39:44.894+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.1Mi, TotalAlloc=13.9Mi, Sys=23.6Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:39:44.901+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:40:00.315+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 2.6ms, 90th: 2.6ms, 99th: 2.6ms, 99.9th: 2.6ms	caller=stat/metrics.go:210
+2023-05-13T19:40:00.632+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 2032, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:40:04.869+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=57.5Mi, Sys=28.4Mi, NumGC=20	caller=stat/usage.go:61
+2023-05-13T19:40:14.394+08:00	 stat 	CPU: 0m, MEMORY: Alloc=7.1Mi, TotalAlloc=36.3Mi, Sys=27.9Mi, NumGC=11	caller=stat/usage.go:61
+2023-05-13T19:40:14.402+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:40:44.895+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=17.3Mi, Sys=23.9Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:40:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:41:00.315+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 3.2ms, 90th: 3.2ms, 99th: 3.2ms, 99.9th: 3.2ms	caller=stat/metrics.go:210
+2023-05-13T19:41:00.698+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1920, reqs: 2	caller=p2c/p2c.go:181
+2023-05-13T19:41:04.869+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.6Mi, TotalAlloc=61.0Mi, Sys=28.4Mi, NumGC=21	caller=stat/usage.go:61
+2023-05-13T19:41:14.394+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.9Mi, TotalAlloc=39.8Mi, Sys=27.9Mi, NumGC=12	caller=stat/usage.go:61
+2023-05-13T19:41:14.403+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 2, pass: 2, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:41:44.895+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=21.3Mi, Sys=28.1Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:41:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:42:00.315+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 3.0ms, 90th: 3.0ms, 99th: 3.0ms, 99.9th: 3.0ms	caller=stat/metrics.go:210
+2023-05-13T19:42:00.767+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 2279, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:42:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.4Mi, TotalAlloc=65.3Mi, Sys=28.4Mi, NumGC=22	caller=stat/usage.go:61
+2023-05-13T19:42:14.394+08:00	 stat 	CPU: 17m, MEMORY: Alloc=7.1Mi, TotalAlloc=44.0Mi, Sys=27.9Mi, NumGC=13	caller=stat/usage.go:61
+2023-05-13T19:42:14.403+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 17, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:42:44.894+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.1Mi, TotalAlloc=25.7Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:42:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:43:00.822+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1380, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:43:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=69.9Mi, Sys=28.4Mi, NumGC=24	caller=stat/usage.go:61
+2023-05-13T19:43:23.160+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=10.8Mi, Sys=23.9Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:43:23.170+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:43:44.895+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.3Mi, TotalAlloc=29.9Mi, Sys=28.1Mi, NumGC=10	caller=stat/usage.go:61
+2023-05-13T19:43:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:44:00.823+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.0ms, med: 1.0ms, 90th: 1.0ms, 99th: 1.0ms, 99.9th: 1.0ms	caller=stat/metrics.go:210
+2023-05-13T19:44:00.873+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1336, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:44:04.869+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=74.1Mi, Sys=28.4Mi, NumGC=25	caller=stat/usage.go:61
+2023-05-13T19:44:23.159+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=15.0Mi, Sys=24.1Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:44:23.170+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:44:44.894+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=34.0Mi, Sys=28.1Mi, NumGC=12	caller=stat/usage.go:61
+2023-05-13T19:44:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:45:00.823+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.0ms, med: 1.4ms, 90th: 1.4ms, 99th: 1.4ms, 99.9th: 1.4ms	caller=stat/metrics.go:210
+2023-05-13T19:45:00.932+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1333, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:45:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.2Mi, TotalAlloc=78.4Mi, Sys=28.4Mi, NumGC=26	caller=stat/usage.go:61
+2023-05-13T19:45:44.895+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=37.4Mi, Sys=28.1Mi, NumGC=13	caller=stat/usage.go:61
+2023-05-13T19:45:44.902+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:46:00.998+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1226, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:46:04.868+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=82.8Mi, Sys=28.4Mi, NumGC=28	caller=stat/usage.go:61
+2023-05-13T19:46:07.030+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.5Mi, TotalAlloc=10.9Mi, Sys=23.9Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:46:07.039+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:46:44.894+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=40.7Mi, Sys=28.1Mi, NumGC=14	caller=stat/usage.go:61
+2023-05-13T19:46:44.901+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:48:01.001+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 2724, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:48:12.007+08:00	 stat 	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=9.9Mi, Sys=23.6Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:48:12.023+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:48:12.381+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=9.8Mi, Sys=23.1Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:48:12.394+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:48:12.930+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.7Mi, TotalAlloc=10.3Mi, Sys=23.9Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:49:01.001+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 4.5ms, med: 5.8ms, 90th: 5.8ms, 99th: 5.8ms, 99.9th: 5.8ms	caller=stat/metrics.go:210
+2023-05-13T19:49:12.006+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.1Mi, TotalAlloc=14.1Mi, Sys=23.9Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:49:12.023+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:49:12.380+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.9Mi, TotalAlloc=13.9Mi, Sys=24.1Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:49:12.395+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:49:12.929+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=14.6Mi, Sys=27.9Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:50:00.120+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1311, reqs: 2	caller=p2c/p2c.go:181
+2023-05-13T19:50:01.000+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.0ms, med: 1.3ms, 90th: 1.3ms, 99th: 1.3ms, 99.9th: 1.3ms	caller=stat/metrics.go:210
+2023-05-13T19:50:12.006+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.9Mi, TotalAlloc=18.3Mi, Sys=28.1Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:50:12.023+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:50:12.381+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.6Mi, TotalAlloc=18.1Mi, Sys=24.1Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:50:12.395+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:50:12.930+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.0Mi, TotalAlloc=18.8Mi, Sys=28.1Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:51:00.182+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1941, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:51:01.001+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 3.0ms, 90th: 3.0ms, 99th: 3.0ms, 99.9th: 3.0ms	caller=stat/metrics.go:210
+2023-05-13T19:51:12.006+08:00	 stat 	CPU: 0m, MEMORY: Alloc=7.0Mi, TotalAlloc=22.4Mi, Sys=28.1Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:51:12.024+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:51:12.380+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=22.2Mi, Sys=24.1Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:51:12.395+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:51:12.929+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.7Mi, TotalAlloc=23.1Mi, Sys=28.1Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:52:00.243+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 2650, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:52:01.001+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 6.0ms, med: 6.2ms, 90th: 6.2ms, 99th: 6.2ms, 99.9th: 6.2ms	caller=stat/metrics.go:210
+2023-05-13T19:52:12.006+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.0Mi, TotalAlloc=26.6Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:52:12.023+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:52:12.380+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=26.3Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:52:12.395+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:52:12.929+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.9Mi, TotalAlloc=26.5Mi, Sys=28.4Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:53:00.299+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1676, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:53:01.001+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 2.1ms, 90th: 2.1ms, 99th: 2.1ms, 99.9th: 2.1ms	caller=stat/metrics.go:210
+2023-05-13T19:54:00.017+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 2615, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:54:18.422+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=9.8Mi, Sys=23.4Mi, NumGC=4	caller=stat/usage.go:61
+2023-05-13T19:54:18.444+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:54:18.949+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.1Mi, TotalAlloc=10.3Mi, Sys=23.6Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:54:19.042+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.0Mi, TotalAlloc=10.9Mi, Sys=27.4Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:54:19.060+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:55:00.017+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 5.0ms, med: 5.6ms, 90th: 5.6ms, 99th: 5.6ms, 99.9th: 5.6ms	caller=stat/metrics.go:210
+2023-05-13T19:55:00.073+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1348, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:55:18.422+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=13.9Mi, Sys=27.6Mi, NumGC=5	caller=stat/usage.go:61
+2023-05-13T19:55:18.444+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:55:18.950+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=13.7Mi, Sys=23.9Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:55:19.042+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.1Mi, TotalAlloc=15.1Mi, Sys=27.6Mi, NumGC=6	caller=stat/usage.go:61
+2023-05-13T19:55:19.060+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:56:00.017+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 1.0ms, med: 1.4ms, 90th: 1.4ms, 99th: 1.4ms, 99.9th: 1.4ms	caller=stat/metrics.go:210
+2023-05-13T19:56:00.136+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1855, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:56:18.423+08:00	 stat 	CPU: 0m, MEMORY: Alloc=4.4Mi, TotalAlloc=18.1Mi, Sys=27.6Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:56:18.445+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:56:18.948+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=18.0Mi, Sys=27.9Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:56:19.041+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=19.3Mi, Sys=27.9Mi, NumGC=7	caller=stat/usage.go:61
+2023-05-13T19:56:19.059+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:57:00.017+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 3.0ms, 90th: 3.0ms, 99th: 3.0ms, 99.9th: 3.0ms	caller=stat/metrics.go:210
+2023-05-13T19:57:00.194+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1661, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:57:18.422+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=22.2Mi, Sys=27.6Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:57:18.444+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:57:18.949+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.2Mi, TotalAlloc=21.5Mi, Sys=27.9Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:57:19.042+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=23.4Mi, Sys=28.1Mi, NumGC=8	caller=stat/usage.go:61
+2023-05-13T19:57:19.060+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:58:00.017+08:00	 stat 	(usercenter-rpc) - qps: 0.0/s, drops: 0, avg time: 2.0ms, med: 2.1ms, 90th: 2.1ms, 99th: 2.1ms, 99.9th: 2.1ms	caller=stat/metrics.go:210
+2023-05-13T19:58:00.257+08:00	 stat 	p2c - conn: 127.0.0.1:4001, load: 1541, reqs: 1	caller=p2c/p2c.go:181
+2023-05-13T19:58:18.422+08:00	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=25.6Mi, Sys=27.6Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:58:18.445+08:00	 stat 	(api) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2023-05-13T19:58:18.949+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=25.8Mi, Sys=27.9Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:58:19.042+08:00	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=27.6Mi, Sys=28.1Mi, NumGC=9	caller=stat/usage.go:61
+2023-05-13T19:58:19.060+08:00	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 1, pass: 1, drop: 0	caller=load/sheddingstat.go:61

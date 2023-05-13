@@ -1,6 +1,8 @@
 package user
 
 import (
+	"CloudMind/app/usercenter/cmd/rpc/pb"
+	"CloudMind/common/ctxdata"
 	"context"
 
 	"CloudMind/app/usercenter/cmd/api/internal/svc"
@@ -23,8 +25,14 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 	}
 }
 
-func (l *LogoutLogic) Logout(req *types.LogoutReq) (resp *types.LogoutResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *LogoutLogic) Logout(req *types.LogoutReq) (*types.LogoutResp, error) {
+	userId := ctxdata.GetUidFromCtx(l.ctx)
+	_, err := l.svcCtx.UsercenterRpc.Logout(l.ctx, &pb.LogoutReq{
+		UserId: userId,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	return nil, nil
 }

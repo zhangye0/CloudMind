@@ -3,6 +3,7 @@ module CloudMind
 go 1.20
 
 require (
+	github.com/elastic/go-elasticsearch/v7 v7.17.10
 	github.com/geiqin/thirdparty v1.2.4
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/hibiken/asynq v0.24.1
@@ -11,6 +12,7 @@ require (
 	github.com/shopspring/decimal v1.3.1
 	github.com/sony/sonyflake v1.1.0
 	github.com/zeromicro/go-zero v1.5.2
+	golang.org/x/net v0.9.0
 	google.golang.org/grpc v1.54.0
 	google.golang.org/protobuf v1.30.0
 	gorm.io/driver/mysql v1.5.0
@@ -84,7 +86,6 @@ require (
 	go.uber.org/automaxprocs v1.5.2 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
-	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/oauth2 v0.5.0 // indirect
 	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/term v0.7.0 // indirect
