@@ -5,7 +5,6 @@ import (
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"CloudMind/app/usercenter/model"
 	"context"
-	"errors"
 	"github.com/zeromicro/go-zero/core/logx"
 	"time"
 )
@@ -88,5 +87,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		}, nil
 
 	}
-	return nil, errors.New("该邮箱已经注册过，请勿重复注册")
+	return &pb.RegisterResp{
+		Error: "该邮箱已注册",
+	}, nil
 }

@@ -52,4 +52,8 @@ service usercenter {
 	@doc "实名认证"
 	@handler RealNameAuthentication
 	post /user/RealNameAuthentication (RealNameAuthenticationReq) returns (RealNameAuthenticationResp)
+	@doc "退出登录"
+	@handler Logout
+	get /user/Logout (LogoutReq) returns (LogoutResp)
+	
 }

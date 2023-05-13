@@ -70,7 +70,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/UpdateAvatar",
 				Handler: user.UpdateAvatarHandler(serverCtx),
 			},
-
 			{
 				Method:  http.MethodPost,
 				Path:    "/user/UpdateStar",
@@ -80,6 +79,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/user/RealNameAuthentication",
 				Handler: user.RealNameAuthenticationHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/Logout",
+				Handler: user.LogoutHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),

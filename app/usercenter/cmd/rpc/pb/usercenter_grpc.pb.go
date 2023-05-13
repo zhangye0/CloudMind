@@ -28,6 +28,7 @@ const (
 	Usercenter_GetUserInfo_FullMethodName            = "/pb.usercenter/GetUserInfo"
 	Usercenter_UpdateUserInfo_FullMethodName         = "/pb.usercenter/UpdateUserInfo"
 	Usercenter_RealNameAuthentication_FullMethodName = "/pb.usercenter/RealNameAuthentication"
+	Usercenter_Logout_FullMethodName                 = "/pb.usercenter/Logout"
 )
 
 // UsercenterClient is the client API for Usercenter service.
@@ -43,6 +44,7 @@ type UsercenterClient interface {
 	GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
 	UpdateUserInfo(ctx context.Context, in *UpdateUserInfoReq, opts ...grpc.CallOption) (*UpdateUserInfoResp, error)
 	RealNameAuthentication(ctx context.Context, in *RealNameAuthenticationReq, opts ...grpc.CallOption) (*RealNameAuthenticationResp, error)
+	Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error)
 }
 
 type usercenterClient struct {
@@ -134,6 +136,15 @@ func (c *usercenterClient) RealNameAuthentication(ctx context.Context, in *RealN
 	return out, nil
 }
 
+func (c *usercenterClient) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error) {
+	out := new(LogoutResp)
+	err := c.cc.Invoke(ctx, Usercenter_Logout_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsercenterServer is the server API for Usercenter service.
 // All implementations must embed UnimplementedUsercenterServer
 // for forward compatibility
@@ -147,6 +158,7 @@ type UsercenterServer interface {
 	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
 	UpdateUserInfo(context.Context, *UpdateUserInfoReq) (*UpdateUserInfoResp, error)
 	RealNameAuthentication(context.Context, *RealNameAuthenticationReq) (*RealNameAuthenticationResp, error)
+	Logout(context.Context, *LogoutReq) (*LogoutResp, error)
 	mustEmbedUnimplementedUsercenterServer()
 }
 
@@ -180,6 +192,9 @@ func (UnimplementedUsercenterServer) UpdateUserInfo(context.Context, *UpdateUser
 }
 func (UnimplementedUsercenterServer) RealNameAuthentication(context.Context, *RealNameAuthenticationReq) (*RealNameAuthenticationResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RealNameAuthentication not implemented")
+}
+func (UnimplementedUsercenterServer) Logout(context.Context, *LogoutReq) (*LogoutResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
 func (UnimplementedUsercenterServer) mustEmbedUnimplementedUsercenterServer() {}
 
@@ -356,6 +371,24 @@ func _Usercenter_RealNameAuthentication_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Usercenter_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsercenterServer).Logout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Usercenter_Logout_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsercenterServer).Logout(ctx, req.(*LogoutReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Usercenter_ServiceDesc is the grpc.ServiceDesc for Usercenter service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -398,6 +431,10 @@ var Usercenter_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RealNameAuthentication",
 			Handler:    _Usercenter_RealNameAuthentication_Handler,
+		},
+		{
+			MethodName: "Logout",
+			Handler:    _Usercenter_Logout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

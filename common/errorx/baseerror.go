@@ -1,6 +1,6 @@
 package errorx
 
-const defaultCode = 1001
+const defaultCode = 0
 
 type CodeError struct {
 	Code int    `json:"code"`
