@@ -63,6 +63,9 @@ FLUSH PRIVILEGES;
 | mqueue-job       | 2002 | 3004            |
 | usercenter-rpc   | 4001 | 3003            |
 | mqueue-scheduler | 4002 | 3005            |
+| filecenter-api   | 2003 | 3006            |
+| filecenter-rpc   | 4003 | 3007            |
+  
 
 #### tips: API的端口从20开始, RPC的端口从40开始, Prometheus端口从30开始
 
@@ -158,8 +161,18 @@ $ sudo apt install docker.io
 // 配置用户组
 sudo groupadd docker
 sudo usermod -aG docker $USER
-sudo systemctl restart docker
+newgrp docker
 docker ps
+sudo service docker restart     
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+// 安装docker-compose
+下载地址：https://github.com/docker/compose/releases
+// 将文件拖到主目录下，然后 cd 到主目录下
+sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
 ```
 
 

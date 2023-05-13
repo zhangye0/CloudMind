@@ -1,20 +1,20 @@
 Name: filecenter-rpc
-ListenOn: 0.0.0.0:2004
+ListenOn: 0.0.0.0:4003
 Mode: dev
 
 Prometheus:
   Host: 0.0.0.0
-  Port: 4003
+  Port: 3007
   Path: /metrics
 
 DB:
-  DataSource: root:PXDN93VRKUm8TeE7@tcp(mysql:3306)/cloudmind_usercenter?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:PXDN93VRKUm8TeE7@tcp(mysql:3306)/cloudmind_filecenter?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
 Log:
   ServiceName: filecenter-rpc
-  mode: console
-  Encoding: plain
+  Mode: file
   level: error
+  KeepDays: 14
 
 Redis:
   Host: redis:6379

@@ -1,11 +1,12 @@
 package file
 
 import (
-	"CloudMind/app/filecenter/cmd/api/internal/svc"
-	"CloudMind/app/filecenter/cmd/api/internal/types"
 	"CloudMind/app/filecenter/cmd/rpc/filecenter"
 	"context"
 	"github.com/jinzhu/copier"
+
+	"CloudMind/app/filecenter/cmd/api/internal/svc"
+	"CloudMind/app/filecenter/cmd/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,8 +25,7 @@ func NewFiledetailsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Filed
 	}
 }
 
-func (l *FiledetailsLogic) Filedetails(req *types.FileDetailsReq) (*types.FileDetailsResp, error) {
-
+func (l *FiledetailsLogic) Filedetails(req *types.FileDetailsReq) (resp *types.FileDetailsResp, err error) {
 	FileId := req.Id
 	x, err := l.svcCtx.FileRpc.FileDetails(l.ctx, &filecenter.FileDetailsReq{
 		Id: FileId,
@@ -39,4 +39,5 @@ func (l *FiledetailsLogic) Filedetails(req *types.FileDetailsReq) (*types.FileDe
 	_ = copier.Copy(&filedetails, x)
 
 	return &filedetails, nil
+	return
 }

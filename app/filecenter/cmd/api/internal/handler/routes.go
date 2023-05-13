@@ -15,55 +15,55 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/file/FileUpload",
+				Path:    "/file/fileUpload",
 				Handler: file.FileuploadHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/file/FileDownload",
+				Path:    "/file/fileDownload",
 				Handler: file.FiledownloadHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/file/FileList",
+				Path:    "/file/fileList",
 				Handler: file.FilelistHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/file/FileNameUpdate",
+				Path:    "/file/fileNameUpdate",
 				Handler: file.FilenameupdateHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/file/FileCreate",
+				Path:    "/file/fileCreate",
 				Handler: file.FilecreateHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodDelete,
-				Path:    "/file/FileDeletion",
+				Path:    "/file/fileDeletion",
 				Handler: file.FiledeletionHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPut,
-				Path:    "/file/FileMove",
+				Path:    "/file/fileMove",
 				Handler: file.FilemoveHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/file/FileShare",
+				Path:    "/file/fileShare",
 				Handler: file.FileshareHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/file/FileShareSave",
+				Path:    "/file/fileShareSave",
 				Handler: file.FilesharesaveHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/file/FileDetails",
+				Path:    "/file/fileDetails",
 				Handler: file.FiledetailsHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/file-api/v1"),
+		rest.WithPrefix("/filecenter/v1"),
 	)
 }

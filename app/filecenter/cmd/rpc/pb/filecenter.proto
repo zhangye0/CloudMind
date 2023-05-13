@@ -23,7 +23,10 @@ message FileUploadReq{
   int64 Routines = 6;
 }
 
-message FileUploadResp {}
+message FileUploadResp {
+  string flag = 1;
+  string Error = 2;
+}
 
 message FileDownloadReq{
   int64 Id = 1;
@@ -31,7 +34,10 @@ message FileDownloadReq{
   string Type = 3;
 }
 
-message FileDownloadResp {}
+message FileDownloadResp {
+  string flag = 1;
+  string Error = 2;
+}
 
 message FileListReq{
   int64 Id = 1;
@@ -42,6 +48,7 @@ message FileListReq{
 message FileListResp{
   repeated File List = 1;
   int64 Count = 2;
+  string Error = 3;
 }
 
 message FileNameUpdateReq{
@@ -49,20 +56,26 @@ message FileNameUpdateReq{
   string Mame = 2;
 }
 
-message FileNameUpdateResp{}
+message FileNameUpdateResp{
+  string Error = 1;
+}
 
 message FileCreateReq{
-  int64 ParentId = 1;
+  string Path = 1;
   string Name = 2;
 }
 
-message FileCreateResp{}
+message FileCreateResp{
+  string Error = 1;
+}
 
 message FileDeletionReq{
   int64 Id = 1;
 }
 
-message FileDeletionResp{}
+message FileDeletionResp{
+  string Error = 1;
+}
 
 message FileMoveReq{
   int64 LastParentId = 1;
@@ -70,7 +83,9 @@ message FileMoveReq{
   int64 Id = 3;
 }
 
-message FileMoveResp{}
+message FileMoveResp{
+  string Error = 1;
+}
 
 message FileShareReq{
   int64 Id = 1;
@@ -78,6 +93,7 @@ message FileShareReq{
 
 message FileShareResp{
   string ShareLink = 1;
+  string Error = 2;
 }
 
 message FileShareSaveReq{
@@ -88,6 +104,7 @@ message FileShareSaveReq{
 
 message FileShareSaveResp{
   int64 Id = 1;
+  string Error = 2;
 }
 
 message FileDetailsReq{
@@ -100,6 +117,7 @@ message FileDetailsResp{
   string Path = 3;
   string Size = 4;
   string Time = 5;
+  string Error = 6;
 }
 
 service filecenter {

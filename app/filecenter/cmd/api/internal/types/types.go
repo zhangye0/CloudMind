@@ -21,6 +21,7 @@ type FileUploadReq struct {
 }
 
 type FileUploadResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileDownloadReq struct {
@@ -30,6 +31,7 @@ type FileDownloadReq struct {
 }
 
 type FileDownloadResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileListReq struct {
@@ -49,14 +51,16 @@ type FileNameUpdateReq struct {
 }
 
 type FileNameUpdateResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileCreateReq struct {
-	ParentId int64  `json:"parentId"` // 父文件夹编号
-	Name     string `json:"name"`     // 文件名
+	Path string `json:"Path"` // 前缀路径
+	Name string `json:"name"` // 文件名
 }
 
 type FileCreateResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileDeletionReq struct {
@@ -64,6 +68,7 @@ type FileDeletionReq struct {
 }
 
 type FileDeletionResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileMoveReq struct {
@@ -73,6 +78,7 @@ type FileMoveReq struct {
 }
 
 type FileMoveResp struct {
+	Flag string `json:"flag"` // 标志
 }
 
 type FileShareReq struct {

@@ -1,10 +1,10 @@
 package file
 
 import (
-	"context"
-
 	"CloudMind/app/filecenter/cmd/api/internal/svc"
 	"CloudMind/app/filecenter/cmd/api/internal/types"
+	"CloudMind/app/filecenter/cmd/rpc/filecenter"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -23,8 +23,20 @@ func NewFilecreateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Filecr
 	}
 }
 
-func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (resp *types.FileCreateResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *FilecreateLogic) Filecreate(req *types.FileCreateReq) (*types.FileCreateResp, error) {
 
-	return
+	resp, err := l.svcCtx.FileRpc.FileCreate(l.ctx, &filecenter.FileCreateReq{
+		Path: req.Path,
+		Name: req.Name,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp != nil {
+		return nil, nil // 使用 errorx 报错
+	}
+
+	return nil, nil
 }

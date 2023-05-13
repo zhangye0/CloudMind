@@ -27,6 +27,7 @@ func NewFileDetailsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *FileD
 }
 
 func (l *FileDetailsLogic) FileDetails(in *pb.FileDetailsReq) (*pb.FileDetailsResp, error) {
+
 	Filex, err := l.svcCtx.FileModel.FindOne(l.ctx, in.Id)
 
 	if err != nil && err != gorm.ErrRecordNotFound {
