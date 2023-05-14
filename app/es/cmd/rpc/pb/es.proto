@@ -6,9 +6,14 @@ package pb;
 
 
 message SearchForReq {
+    string Index = 1;
+    string Text = 2;
+    string Type = 3;
 }
 
 message SearchForResp {
+    int64 Number = 1;
+    string Error = 2;
 }
 
 message AddTextReq {
