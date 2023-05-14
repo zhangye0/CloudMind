@@ -22,8 +22,8 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-rpc
-  Level: info
-  Mode: file
+  Level: error
+  Mode: console
   Encoding: plain
 
 Redis:
@@ -33,3 +33,8 @@ Redis:
   Key: ""
 DB:
   DataSource: root:PXDN93VRKUm8TeE7@tcp(mysql:3306)/cloudmind_usercenter?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+#rpc service
+EsRpcConf:
+  Endpoints:
+    - 127.0.0.1:4004
+  NonBlock: true

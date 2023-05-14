@@ -11,7 +11,10 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	es, _ := elasticsearch.NewDefaultClient()
+	es, _ := elasticsearch.NewClient(elasticsearch.Config{
+		Addresses: []string{"http://elasticsearch:9200"},
+	})
+
 	return &ServiceContext{
 		Config: c,
 		Es:     es,

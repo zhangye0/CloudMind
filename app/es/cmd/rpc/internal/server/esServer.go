@@ -5,7 +5,6 @@ package server
 
 import (
 	"context"
-	"github.com/elastic/go-elasticsearch/v7"
 
 	"CloudMind/app/es/cmd/rpc/internal/logic"
 	"CloudMind/app/es/cmd/rpc/internal/svc"
@@ -26,4 +25,9 @@ func NewEsServer(svcCtx *svc.ServiceContext) *EsServer {
 func (s *EsServer) SearchFor(ctx context.Context, in *pb.SearchForReq) (*pb.SearchForResp, error) {
 	l := logic.NewSearchForLogic(ctx, s.svcCtx)
 	return l.SearchFor(in)
+}
+
+func (s *EsServer) AddText(ctx context.Context, in *pb.AddTextReq) (*pb.AddTextResp, error) {
+	l := logic.NewAddTextLogic(ctx, s.svcCtx)
+	return l.AddText(in)
 }

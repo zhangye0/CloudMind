@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Es_SearchFor_FullMethodName = "/pb.es/SearchFor"
+	Es_AddText_FullMethodName   = "/pb.es/AddText"
 )
 
 // EsClient is the client API for Es service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EsClient interface {
 	SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
+	AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error)
 }
 
 type esClient struct {
@@ -46,11 +48,21 @@ func (c *esClient) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc
 	return out, nil
 }
 
+func (c *esClient) AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error) {
+	out := new(AddTextResp)
+	err := c.cc.Invoke(ctx, Es_AddText_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EsServer is the server API for Es service.
 // All implementations must embed UnimplementedEsServer
 // for forward compatibility
 type EsServer interface {
 	SearchFor(context.Context, *SearchForReq) (*SearchForResp, error)
+	AddText(context.Context, *AddTextReq) (*AddTextResp, error)
 	mustEmbedUnimplementedEsServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedEsServer struct {
 
 func (UnimplementedEsServer) SearchFor(context.Context, *SearchForReq) (*SearchForResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFor not implemented")
+}
+func (UnimplementedEsServer) AddText(context.Context, *AddTextReq) (*AddTextResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddText not implemented")
 }
 func (UnimplementedEsServer) mustEmbedUnimplementedEsServer() {}
 
@@ -92,6 +107,24 @@ func _Es_SearchFor_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Es_AddText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTextReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EsServer).AddText(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Es_AddText_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EsServer).AddText(ctx, req.(*AddTextReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Es_ServiceDesc is the grpc.ServiceDesc for Es service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var Es_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchFor",
 			Handler:    _Es_SearchFor_Handler,
+		},
+		{
+			MethodName: "AddText",
+			Handler:    _Es_AddText_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -22,8 +22,8 @@ Telemetry:
 
 Log:
   ServiceName: usercenter-api
-  Level: info
-  Mode: file
+  Level: error
+  Mode: console
   Encoding: plain
 
 #rpc service

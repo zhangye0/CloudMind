@@ -2,6 +2,7 @@ package file
 
 import (
 	"context"
+	"fmt"
 
 	"CloudMind/app/filecenter/cmd/api/internal/svc"
 	"CloudMind/app/filecenter/cmd/api/internal/types"
@@ -26,5 +27,6 @@ func NewFiledownloadLogic(ctx context.Context, svcCtx *svc.ServiceContext) *File
 func (l *FiledownloadLogic) Filedownload(req *types.FileDownloadReq) (resp *types.FileDownloadResp, err error) {
 	// todo: add your logic here and delete this line
 
+	logx.Info(fmt.Sprintf(""))
 	return
 }

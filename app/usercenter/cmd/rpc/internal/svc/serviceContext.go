@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"CloudMind/app/es/cmd/rpc/es"
 	"CloudMind/app/usercenter/cmd/rpc/internal/config"
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/gormlogger"
@@ -8,6 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/core/bloom"
 	"github.com/zeromicro/go-zero/core/collection"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/zrpc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -25,6 +27,7 @@ type ServiceContext struct {
 	UserModel       model.UserModel
 	UserAuthModel   model.UserAuthModel
 	UserAvatarModel model.UserAvatarModel
+	EsRpc           es.Es
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -64,6 +67,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		r.Type = c.Redis.Type
 		r.Pass = c.Redis.Pass
 	})
+
 	return &ServiceContext{
 		Config:          c,
 		RedisClient:     Redis,
@@ -73,5 +77,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		UserAuthModel:   model.NewUserAuthModel(gormDB),
 		UserModel:       model.NewUserModel(gormDB),
 		UserAvatarModel: model.NewUserAvatarModel(gormDB),
+		EsRpc:           es.NewEs(zrpc.MustNewClient(c.EsRpcConf)),
 	}
 }

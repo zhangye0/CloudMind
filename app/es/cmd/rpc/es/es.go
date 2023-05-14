@@ -13,11 +13,14 @@ import (
 )
 
 type (
+	AddTextReq    = pb.AddTextReq
+	AddTextResp   = pb.AddTextResp
 	SearchForReq  = pb.SearchForReq
 	SearchForResp = pb.SearchForResp
 
 	Es interface {
 		SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
+		AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error)
 	}
 
 	defaultEs struct {
@@ -34,4 +37,9 @@ func NewEs(cli zrpc.Client) Es {
 func (m *defaultEs) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
 	return client.SearchFor(ctx, in, opts...)
+}
+
+func (m *defaultEs) AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.AddText(ctx, in, opts...)
 }

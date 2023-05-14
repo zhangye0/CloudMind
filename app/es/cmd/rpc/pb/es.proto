@@ -6,13 +6,22 @@ package pb;
 
 
 message SearchForReq {
-  string name = 1;
 }
 
 message SearchForResp {
-  string greet = 1;
 }
+
+message AddTextReq {
+  string Index = 1;
+  string Text = 2;
+}
+
+message AddTextResp {
+    string Error = 1;
+}
+
 
 service es {
   rpc SearchFor(SearchForReq) returns (SearchForResp);
+  rpc AddText(AddTextReq) returns (AddTextResp);
 }

@@ -1,11 +1,9 @@
 package logic
 
 import (
-	"context"
-
 	"CloudMind/app/es/cmd/rpc/internal/svc"
 	"CloudMind/app/es/cmd/rpc/pb"
-
+	"context"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,6 +22,6 @@ func NewSearchForLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SearchF
 }
 
 func (l *SearchForLogic) SearchFor(in *pb.SearchForReq) (*pb.SearchForResp, error) {
-	l.svcCtx.Es.Search()
+
 	return &pb.SearchForResp{}, nil
 }
