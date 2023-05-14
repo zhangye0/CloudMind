@@ -26,7 +26,6 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 }
 
 func (l *LogoutLogic) Logout(req *types.LogoutReq) (*types.LogoutResp, error) {
-	logx.Error("!!!")
 	userId := ctxdata.GetUidFromCtx(l.ctx)
 	_, err := l.svcCtx.UsercenterRpc.Logout(l.ctx, &pb.LogoutReq{
 		UserId: userId,

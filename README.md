@@ -57,14 +57,15 @@ FLUSH PRIVILEGES;
 | Elastic search | 9200  |
 
 
-| 类型名              | 端口号  | Prometheus监听端口号 | 
-|------------------|------|-----------------|
-| usercenter-api   | 2001 | 3002            |
-| mqueue-job       | 2002 | 3004            |
-| usercenter-rpc   | 4001 | 3003            |
-| mqueue-scheduler | 4002 | 3005            |
-| filecenter-api   | 2003 | 3006            |
-| filecenter-rpc   | 4003 | 3007            |
+| 类型名              | 端口号   | Prometheus监听端口号 | 
+|------------------|-------|-----------------|
+| usercenter-api   | 2001  | 3002            |
+| mqueue-job       | 2002  | 3004            |
+| usercenter-rpc   | 4001  | 3003            |
+| mqueue-scheduler | 4002  | 3005            |
+| filecenter-api   | 2003  | 3006            |
+| filecenter-rpc   | 4003  | 3007            |
+| es-rpc           | 4004  | 3008            |
   
 
 #### tips: API的端口从20开始, RPC的端口从40开始, Prometheus端口从30开始
