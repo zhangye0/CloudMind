@@ -29,8 +29,17 @@ message InsertResp {
     string Error = 1;
 }
 
+message SearchForRankingReq{
+    string Index = 1;
+    int64 Ranking = 2;
+}
 
+message SearchForRankingResp{
+    repeated source Sources = 1;
+    string Error = 2;
+}
 service es {
   rpc SearchFor(SearchForReq) returns (SearchForResp);
+  rpc SearchForRanking(SearchForRankingReq) returns (SearchForRankingResp);
   rpc Insert(InsertReq) returns (InsertResp);
 }

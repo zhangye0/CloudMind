@@ -27,6 +27,11 @@ func (s *EsServer) SearchFor(ctx context.Context, in *pb.SearchForReq) (*pb.Sear
 	return l.SearchFor(in)
 }
 
+func (s *EsServer) SearchForRanking(ctx context.Context, in *pb.SearchForRankingReq) (*pb.SearchForRankingResp, error) {
+	l := logic.NewSearchForRankingLogic(ctx, s.svcCtx)
+	return l.SearchForRanking(in)
+}
+
 func (s *EsServer) Insert(ctx context.Context, in *pb.InsertReq) (*pb.InsertResp, error) {
 	l := logic.NewInsertLogic(ctx, s.svcCtx)
 	return l.Insert(in)

@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Es_SearchFor_FullMethodName = "/pb.es/SearchFor"
-	Es_Insert_FullMethodName    = "/pb.es/Insert"
+	Es_SearchFor_FullMethodName        = "/pb.es/SearchFor"
+	Es_SearchForRanking_FullMethodName = "/pb.es/SearchForRanking"
+	Es_Insert_FullMethodName           = "/pb.es/Insert"
 )
 
 // EsClient is the client API for Es service.
@@ -28,6 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EsClient interface {
 	SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
+	SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error)
 	Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error)
 }
 
@@ -48,6 +50,15 @@ func (c *esClient) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc
 	return out, nil
 }
 
+func (c *esClient) SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error) {
+	out := new(SearchForRankingResp)
+	err := c.cc.Invoke(ctx, Es_SearchForRanking_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *esClient) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error) {
 	out := new(InsertResp)
 	err := c.cc.Invoke(ctx, Es_Insert_FullMethodName, in, out, opts...)
@@ -62,6 +73,7 @@ func (c *esClient) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallO
 // for forward compatibility
 type EsServer interface {
 	SearchFor(context.Context, *SearchForReq) (*SearchForResp, error)
+	SearchForRanking(context.Context, *SearchForRankingReq) (*SearchForRankingResp, error)
 	Insert(context.Context, *InsertReq) (*InsertResp, error)
 	mustEmbedUnimplementedEsServer()
 }
@@ -72,6 +84,9 @@ type UnimplementedEsServer struct {
 
 func (UnimplementedEsServer) SearchFor(context.Context, *SearchForReq) (*SearchForResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFor not implemented")
+}
+func (UnimplementedEsServer) SearchForRanking(context.Context, *SearchForRankingReq) (*SearchForRankingResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchForRanking not implemented")
 }
 func (UnimplementedEsServer) Insert(context.Context, *InsertReq) (*InsertResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
@@ -107,6 +122,24 @@ func _Es_SearchFor_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Es_SearchForRanking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchForRankingReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EsServer).SearchForRanking(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Es_SearchForRanking_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EsServer).SearchForRanking(ctx, req.(*SearchForRankingReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Es_Insert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InsertReq)
 	if err := dec(in); err != nil {
@@ -135,6 +168,10 @@ var Es_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchFor",
 			Handler:    _Es_SearchFor_Handler,
+		},
+		{
+			MethodName: "SearchForRanking",
+			Handler:    _Es_SearchForRanking_Handler,
 		},
 		{
 			MethodName: "Insert",

@@ -13,14 +13,17 @@ import (
 )
 
 type (
-	InsertReq     = pb.InsertReq
-	InsertResp    = pb.InsertResp
-	SearchForReq  = pb.SearchForReq
-	SearchForResp = pb.SearchForResp
-	Source        = pb.Source
+	InsertReq            = pb.InsertReq
+	InsertResp           = pb.InsertResp
+	SearchForRankingReq  = pb.SearchForRankingReq
+	SearchForRankingResp = pb.SearchForRankingResp
+	SearchForReq         = pb.SearchForReq
+	SearchForResp        = pb.SearchForResp
+	Source               = pb.Source
 
 	Es interface {
 		SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
+		SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error)
 		Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error)
 	}
 
@@ -38,6 +41,11 @@ func NewEs(cli zrpc.Client) Es {
 func (m *defaultEs) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
 	return client.SearchFor(ctx, in, opts...)
+}
+
+func (m *defaultEs) SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.SearchForRanking(ctx, in, opts...)
 }
 
 func (m *defaultEs) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error) {
