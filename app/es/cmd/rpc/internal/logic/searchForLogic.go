@@ -33,14 +33,12 @@ tips： 分为精确搜索(match)和模糊搜索(fuzz)
 */
 func (l *SearchForLogic) SearchFor(in *pb.SearchForReq) (*pb.SearchForResp, error) {
 	var buf bytes.Buffer
-	//精确搜索
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
-			"fuzzy": map[string]interface{}{
-				"content": map[string]interface{}{
-					"value":     in.Content,
-					"fuzziness": "AUTO",
-				},
+			"multi_match": map[string]interface{}{
+				"query":     in.Content,
+				"fuzziness": "AUTO",
+				"fields":    []string{"*"},
 			},
 		},
 	}
@@ -72,17 +70,15 @@ func (l *SearchForLogic) SearchFor(in *pb.SearchForReq) (*pb.SearchForResp, erro
 			Error: fmt.Sprintf("index not found"),
 		}, nil
 	}
-
 	//反序列化搜索结果
 	var r map[string]interface{}
 	_ = json.NewDecoder(res.Body).Decode(&r)
-
 	var Sources []*pb.Source
 	for _, hit := range r["hits"].(map[string]interface{})["hits"].([]interface{}) {
 		source := hit.(map[string]interface{})["_source"]
 		t := pb.Source{
 			Title:  source.(map[string]interface{})["title"].(string),
-			Id:     source.(map[string]interface{})["id"].(int64),
+			Id:     int64(source.(map[string]interface{})["id"].(float64)),
 			Avatar: source.(map[string]interface{})["avatar"].(string),
 		}
 		Sources = append(Sources, &t)

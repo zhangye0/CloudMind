@@ -46,8 +46,9 @@ func (l *InsertLogic) Insert(in *pb.InsertReq) (*pb.InsertResp, error) {
 			Error: fmt.Sprintf("json Marshal error"),
 		}, nil
 	}
-
+	fmt.Printf("%s %s %d\n", in.Source.Title, in.Source.Avatar, in.Source.Id)
 	// 构建请求
+
 	req := esapi.IndexRequest{
 		Index:   in.Index,
 		Body:    bytes.NewReader(data),
