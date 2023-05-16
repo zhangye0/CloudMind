@@ -27,7 +27,7 @@ func (s *EsServer) SearchFor(ctx context.Context, in *pb.SearchForReq) (*pb.Sear
 	return l.SearchFor(in)
 }
 
-func (s *EsServer) AddText(ctx context.Context, in *pb.AddTextReq) (*pb.AddTextResp, error) {
-	l := logic.NewAddTextLogic(ctx, s.svcCtx)
-	return l.AddText(in)
+func (s *EsServer) Insert(ctx context.Context, in *pb.InsertReq) (*pb.InsertResp, error) {
+	l := logic.NewInsertLogic(ctx, s.svcCtx)
+	return l.Insert(in)
 }

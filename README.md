@@ -196,3 +196,16 @@ docker-compose --version
     - [x] 每月定时发放流量
 - [ ] elasticsearch
     - [x] 简单的模糊搜索和精确搜索
+
+搜索： 搜索帖子， 搜索资源（本地，公共），
+
+搜索帖子(模糊搜索) 提供一个字符串在标题和内容中进行搜索。。。
+搜索资源(模糊搜索) 提供一个字符串在标题中找----
+所以需要有一个index存放帖子的标题， 标题id， 标题图标的表
+index: Posts
+对应的表: title(string), id(int64), avatar(string)
+
+所以需要有一个index存放资源的名字， 资源的id， 资源的图表 
+index: Sources
+对应的表: title(string), id(int64), avatar(string)
+

@@ -33,33 +33,16 @@ tips： 分为精确搜索(match)和模糊搜索(fuzz)
 */
 func (l *SearchForLogic) SearchFor(in *pb.SearchForReq) (*pb.SearchForResp, error) {
 	var buf bytes.Buffer
-	query := map[string]interface{}{}
-
 	//精确搜索
-	if in.Type == "match" {
-		query = map[string]interface{}{
-			"query": map[string]interface{}{
-				"match": map[string]interface{}{
-					"context": in.Text,
+	query := map[string]interface{}{
+		"query": map[string]interface{}{
+			"fuzzy": map[string]interface{}{
+				"content": map[string]interface{}{
+					"value":     in.Content,
+					"fuzziness": "AUTO",
 				},
 			},
-		}
-	} else if in.Type == "fuzz" {
-		// 模糊搜索
-		query = map[string]interface{}{
-			"query": map[string]interface{}{
-				"fuzzy": map[string]interface{}{
-					"context": map[string]interface{}{
-						"value":     in.Text,
-						"fuzziness": "AUTO",
-					},
-				},
-			},
-		}
-	} else {
-		return &pb.SearchForResp{
-			Error: fmt.Sprintf("不支持该搜索方式"),
-		}, nil
+		},
 	}
 
 	// 序列化
@@ -94,7 +77,19 @@ func (l *SearchForLogic) SearchFor(in *pb.SearchForReq) (*pb.SearchForResp, erro
 	var r map[string]interface{}
 	_ = json.NewDecoder(res.Body).Decode(&r)
 
+	var Sources []*pb.Source
+	for _, hit := range r["hits"].(map[string]interface{})["hits"].([]interface{}) {
+		source := hit.(map[string]interface{})["_source"]
+		t := pb.Source{
+			Title:  source.(map[string]interface{})["title"].(string),
+			Id:     source.(map[string]interface{})["id"].(int64),
+			Avatar: source.(map[string]interface{})["avatar"].(string),
+		}
+		Sources = append(Sources, &t)
+	}
+
 	return &pb.SearchForResp{
-		Number: int64(r["hits"].(map[string]interface{})["total"].(map[string]interface{})["value"].(float64)),
+		Sources: Sources,
+		Error:   "",
 	}, nil
 }

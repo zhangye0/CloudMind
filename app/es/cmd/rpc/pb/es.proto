@@ -4,29 +4,33 @@ option go_package = "./pb";
 
 package pb;
 
+message source{
+    string Title = 1;
+    int64 Id = 2;
+    string Avatar = 3;
+}
 
 message SearchForReq {
     string Index = 1;
-    string Text = 2;
-    string Type = 3;
+    string Content = 2;
 }
 
 message SearchForResp {
-    int64 Number = 1;
+    repeated source Sources = 1;
     string Error = 2;
 }
 
-message AddTextReq {
-  string Index = 1;
-  string Text = 2;
+message InsertReq {
+    string Index = 1;
+    source Source = 2;
 }
 
-message AddTextResp {
+message InsertResp {
     string Error = 1;
 }
 
 
 service es {
   rpc SearchFor(SearchForReq) returns (SearchForResp);
-  rpc AddText(AddTextReq) returns (AddTextResp);
+  rpc Insert(InsertReq) returns (InsertResp);
 }

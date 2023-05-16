@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Es_SearchFor_FullMethodName = "/pb.es/SearchFor"
-	Es_AddText_FullMethodName   = "/pb.es/AddText"
+	Es_Insert_FullMethodName    = "/pb.es/Insert"
 )
 
 // EsClient is the client API for Es service.
@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EsClient interface {
 	SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
-	AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error)
+	Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error)
 }
 
 type esClient struct {
@@ -48,9 +48,9 @@ func (c *esClient) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc
 	return out, nil
 }
 
-func (c *esClient) AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error) {
-	out := new(AddTextResp)
-	err := c.cc.Invoke(ctx, Es_AddText_FullMethodName, in, out, opts...)
+func (c *esClient) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error) {
+	out := new(InsertResp)
+	err := c.cc.Invoke(ctx, Es_Insert_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (c *esClient) AddText(ctx context.Context, in *AddTextReq, opts ...grpc.Cal
 // for forward compatibility
 type EsServer interface {
 	SearchFor(context.Context, *SearchForReq) (*SearchForResp, error)
-	AddText(context.Context, *AddTextReq) (*AddTextResp, error)
+	Insert(context.Context, *InsertReq) (*InsertResp, error)
 	mustEmbedUnimplementedEsServer()
 }
 
@@ -73,8 +73,8 @@ type UnimplementedEsServer struct {
 func (UnimplementedEsServer) SearchFor(context.Context, *SearchForReq) (*SearchForResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFor not implemented")
 }
-func (UnimplementedEsServer) AddText(context.Context, *AddTextReq) (*AddTextResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddText not implemented")
+func (UnimplementedEsServer) Insert(context.Context, *InsertReq) (*InsertResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
 }
 func (UnimplementedEsServer) mustEmbedUnimplementedEsServer() {}
 
@@ -107,20 +107,20 @@ func _Es_SearchFor_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Es_AddText_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddTextReq)
+func _Es_Insert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EsServer).AddText(ctx, in)
+		return srv.(EsServer).Insert(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Es_AddText_FullMethodName,
+		FullMethod: Es_Insert_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EsServer).AddText(ctx, req.(*AddTextReq))
+		return srv.(EsServer).Insert(ctx, req.(*InsertReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -137,8 +137,8 @@ var Es_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Es_SearchFor_Handler,
 		},
 		{
-			MethodName: "AddText",
-			Handler:    _Es_AddText_Handler,
+			MethodName: "Insert",
+			Handler:    _Es_Insert_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

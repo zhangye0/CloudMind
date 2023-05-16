@@ -13,14 +13,15 @@ import (
 )
 
 type (
-	AddTextReq    = pb.AddTextReq
-	AddTextResp   = pb.AddTextResp
+	InsertReq     = pb.InsertReq
+	InsertResp    = pb.InsertResp
 	SearchForReq  = pb.SearchForReq
 	SearchForResp = pb.SearchForResp
+	Source        = pb.Source
 
 	Es interface {
 		SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
-		AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error)
+		Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error)
 	}
 
 	defaultEs struct {
@@ -39,7 +40,7 @@ func (m *defaultEs) SearchFor(ctx context.Context, in *SearchForReq, opts ...grp
 	return client.SearchFor(ctx, in, opts...)
 }
 
-func (m *defaultEs) AddText(ctx context.Context, in *AddTextReq, opts ...grpc.CallOption) (*AddTextResp, error) {
+func (m *defaultEs) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.AddText(ctx, in, opts...)
+	return client.Insert(ctx, in, opts...)
 }
