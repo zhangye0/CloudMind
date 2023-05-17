@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v7/esutil"
 	"github.com/zeromicro/go-zero/core/logx"
-	"log"
 )
 
 type SearchForRankingLogic struct {
@@ -31,16 +30,16 @@ func (l *SearchForRankingLogic) SearchForRanking(in *pb.SearchForRankingReq) (*p
 		"aggs": map[string]interface{}{
 			"files": map[string]interface{}{
 				"terms": map[string]interface{}{
-					"field": "id.keyword",
+					"field": "id",
 					"size":  in.Ranking,
 				},
-			},
-			"aggs": map[string]interface{}{
-				"file_data": map[string]interface{}{
-					"top_hits": map[string]interface{}{
-						"size": 1,
-						"_source": map[string]interface{}{
-							"includes": []string{"title", "id", "avatar"},
+				"aggs": map[string]interface{}{
+					"file_data": map[string]interface{}{
+						"top_hits": map[string]interface{}{
+							"size": in.Ranking,
+							"_source": map[string]interface{}{
+								"includes": []string{"title", "id", "avatar"},
+							},
 						},
 					},
 				},
@@ -56,7 +55,10 @@ func (l *SearchForRankingLogic) SearchForRanking(in *pb.SearchForRankingReq) (*p
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 	)
 	if err != nil {
-		log.Fatalf("Error executing the search: %s", err)
+		return &pb.SearchForRankingResp{
+			Sources: nil,
+			Error:   fmt.Sprintf("Error executing the search: %s", err),
+		}, nil
 	}
 	defer res.Body.Close()
 
@@ -82,11 +84,12 @@ func (l *SearchForRankingLogic) SearchForRanking(in *pb.SearchForRankingReq) (*p
 		file := files[i].(map[string]interface{})
 		fileData := file["file_data"].(map[string]interface{})["hits"].(map[string]interface{})["hits"].([]interface{})[0].(map[string]interface{})["_source"].(map[string]interface{})
 		sources = append(sources, &pb.Source{
-			Title:  file["key"].(string),
-			Id:     fileData["id"].(int64),
+			Title:  fileData["title"].(string),
+			Id:     int64(fileData["id"].(float64)),
 			Avatar: fileData["avatar"].(string),
 		})
 	}
+
 	return &pb.SearchForRankingResp{
 		Sources: sources,
 		Error:   "",
