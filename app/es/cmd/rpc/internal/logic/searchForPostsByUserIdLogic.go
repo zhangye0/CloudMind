@@ -12,21 +12,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type SearchForPostsByIdLogic struct {
+type SearchForPostsByUserIdLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewSearchForPostsByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SearchForPostsByIdLogic {
-	return &SearchForPostsByIdLogic{
+func NewSearchForPostsByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SearchForPostsByUserIdLogic {
+	return &SearchForPostsByUserIdLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-func (l *SearchForPostsByIdLogic) SearchForPostsById(in *pb.SearchForPostsByIdReq) (*pb.SearchForPostsByIdResp, error) {
+func (l *SearchForPostsByUserIdLogic) SearchForPostsByUserId(in *pb.SearchForPostsByUserIdReq) (*pb.SearchForPostsByUserIdResp, error) {
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
@@ -50,7 +50,7 @@ func (l *SearchForPostsByIdLogic) SearchForPostsById(in *pb.SearchForPostsByIdRe
 	// 序列化
 	err := json.NewEncoder(&buf).Encode(query)
 	if err != nil {
-		return &pb.SearchForPostsByIdResp{
+		return &pb.SearchForPostsByUserIdResp{
 			Error: fmt.Sprintf("Error encoding query: %s", err),
 		}, nil
 	}
@@ -64,13 +64,13 @@ func (l *SearchForPostsByIdLogic) SearchForPostsById(in *pb.SearchForPostsByIdRe
 		l.svcCtx.Es.Search.WithPretty(),
 	)
 	if err != nil {
-		return &pb.SearchForPostsByIdResp{
+		return &pb.SearchForPostsByUserIdResp{
 			Error: fmt.Sprintf("Error Search the document: %s", err),
 		}, nil
 	}
 	defer res.Body.Close()
 	if res.IsError() {
-		return &pb.SearchForPostsByIdResp{
+		return &pb.SearchForPostsByUserIdResp{
 			Error: fmt.Sprintf("[%s] Error Search document ID", res.Status()),
 		}, nil
 	}
@@ -88,7 +88,7 @@ func (l *SearchForPostsByIdLogic) SearchForPostsById(in *pb.SearchForPostsByIdRe
 		Posts = append(Posts, &t)
 	}
 
-	return &pb.SearchForPostsByIdResp{
+	return &pb.SearchForPostsByUserIdResp{
 		Posts: Posts,
 		Error: "",
 	}, nil

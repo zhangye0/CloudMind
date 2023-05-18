@@ -42,14 +42,14 @@ func (s *EsServer) SearchForPostsRank(ctx context.Context, in *pb.SearchForPosts
 	return l.SearchForPostsRank(in)
 }
 
-func (s *EsServer) SearchForFilesById(ctx context.Context, in *pb.SearchForFilesByIdReq) (*pb.SearchForFilesByIdResp, error) {
-	l := logic.NewSearchForFilesByIdLogic(ctx, s.svcCtx)
-	return l.SearchForFilesById(in)
+func (s *EsServer) SearchForFilesByUserId(ctx context.Context, in *pb.SearchForFilesByUserIdReq) (*pb.SearchForFilesByUserIdResp, error) {
+	l := logic.NewSearchForFilesByUserIdLogic(ctx, s.svcCtx)
+	return l.SearchForFilesByUserId(in)
 }
 
-func (s *EsServer) SearchForPostsById(ctx context.Context, in *pb.SearchForPostsByIdReq) (*pb.SearchForPostsByIdResp, error) {
-	l := logic.NewSearchForPostsByIdLogic(ctx, s.svcCtx)
-	return l.SearchForPostsById(in)
+func (s *EsServer) SearchForPostsByUserId(ctx context.Context, in *pb.SearchForPostsByUserIdReq) (*pb.SearchForPostsByUserIdResp, error) {
+	l := logic.NewSearchForPostsByUserIdLogic(ctx, s.svcCtx)
+	return l.SearchForPostsByUserId(in)
 }
 
 func (s *EsServer) UpdateFiles(ctx context.Context, in *pb.UpdateFilesReq) (*pb.UpdateFilesResp, error) {

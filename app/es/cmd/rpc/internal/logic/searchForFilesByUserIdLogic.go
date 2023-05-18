@@ -12,22 +12,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type SearchForFilesByIdLogic struct {
+type SearchForFilesByUserIdLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewSearchForFilesByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SearchForFilesByIdLogic {
-	return &SearchForFilesByIdLogic{
+func NewSearchForFilesByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SearchForFilesByUserIdLogic {
+	return &SearchForFilesByUserIdLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-// 查找某个用户收藏/下载/点赞过的文件
-func (l *SearchForFilesByIdLogic) SearchForFilesById(in *pb.SearchForFilesByIdReq) (*pb.SearchForFilesByIdResp, error) {
+func (l *SearchForFilesByUserIdLogic) SearchForFilesByUserId(in *pb.SearchForFilesByUserIdReq) (*pb.SearchForFilesByUserIdResp, error) {
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
@@ -51,7 +50,7 @@ func (l *SearchForFilesByIdLogic) SearchForFilesById(in *pb.SearchForFilesByIdRe
 	// 序列化
 	err := json.NewEncoder(&buf).Encode(query)
 	if err != nil {
-		return &pb.SearchForFilesByIdResp{
+		return &pb.SearchForFilesByUserIdResp{
 			Error: fmt.Sprintf("Error encoding query: %s", err),
 		}, nil
 	}
@@ -65,13 +64,13 @@ func (l *SearchForFilesByIdLogic) SearchForFilesById(in *pb.SearchForFilesByIdRe
 		l.svcCtx.Es.Search.WithPretty(),
 	)
 	if err != nil {
-		return &pb.SearchForFilesByIdResp{
+		return &pb.SearchForFilesByUserIdResp{
 			Error: fmt.Sprintf("Error indexing the document: %s", err),
 		}, nil
 	}
 	defer res.Body.Close()
 	if res.IsError() {
-		return &pb.SearchForFilesByIdResp{
+		return &pb.SearchForFilesByUserIdResp{
 			Error: fmt.Sprintf("[%s] Error indexing document ID", res.Status()),
 		}, nil
 	}
@@ -88,7 +87,7 @@ func (l *SearchForFilesByIdLogic) SearchForFilesById(in *pb.SearchForFilesByIdRe
 		Files = append(Files, &t)
 	}
 
-	return &pb.SearchForFilesByIdResp{
+	return &pb.SearchForFilesByUserIdResp{
 		Files: Files,
 		Error: "",
 	}, nil

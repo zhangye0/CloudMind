@@ -13,36 +13,36 @@ import (
 )
 
 type (
-	File                   = pb.File
-	InsertFileReq          = pb.InsertFileReq
-	InsertFileResp         = pb.InsertFileResp
-	InsertPostReq          = pb.InsertPostReq
-	InsertPostResp         = pb.InsertPostResp
-	Post                   = pb.Post
-	SearchForFileRankReq   = pb.SearchForFileRankReq
-	SearchForFileRankResp  = pb.SearchForFileRankResp
-	SearchForFilesByIdReq  = pb.SearchForFilesByIdReq
-	SearchForFilesByIdResp = pb.SearchForFilesByIdResp
-	SearchForFilesReq      = pb.SearchForFilesReq
-	SearchForFilesResp     = pb.SearchForFilesResp
-	SearchForPostsByIdReq  = pb.SearchForPostsByIdReq
-	SearchForPostsByIdResp = pb.SearchForPostsByIdResp
-	SearchForPostsRankReq  = pb.SearchForPostsRankReq
-	SearchForPostsRankResp = pb.SearchForPostsRankResp
-	SearchForPostsReq      = pb.SearchForPostsReq
-	SearchForPostsResp     = pb.SearchForPostsResp
-	UpdateFilesReq         = pb.UpdateFilesReq
-	UpdateFilesResp        = pb.UpdateFilesResp
-	UpdatePostsReq         = pb.UpdatePostsReq
-	UpdatePostsResp        = pb.UpdatePostsResp
+	File                       = pb.File
+	InsertFileReq              = pb.InsertFileReq
+	InsertFileResp             = pb.InsertFileResp
+	InsertPostReq              = pb.InsertPostReq
+	InsertPostResp             = pb.InsertPostResp
+	Post                       = pb.Post
+	SearchForFileRankReq       = pb.SearchForFileRankReq
+	SearchForFileRankResp      = pb.SearchForFileRankResp
+	SearchForFilesByUserIdReq  = pb.SearchForFilesByUserIdReq
+	SearchForFilesByUserIdResp = pb.SearchForFilesByUserIdResp
+	SearchForFilesReq          = pb.SearchForFilesReq
+	SearchForFilesResp         = pb.SearchForFilesResp
+	SearchForPostsByUserIdReq  = pb.SearchForPostsByUserIdReq
+	SearchForPostsByUserIdResp = pb.SearchForPostsByUserIdResp
+	SearchForPostsRankReq      = pb.SearchForPostsRankReq
+	SearchForPostsRankResp     = pb.SearchForPostsRankResp
+	SearchForPostsReq          = pb.SearchForPostsReq
+	SearchForPostsResp         = pb.SearchForPostsResp
+	UpdateFilesReq             = pb.UpdateFilesReq
+	UpdateFilesResp            = pb.UpdateFilesResp
+	UpdatePostsReq             = pb.UpdatePostsReq
+	UpdatePostsResp            = pb.UpdatePostsResp
 
 	Es interface {
 		SearchForFiles(ctx context.Context, in *SearchForFilesReq, opts ...grpc.CallOption) (*SearchForFilesResp, error)
 		SearchForPosts(ctx context.Context, in *SearchForPostsReq, opts ...grpc.CallOption) (*SearchForPostsResp, error)
 		SearchForFileRank(ctx context.Context, in *SearchForFileRankReq, opts ...grpc.CallOption) (*SearchForFileRankResp, error)
 		SearchForPostsRank(ctx context.Context, in *SearchForPostsRankReq, opts ...grpc.CallOption) (*SearchForPostsRankResp, error)
-		SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error)
-		SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error)
+		SearchForFilesByUserId(ctx context.Context, in *SearchForFilesByUserIdReq, opts ...grpc.CallOption) (*SearchForFilesByUserIdResp, error)
+		SearchForPostsByUserId(ctx context.Context, in *SearchForPostsByUserIdReq, opts ...grpc.CallOption) (*SearchForPostsByUserIdResp, error)
 		UpdateFiles(ctx context.Context, in *UpdateFilesReq, opts ...grpc.CallOption) (*UpdateFilesResp, error)
 		UpdatePosts(ctx context.Context, in *UpdatePostsReq, opts ...grpc.CallOption) (*UpdatePostsResp, error)
 		InsertFile(ctx context.Context, in *InsertFileReq, opts ...grpc.CallOption) (*InsertFileResp, error)
@@ -80,14 +80,14 @@ func (m *defaultEs) SearchForPostsRank(ctx context.Context, in *SearchForPostsRa
 	return client.SearchForPostsRank(ctx, in, opts...)
 }
 
-func (m *defaultEs) SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error) {
+func (m *defaultEs) SearchForFilesByUserId(ctx context.Context, in *SearchForFilesByUserIdReq, opts ...grpc.CallOption) (*SearchForFilesByUserIdResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.SearchForFilesById(ctx, in, opts...)
+	return client.SearchForFilesByUserId(ctx, in, opts...)
 }
 
-func (m *defaultEs) SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error) {
+func (m *defaultEs) SearchForPostsByUserId(ctx context.Context, in *SearchForPostsByUserIdReq, opts ...grpc.CallOption) (*SearchForPostsByUserIdResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.SearchForPostsById(ctx, in, opts...)
+	return client.SearchForPostsByUserId(ctx, in, opts...)
 }
 
 func (m *defaultEs) UpdateFiles(ctx context.Context, in *UpdateFilesReq, opts ...grpc.CallOption) (*UpdateFilesResp, error) {

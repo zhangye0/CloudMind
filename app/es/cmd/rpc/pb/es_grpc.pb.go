@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Es_SearchForFiles_FullMethodName     = "/pb.es/SearchForFiles"
-	Es_SearchForPosts_FullMethodName     = "/pb.es/SearchForPosts"
-	Es_SearchForFileRank_FullMethodName  = "/pb.es/SearchForFileRank"
-	Es_SearchForPostsRank_FullMethodName = "/pb.es/SearchForPostsRank"
-	Es_SearchForFilesById_FullMethodName = "/pb.es/SearchForFilesById"
-	Es_SearchForPostsById_FullMethodName = "/pb.es/SearchForPostsById"
-	Es_UpdateFiles_FullMethodName        = "/pb.es/UpdateFiles"
-	Es_UpdatePosts_FullMethodName        = "/pb.es/UpdatePosts"
-	Es_InsertFile_FullMethodName         = "/pb.es/InsertFile"
-	Es_InsertPost_FullMethodName         = "/pb.es/InsertPost"
+	Es_SearchForFiles_FullMethodName         = "/pb.es/SearchForFiles"
+	Es_SearchForPosts_FullMethodName         = "/pb.es/SearchForPosts"
+	Es_SearchForFileRank_FullMethodName      = "/pb.es/SearchForFileRank"
+	Es_SearchForPostsRank_FullMethodName     = "/pb.es/SearchForPostsRank"
+	Es_SearchForFilesByUserId_FullMethodName = "/pb.es/SearchForFilesByUserId"
+	Es_SearchForPostsByUserId_FullMethodName = "/pb.es/SearchForPostsByUserId"
+	Es_UpdateFiles_FullMethodName            = "/pb.es/UpdateFiles"
+	Es_UpdatePosts_FullMethodName            = "/pb.es/UpdatePosts"
+	Es_InsertFile_FullMethodName             = "/pb.es/InsertFile"
+	Es_InsertPost_FullMethodName             = "/pb.es/InsertPost"
 )
 
 // EsClient is the client API for Es service.
@@ -39,8 +39,8 @@ type EsClient interface {
 	SearchForPosts(ctx context.Context, in *SearchForPostsReq, opts ...grpc.CallOption) (*SearchForPostsResp, error)
 	SearchForFileRank(ctx context.Context, in *SearchForFileRankReq, opts ...grpc.CallOption) (*SearchForFileRankResp, error)
 	SearchForPostsRank(ctx context.Context, in *SearchForPostsRankReq, opts ...grpc.CallOption) (*SearchForPostsRankResp, error)
-	SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error)
-	SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error)
+	SearchForFilesByUserId(ctx context.Context, in *SearchForFilesByUserIdReq, opts ...grpc.CallOption) (*SearchForFilesByUserIdResp, error)
+	SearchForPostsByUserId(ctx context.Context, in *SearchForPostsByUserIdReq, opts ...grpc.CallOption) (*SearchForPostsByUserIdResp, error)
 	UpdateFiles(ctx context.Context, in *UpdateFilesReq, opts ...grpc.CallOption) (*UpdateFilesResp, error)
 	UpdatePosts(ctx context.Context, in *UpdatePostsReq, opts ...grpc.CallOption) (*UpdatePostsResp, error)
 	InsertFile(ctx context.Context, in *InsertFileReq, opts ...grpc.CallOption) (*InsertFileResp, error)
@@ -91,18 +91,18 @@ func (c *esClient) SearchForPostsRank(ctx context.Context, in *SearchForPostsRan
 	return out, nil
 }
 
-func (c *esClient) SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error) {
-	out := new(SearchForFilesByIdResp)
-	err := c.cc.Invoke(ctx, Es_SearchForFilesById_FullMethodName, in, out, opts...)
+func (c *esClient) SearchForFilesByUserId(ctx context.Context, in *SearchForFilesByUserIdReq, opts ...grpc.CallOption) (*SearchForFilesByUserIdResp, error) {
+	out := new(SearchForFilesByUserIdResp)
+	err := c.cc.Invoke(ctx, Es_SearchForFilesByUserId_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *esClient) SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error) {
-	out := new(SearchForPostsByIdResp)
-	err := c.cc.Invoke(ctx, Es_SearchForPostsById_FullMethodName, in, out, opts...)
+func (c *esClient) SearchForPostsByUserId(ctx context.Context, in *SearchForPostsByUserIdReq, opts ...grpc.CallOption) (*SearchForPostsByUserIdResp, error) {
+	out := new(SearchForPostsByUserIdResp)
+	err := c.cc.Invoke(ctx, Es_SearchForPostsByUserId_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -153,8 +153,8 @@ type EsServer interface {
 	SearchForPosts(context.Context, *SearchForPostsReq) (*SearchForPostsResp, error)
 	SearchForFileRank(context.Context, *SearchForFileRankReq) (*SearchForFileRankResp, error)
 	SearchForPostsRank(context.Context, *SearchForPostsRankReq) (*SearchForPostsRankResp, error)
-	SearchForFilesById(context.Context, *SearchForFilesByIdReq) (*SearchForFilesByIdResp, error)
-	SearchForPostsById(context.Context, *SearchForPostsByIdReq) (*SearchForPostsByIdResp, error)
+	SearchForFilesByUserId(context.Context, *SearchForFilesByUserIdReq) (*SearchForFilesByUserIdResp, error)
+	SearchForPostsByUserId(context.Context, *SearchForPostsByUserIdReq) (*SearchForPostsByUserIdResp, error)
 	UpdateFiles(context.Context, *UpdateFilesReq) (*UpdateFilesResp, error)
 	UpdatePosts(context.Context, *UpdatePostsReq) (*UpdatePostsResp, error)
 	InsertFile(context.Context, *InsertFileReq) (*InsertFileResp, error)
@@ -178,11 +178,11 @@ func (UnimplementedEsServer) SearchForFileRank(context.Context, *SearchForFileRa
 func (UnimplementedEsServer) SearchForPostsRank(context.Context, *SearchForPostsRankReq) (*SearchForPostsRankResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchForPostsRank not implemented")
 }
-func (UnimplementedEsServer) SearchForFilesById(context.Context, *SearchForFilesByIdReq) (*SearchForFilesByIdResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchForFilesById not implemented")
+func (UnimplementedEsServer) SearchForFilesByUserId(context.Context, *SearchForFilesByUserIdReq) (*SearchForFilesByUserIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchForFilesByUserId not implemented")
 }
-func (UnimplementedEsServer) SearchForPostsById(context.Context, *SearchForPostsByIdReq) (*SearchForPostsByIdResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchForPostsById not implemented")
+func (UnimplementedEsServer) SearchForPostsByUserId(context.Context, *SearchForPostsByUserIdReq) (*SearchForPostsByUserIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchForPostsByUserId not implemented")
 }
 func (UnimplementedEsServer) UpdateFiles(context.Context, *UpdateFilesReq) (*UpdateFilesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFiles not implemented")
@@ -281,38 +281,38 @@ func _Es_SearchForPostsRank_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Es_SearchForFilesById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchForFilesByIdReq)
+func _Es_SearchForFilesByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchForFilesByUserIdReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EsServer).SearchForFilesById(ctx, in)
+		return srv.(EsServer).SearchForFilesByUserId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Es_SearchForFilesById_FullMethodName,
+		FullMethod: Es_SearchForFilesByUserId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EsServer).SearchForFilesById(ctx, req.(*SearchForFilesByIdReq))
+		return srv.(EsServer).SearchForFilesByUserId(ctx, req.(*SearchForFilesByUserIdReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Es_SearchForPostsById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchForPostsByIdReq)
+func _Es_SearchForPostsByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchForPostsByUserIdReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EsServer).SearchForPostsById(ctx, in)
+		return srv.(EsServer).SearchForPostsByUserId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Es_SearchForPostsById_FullMethodName,
+		FullMethod: Es_SearchForPostsByUserId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EsServer).SearchForPostsById(ctx, req.(*SearchForPostsByIdReq))
+		return srv.(EsServer).SearchForPostsByUserId(ctx, req.(*SearchForPostsByUserIdReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -413,12 +413,12 @@ var Es_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Es_SearchForPostsRank_Handler,
 		},
 		{
-			MethodName: "SearchForFilesById",
-			Handler:    _Es_SearchForFilesById_Handler,
+			MethodName: "SearchForFilesByUserId",
+			Handler:    _Es_SearchForFilesByUserId_Handler,
 		},
 		{
-			MethodName: "SearchForPostsById",
-			Handler:    _Es_SearchForPostsById_Handler,
+			MethodName: "SearchForPostsByUserId",
+			Handler:    _Es_SearchForPostsByUserId_Handler,
 		},
 		{
 			MethodName: "UpdateFiles",

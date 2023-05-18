@@ -63,23 +63,23 @@ message SearchForPostsRankResp{
 
 // 用户id
 // 查询下载/点赞/收藏过的文件
-message SearchForFilesByIdReq {
+message SearchForFilesByUserIdReq {
        int64 Id = 1;
        string Type = 2;
 }
-message SearchForFilesByIdResp {
+message SearchForFilesByUserIdResp {
     repeated file Files = 1;
     string Error = 2;
 }
 
 // 用户id
 // 查询点赞/收藏过的帖子
-message SearchForPostsByIdReq {
+message SearchForPostsByUserIdReq {
        int64 Id = 1;
        string Type = 2;
 
 }
-message SearchForPostsByIdResp {
+message SearchForPostsByUserIdResp {
     repeated post Posts = 1;
     string Error = 2;
 }
@@ -125,8 +125,8 @@ service es {
   rpc SearchForPosts(SearchForPostsReq) returns (SearchForPostsResp);
   rpc SearchForFileRank(SearchForFileRankReq) returns (SearchForFileRankResp);
   rpc SearchForPostsRank(SearchForPostsRankReq) returns (SearchForPostsRankResp);
-  rpc SearchForFilesById(SearchForFilesByIdReq) returns (SearchForFilesByIdResp);
-  rpc SearchForPostsById(SearchForPostsByIdReq) returns (SearchForPostsByIdResp);
+  rpc SearchForFilesByUserId(SearchForFilesByUserIdReq) returns (SearchForFilesByUserIdResp);
+  rpc SearchForPostsByUserId(SearchForPostsByUserIdReq) returns (SearchForPostsByUserIdResp);
   rpc UpdateFiles(UpdateFilesReq) returns (UpdateFilesResp);
   rpc UpdatePosts(UpdatePostsReq) returns (UpdatePostsResp);
   rpc InsertFile(InsertFileReq) returns (InsertFileResp);
