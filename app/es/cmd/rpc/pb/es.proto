@@ -4,42 +4,132 @@ option go_package = "./pb";
 
 package pb;
 
-message source{
+// 文件信息
+// 文件名， 文件id
+message file {
     string Title = 1;
-    int64 Id = 2;
-    string Avatar = 3;
+    string Id = 2;
 }
 
-message SearchForReq {
-    string Index = 1;
+
+// 帖子信息
+// 帖子标题， 帖子内容， 帖子id
+message post {
+    string Title = 1;
     string Content = 2;
+    string Id = 3;
 }
 
-message SearchForResp {
-    repeated source Sources = 1;
+// 查找文件
+// Content： 具体内容
+message SearchForFilesReq {
+    string Content = 1;
+}
+message SearchForFilesResp {
+    repeated file Files = 1;
     string Error = 2;
 }
 
-message InsertReq {
-    string Index = 1;
-    source Source = 2;
+// 查找帖子
+// Content： 具体内容
+message SearchForPostsReq {
+    string Content = 1;
+}
+message SearchForPostsResp {
+    repeated post Posts = 1;
+    string Error = 2;
 }
 
-message InsertResp {
+
+// 下载/点赞/收藏量 文件排行
+message SearchForFileRankReq{
+    int64 Ranking = 1;
+    string TypeMount = 2;
+}
+message SearchForFileRankResp {
+    repeated file Files = 1;
+    string Error = 2;
+}
+
+// 总/月/周/日榜 浏览/点赞/收藏量 帖子排行
+message SearchForPostsRankReq{
+    int64 Ranking = 1;
+    string TypeMount = 2;
+}
+message SearchForPostsRankResp{
+    repeated post Posts = 1;
+    string Error = 2;
+}
+
+// 用户id
+// 查询下载/点赞/收藏过的文件
+message SearchForFilesByIdReq {
+       int64 Id = 1;
+       string Type = 2;
+}
+message SearchForFilesByIdResp {
+    repeated file Files = 1;
+    string Error = 2;
+}
+
+// 用户id
+// 查询点赞/收藏过的帖子
+message SearchForPostsByIdReq {
+       int64 Id = 1;
+       string Type = 2;
+
+}
+message SearchForPostsByIdResp {
+    repeated post Posts = 1;
+    string Error = 2;
+}
+
+
+// 修改文件标题
+message UpdateFilesReq {
+    file File = 1;
+}
+message UpdateFilesResp {
     string Error = 1;
 }
 
-message SearchForRankingReq{
-    string Index = 1;
-    int64 Ranking = 2;
+// 修改帖子标题/内容
+message UpdatePostsReq {
+    post Post = 1;
+}
+message UpdatePostsResp {
+    string Error = 1;
 }
 
-message SearchForRankingResp{
-    repeated source Sources = 1;
-    string Error = 2;
+message InsertFileReq {
+    file File = 1;
+    int64 UserId = 2;
+    string TypeMount = 3;
 }
+message InsertFileResp {
+    string Error = 1;
+}
+
+message InsertPostReq {
+    post Post = 1;
+    int64 UserId = 2;
+    string TypeMount = 3;
+}
+message InsertPostResp {
+    string Error = 1;
+}
+
+
 service es {
-  rpc SearchFor(SearchForReq) returns (SearchForResp);
-  rpc SearchForRanking(SearchForRankingReq) returns (SearchForRankingResp);
-  rpc Insert(InsertReq) returns (InsertResp);
+  rpc SearchForFiles(SearchForFilesReq) returns (SearchForFilesResp);
+  rpc SearchForPosts(SearchForPostsReq) returns (SearchForPostsResp);
+  rpc SearchForFileRank(SearchForFileRankReq) returns (SearchForFileRankResp);
+  rpc SearchForPostsRank(SearchForPostsRankReq) returns (SearchForPostsRankResp);
+  rpc SearchForFilesById(SearchForFilesByIdReq) returns (SearchForFilesByIdResp);
+  rpc SearchForPostsById(SearchForPostsByIdReq) returns (SearchForPostsByIdResp);
+  rpc UpdateFiles(UpdateFilesReq) returns (UpdateFilesResp);
+  rpc UpdatePosts(UpdatePostsReq) returns (UpdatePostsResp);
+  rpc InsertFile(InsertFileReq) returns (InsertFileResp);
+  rpc InsertPost(InsertPostReq) returns (InsertPostResp);
+
 }

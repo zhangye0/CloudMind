@@ -1,55 +1,52 @@
 package logic
 
 import (
+	"CloudMind/app/es/cmd/rpc/internal/svc"
+	"CloudMind/app/es/cmd/rpc/pb"
 	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v7/esapi"
 
-	"CloudMind/app/es/cmd/rpc/internal/svc"
-	"CloudMind/app/es/cmd/rpc/pb"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type InsertLogic struct {
+type InsertFileLogic struct {
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
 
-func NewInsertLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InsertLogic {
-	return &InsertLogic{
+func NewInsertFileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InsertFileLogic {
+	return &InsertFileLogic{
 		ctx:    ctx,
 		svcCtx: svcCtx,
 		Logger: logx.WithContext(ctx),
 	}
 }
 
-/*
-参数: 表名(string), 记录(Source)
-返回: 错误信息(string)
-*/
-func (l *InsertLogic) Insert(in *pb.InsertReq) (*pb.InsertResp, error) {
+func (l *InsertFileLogic) InsertFile(in *pb.InsertFileReq) (*pb.InsertFileResp, error) {
 	// 序列化
 	data, err := json.Marshal(struct {
-		Title  string `json:"title"`
-		Id     int64  `json:"id"`
-		Avatar string `json:"avatar"`
-	}{Title: in.Source.Title,
-		Id:     in.Source.Id,
-		Avatar: in.Source.Avatar,
+		Title     string `json:"title"`
+		Id        string `json:"id"`
+		UserId    int64  `json:"userId"`
+		TypeMount string `json:"typeMount"`
+	}{Title: in.File.Title,
+		Id:        in.File.Id,
+		UserId:    in.UserId,
+		TypeMount: in.TypeMount,
 	})
 	if err != nil {
-		return &pb.InsertResp{
-			Error: fmt.Sprintf("json Marshal error"),
+		return &pb.InsertFileResp{
+			Error: fmt.Sprintf("Error marshaling the document: %s", err),
 		}, nil
 	}
 	// 构建请求
 
 	req := esapi.IndexRequest{
-		Index:   in.Index,
+		Index:   "files",
 		Body:    bytes.NewReader(data),
 		Refresh: "true",
 	}
@@ -57,24 +54,24 @@ func (l *InsertLogic) Insert(in *pb.InsertReq) (*pb.InsertResp, error) {
 	// 发请求
 	res, err := req.Do(context.Background(), l.svcCtx.Es)
 	if err != nil {
-		return &pb.InsertResp{
-			Error: fmt.Sprintf("do Error"),
+		return &pb.InsertFileResp{
+			Error: fmt.Sprintf("Error indexing the document: %s", err),
 		}, nil
 	}
 	defer res.Body.Close()
 
 	if res.IsError() {
-		return &pb.InsertResp{
+		return &pb.InsertFileResp{
 			Error: fmt.Sprintf("[%s] Error indexing document ID", res.Status()),
 		}, nil
 	} else {
 		var r map[string]interface{}
 		if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-			return &pb.InsertResp{
+			return &pb.InsertFileResp{
 				Error: fmt.Sprintf("Error parsing the response body: %s", err),
 			}, nil
 		}
 	}
 
-	return &pb.InsertResp{}, nil
+	return &pb.InsertFileResp{}, nil
 }

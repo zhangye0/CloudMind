@@ -22,17 +22,52 @@ func NewEsServer(svcCtx *svc.ServiceContext) *EsServer {
 	}
 }
 
-func (s *EsServer) SearchFor(ctx context.Context, in *pb.SearchForReq) (*pb.SearchForResp, error) {
-	l := logic.NewSearchForLogic(ctx, s.svcCtx)
-	return l.SearchFor(in)
+func (s *EsServer) SearchForFiles(ctx context.Context, in *pb.SearchForFilesReq) (*pb.SearchForFilesResp, error) {
+	l := logic.NewSearchForFilesLogic(ctx, s.svcCtx)
+	return l.SearchForFiles(in)
 }
 
-func (s *EsServer) SearchForRanking(ctx context.Context, in *pb.SearchForRankingReq) (*pb.SearchForRankingResp, error) {
-	l := logic.NewSearchForRankingLogic(ctx, s.svcCtx)
-	return l.SearchForRanking(in)
+func (s *EsServer) SearchForPosts(ctx context.Context, in *pb.SearchForPostsReq) (*pb.SearchForPostsResp, error) {
+	l := logic.NewSearchForPostsLogic(ctx, s.svcCtx)
+	return l.SearchForPosts(in)
 }
 
-func (s *EsServer) Insert(ctx context.Context, in *pb.InsertReq) (*pb.InsertResp, error) {
-	l := logic.NewInsertLogic(ctx, s.svcCtx)
-	return l.Insert(in)
+func (s *EsServer) SearchForFileRank(ctx context.Context, in *pb.SearchForFileRankReq) (*pb.SearchForFileRankResp, error) {
+	l := logic.NewSearchForFileRankLogic(ctx, s.svcCtx)
+	return l.SearchForFileRank(in)
+}
+
+func (s *EsServer) SearchForPostsRank(ctx context.Context, in *pb.SearchForPostsRankReq) (*pb.SearchForPostsRankResp, error) {
+	l := logic.NewSearchForPostsRankLogic(ctx, s.svcCtx)
+	return l.SearchForPostsRank(in)
+}
+
+func (s *EsServer) SearchForFilesById(ctx context.Context, in *pb.SearchForFilesByIdReq) (*pb.SearchForFilesByIdResp, error) {
+	l := logic.NewSearchForFilesByIdLogic(ctx, s.svcCtx)
+	return l.SearchForFilesById(in)
+}
+
+func (s *EsServer) SearchForPostsById(ctx context.Context, in *pb.SearchForPostsByIdReq) (*pb.SearchForPostsByIdResp, error) {
+	l := logic.NewSearchForPostsByIdLogic(ctx, s.svcCtx)
+	return l.SearchForPostsById(in)
+}
+
+func (s *EsServer) UpdateFiles(ctx context.Context, in *pb.UpdateFilesReq) (*pb.UpdateFilesResp, error) {
+	l := logic.NewUpdateFilesLogic(ctx, s.svcCtx)
+	return l.UpdateFiles(in)
+}
+
+func (s *EsServer) UpdatePosts(ctx context.Context, in *pb.UpdatePostsReq) (*pb.UpdatePostsResp, error) {
+	l := logic.NewUpdatePostsLogic(ctx, s.svcCtx)
+	return l.UpdatePosts(in)
+}
+
+func (s *EsServer) InsertFile(ctx context.Context, in *pb.InsertFileReq) (*pb.InsertFileResp, error) {
+	l := logic.NewInsertFileLogic(ctx, s.svcCtx)
+	return l.InsertFile(in)
+}
+
+func (s *EsServer) InsertPost(ctx context.Context, in *pb.InsertPostReq) (*pb.InsertPostResp, error) {
+	l := logic.NewInsertPostLogic(ctx, s.svcCtx)
+	return l.InsertPost(in)
 }

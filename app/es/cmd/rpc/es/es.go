@@ -13,18 +13,40 @@ import (
 )
 
 type (
-	InsertReq            = pb.InsertReq
-	InsertResp           = pb.InsertResp
-	SearchForRankingReq  = pb.SearchForRankingReq
-	SearchForRankingResp = pb.SearchForRankingResp
-	SearchForReq         = pb.SearchForReq
-	SearchForResp        = pb.SearchForResp
-	Source               = pb.Source
+	File                   = pb.File
+	InsertFileReq          = pb.InsertFileReq
+	InsertFileResp         = pb.InsertFileResp
+	InsertPostReq          = pb.InsertPostReq
+	InsertPostResp         = pb.InsertPostResp
+	Post                   = pb.Post
+	SearchForFileRankReq   = pb.SearchForFileRankReq
+	SearchForFileRankResp  = pb.SearchForFileRankResp
+	SearchForFilesByIdReq  = pb.SearchForFilesByIdReq
+	SearchForFilesByIdResp = pb.SearchForFilesByIdResp
+	SearchForFilesReq      = pb.SearchForFilesReq
+	SearchForFilesResp     = pb.SearchForFilesResp
+	SearchForPostsByIdReq  = pb.SearchForPostsByIdReq
+	SearchForPostsByIdResp = pb.SearchForPostsByIdResp
+	SearchForPostsRankReq  = pb.SearchForPostsRankReq
+	SearchForPostsRankResp = pb.SearchForPostsRankResp
+	SearchForPostsReq      = pb.SearchForPostsReq
+	SearchForPostsResp     = pb.SearchForPostsResp
+	UpdateFilesReq         = pb.UpdateFilesReq
+	UpdateFilesResp        = pb.UpdateFilesResp
+	UpdatePostsReq         = pb.UpdatePostsReq
+	UpdatePostsResp        = pb.UpdatePostsResp
 
 	Es interface {
-		SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error)
-		SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error)
-		Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error)
+		SearchForFiles(ctx context.Context, in *SearchForFilesReq, opts ...grpc.CallOption) (*SearchForFilesResp, error)
+		SearchForPosts(ctx context.Context, in *SearchForPostsReq, opts ...grpc.CallOption) (*SearchForPostsResp, error)
+		SearchForFileRank(ctx context.Context, in *SearchForFileRankReq, opts ...grpc.CallOption) (*SearchForFileRankResp, error)
+		SearchForPostsRank(ctx context.Context, in *SearchForPostsRankReq, opts ...grpc.CallOption) (*SearchForPostsRankResp, error)
+		SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error)
+		SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error)
+		UpdateFiles(ctx context.Context, in *UpdateFilesReq, opts ...grpc.CallOption) (*UpdateFilesResp, error)
+		UpdatePosts(ctx context.Context, in *UpdatePostsReq, opts ...grpc.CallOption) (*UpdatePostsResp, error)
+		InsertFile(ctx context.Context, in *InsertFileReq, opts ...grpc.CallOption) (*InsertFileResp, error)
+		InsertPost(ctx context.Context, in *InsertPostReq, opts ...grpc.CallOption) (*InsertPostResp, error)
 	}
 
 	defaultEs struct {
@@ -38,17 +60,52 @@ func NewEs(cli zrpc.Client) Es {
 	}
 }
 
-func (m *defaultEs) SearchFor(ctx context.Context, in *SearchForReq, opts ...grpc.CallOption) (*SearchForResp, error) {
+func (m *defaultEs) SearchForFiles(ctx context.Context, in *SearchForFilesReq, opts ...grpc.CallOption) (*SearchForFilesResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.SearchFor(ctx, in, opts...)
+	return client.SearchForFiles(ctx, in, opts...)
 }
 
-func (m *defaultEs) SearchForRanking(ctx context.Context, in *SearchForRankingReq, opts ...grpc.CallOption) (*SearchForRankingResp, error) {
+func (m *defaultEs) SearchForPosts(ctx context.Context, in *SearchForPostsReq, opts ...grpc.CallOption) (*SearchForPostsResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.SearchForRanking(ctx, in, opts...)
+	return client.SearchForPosts(ctx, in, opts...)
 }
 
-func (m *defaultEs) Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertResp, error) {
+func (m *defaultEs) SearchForFileRank(ctx context.Context, in *SearchForFileRankReq, opts ...grpc.CallOption) (*SearchForFileRankResp, error) {
 	client := pb.NewEsClient(m.cli.Conn())
-	return client.Insert(ctx, in, opts...)
+	return client.SearchForFileRank(ctx, in, opts...)
+}
+
+func (m *defaultEs) SearchForPostsRank(ctx context.Context, in *SearchForPostsRankReq, opts ...grpc.CallOption) (*SearchForPostsRankResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.SearchForPostsRank(ctx, in, opts...)
+}
+
+func (m *defaultEs) SearchForFilesById(ctx context.Context, in *SearchForFilesByIdReq, opts ...grpc.CallOption) (*SearchForFilesByIdResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.SearchForFilesById(ctx, in, opts...)
+}
+
+func (m *defaultEs) SearchForPostsById(ctx context.Context, in *SearchForPostsByIdReq, opts ...grpc.CallOption) (*SearchForPostsByIdResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.SearchForPostsById(ctx, in, opts...)
+}
+
+func (m *defaultEs) UpdateFiles(ctx context.Context, in *UpdateFilesReq, opts ...grpc.CallOption) (*UpdateFilesResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.UpdateFiles(ctx, in, opts...)
+}
+
+func (m *defaultEs) UpdatePosts(ctx context.Context, in *UpdatePostsReq, opts ...grpc.CallOption) (*UpdatePostsResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.UpdatePosts(ctx, in, opts...)
+}
+
+func (m *defaultEs) InsertFile(ctx context.Context, in *InsertFileReq, opts ...grpc.CallOption) (*InsertFileResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.InsertFile(ctx, in, opts...)
+}
+
+func (m *defaultEs) InsertPost(ctx context.Context, in *InsertPostReq, opts ...grpc.CallOption) (*InsertPostResp, error) {
+	client := pb.NewEsClient(m.cli.Conn())
+	return client.InsertPost(ctx, in, opts...)
 }
