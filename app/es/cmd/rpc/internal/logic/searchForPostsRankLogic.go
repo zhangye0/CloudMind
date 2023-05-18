@@ -26,39 +26,25 @@ func NewSearchForPostsRankLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 	}
 }
 
+/*
+查询文件排行
+TypeMount: look(浏览), star(收藏), like(点赞)
+Rank: 前多少名
+*/
 func (l *SearchForPostsRankLogic) SearchForPostsRank(in *pb.SearchForPostsRankReq) (*pb.SearchForPostsRankResp, error) {
-	//var gte, lte string
-	//lte = "now/d"
-	//switch in.TypeTime {
-	//case "day":
-	//	gte = "now-1d/d"
-	//case "week":
-	//	gte = "now-7d/d"
-	//case "month":
-	//	gte = "now-30d/d"
-	//case "year":
-	//	gte = "now-365d/d"
-	//}
+
 	query := map[string]interface{}{
 		"size": 0,
-		//"query": map[string]interface{}{
-		//	"range": map[string]interface{}{
-		//		"timestamp": map[string]interface{}{
-		//			"gte": gte,
-		//			"lte": lte,
-		//		},
-		//	},
-		//},
 		"aggs": map[string]interface{}{
 			"files": map[string]interface{}{
 				"terms": map[string]interface{}{
 					"field": "id.keyword",
-					"size":  in.Ranking,
+					"size":  in.Rank,
 				},
 				"aggs": map[string]interface{}{
 					"file_data": map[string]interface{}{
 						"top_hits": map[string]interface{}{
-							"size": in.Ranking,
+							"size": in.Rank,
 							"_source": map[string]interface{}{
 								"includes": []string{"title", "content", "id"},
 							},

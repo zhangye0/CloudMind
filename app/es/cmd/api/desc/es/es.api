@@ -1,0 +1,79 @@
+syntax = "v1"
+
+// 文件信息
+// 文件名， 文件id
+type file {
+ Title string `json:"title"`
+ Id  string `json:"id"`
+}
+// 帖子信息
+// 帖子标题， 帖子内容， 帖子id
+type posts {
+     Title string `json: "title"`
+     Content string `json:"content"`
+     Id string `json:"id"`
+}
+type (
+    SearchForFilesReq {
+        Content string `json:"content"`
+    }
+    SearchForFilesResp {
+           Files []file `json:"files"`
+           Error string `json:"error"`
+}
+    SearchForPostsReq {
+        Content string `json:"content"`
+    }
+    SearchForPostsResp {
+        Posts []posts `json:"posts"`
+        Error string `json:"error"`
+    }
+    SearchForFilesByUserIdReq {
+        Rank int64 `json:"rank"`
+        TypeMount string `json:"typeMount"`
+    }
+    SearchForFilesByUserIdResp {
+        Files []file `json:"files"`
+        Error string `json:"error"`
+    }
+    SearchForPostsByUserIdReq {
+        Rank int64 `json:"rank"`
+        TypeMount string `json:"typeMount"`
+    }
+    SearchForPostsByUserIdResp {
+        Posts []posts `json:"posts"`
+        Error string `json:"error"`
+    }
+    SearchForFilesRankReq {
+        UserId int64 `json:"userId"`
+        TypeMount string `json:"typeMount"`
+    }
+    SearchForFilesRankResp {
+        Files []file `json:"files"`
+        Error string `json:"error"`
+    }
+    SearchForPostsRankReq {
+        UserId int64 `json:"userId"`
+        TypeMount string `json:"typeMount"`
+    }
+    SearchForPostsRankResp {
+        Posts []posts `json:"posts"`
+        Error string `json:"error"`
+    }
+
+        // 修改文件标题
+    UpdateFilesReq {
+         File file `json:"file"`
+    }
+    UpdateFilesResp {
+        Error   string `json:"error"`
+    }
+
+        // 修改帖子标题/内容
+    UpdatePostsReq {
+        Post posts `json:"post"`
+    }
+    UpdatePostsResp {
+        Error   string `json:"error"`
+    }
+)

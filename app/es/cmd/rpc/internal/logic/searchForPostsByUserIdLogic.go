@@ -26,6 +26,11 @@ func NewSearchForPostsByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceCont
 	}
 }
 
+/*
+查询用户下载/收藏/点赞过的帖子
+Type: look(浏览), star(收藏), like(点赞)
+UserId: 用户id
+*/
 func (l *SearchForPostsByUserIdLogic) SearchForPostsByUserId(in *pb.SearchForPostsByUserIdReq) (*pb.SearchForPostsByUserIdResp, error) {
 	var buf bytes.Buffer
 	query := map[string]interface{}{
@@ -34,12 +39,12 @@ func (l *SearchForPostsByUserIdLogic) SearchForPostsByUserId(in *pb.SearchForPos
 				"must": []map[string]interface{}{
 					{
 						"term": map[string]interface{}{
-							"userId": in.Id,
+							"userId": in.UserId,
 						},
 					},
 					{
 						"term": map[string]interface{}{
-							"typeMount": in.Type,
+							"typeMount": in.TypeMount,
 						},
 					},
 				},

@@ -26,6 +26,11 @@ func NewSearchForFileRankLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 	}
 }
 
+/*
+查询文件排行
+TypeMount: upload(下载), star(收藏), like(点赞)
+Rank: 前多少名
+*/
 func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) (*pb.SearchForFileRankResp, error) {
 	query := map[string]interface{}{
 		"size": 0,
@@ -34,12 +39,12 @@ func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) 
 			"files": map[string]interface{}{
 				"terms": map[string]interface{}{
 					"field": "id.keyword",
-					"size":  in.Ranking,
+					"size":  in.Rank,
 				},
 				"aggs": map[string]interface{}{
 					"file_data": map[string]interface{}{
 						"top_hits": map[string]interface{}{
-							"size": in.Ranking,
+							"size": in.Rank,
 							"_source": map[string]interface{}{
 								"includes": []string{"title", "id"},
 							},

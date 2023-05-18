@@ -26,6 +26,11 @@ func NewSearchForFilesByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceCont
 	}
 }
 
+/*
+查询用户下载/收藏/点赞过的文件
+Type: upload(下载), star(收藏), like(点赞)
+UserId: 用户id
+*/
 func (l *SearchForFilesByUserIdLogic) SearchForFilesByUserId(in *pb.SearchForFilesByUserIdReq) (*pb.SearchForFilesByUserIdResp, error) {
 	var buf bytes.Buffer
 	query := map[string]interface{}{
@@ -34,12 +39,12 @@ func (l *SearchForFilesByUserIdLogic) SearchForFilesByUserId(in *pb.SearchForFil
 				"must": []map[string]interface{}{
 					{
 						"term": map[string]interface{}{
-							"userId": in.Id,
+							"userId": in.UserId,
 						},
 					},
 					{
 						"term": map[string]interface{}{
-							"typeMount": in.Type,
+							"typeMount": in.TypeMount,
 						},
 					},
 				},

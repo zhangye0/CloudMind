@@ -26,6 +26,12 @@ func NewInsertPostLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Insert
 	}
 }
 
+/*
+用户浏览/收藏/点赞了一个帖子
+TypeMount: look(浏览), star(收藏), like(点赞)
+UserId: 用户id
+File: title(帖子名), content(帖子内容), id(帖子id)
+*/
 func (l *InsertPostLogic) InsertPost(in *pb.InsertPostReq) (*pb.InsertPostResp, error) {
 	// 序列化
 	data, err := json.Marshal(struct {

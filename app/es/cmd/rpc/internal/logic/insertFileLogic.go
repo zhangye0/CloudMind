@@ -26,6 +26,12 @@ func NewInsertFileLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Insert
 	}
 }
 
+/*
+用户下载/收藏/点赞了一个文件
+TypeMount: upload(下载), star(收藏), like(点赞)
+UserId: 用户id
+File: title(文件名), id(文件id)
+*/
 func (l *InsertFileLogic) InsertFile(in *pb.InsertFileReq) (*pb.InsertFileResp, error) {
 	// 序列化
 	data, err := json.Marshal(struct {
