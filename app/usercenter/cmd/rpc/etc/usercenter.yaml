@@ -25,7 +25,7 @@ Log:
   Mode: console
   Encoding: plain
 
-Redis:
+RedisConf:
   Host: redis:6379
   Type: node
   Pass: G62m50oigInC30sf

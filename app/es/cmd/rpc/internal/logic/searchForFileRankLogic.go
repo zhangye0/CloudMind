@@ -1,13 +1,13 @@
 package logic
 
 import (
+	"CloudMind/app/es/cmd/rpc/internal/svc"
+	"CloudMind/app/es/cmd/rpc/pb"
 	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v7/esutil"
-
-	"CloudMind/app/es/cmd/rpc/internal/svc"
-	"CloudMind/app/es/cmd/rpc/pb"
+	"strconv"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -32,6 +32,19 @@ TypeMount: upload(下载), star(收藏), like(点赞)
 Rank: 前多少名
 */
 func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) (*pb.SearchForFileRankResp, error) {
+
+	FilesJson, err := l.svcCtx.Redis.Get("files" + in.TypeMount + strconv.Itoa(int(in.Rank)))
+	if err != nil {
+		var Files []*pb.File
+		err = json.Unmarshal([]byte(FilesJson), &Files)
+		if err != nil {
+			return &pb.SearchForFileRankResp{
+				Files: Files,
+				Error: "",
+			}, nil
+		}
+	}
+
 	query := map[string]interface{}{
 		"size": 0,
 
@@ -94,6 +107,11 @@ func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) 
 		})
 	}
 
+	filesJson, err := json.Marshal(Files)
+	val, err := l.svcCtx.Redis.SetnxEx("files"+in.TypeMount+strconv.Itoa(int(in.Rank)), string(filesJson), 3600)
+	if err != nil || val {
+		return nil, err
+	}
 	return &pb.SearchForFileRankResp{
 		Files: Files,
 		Error: "",

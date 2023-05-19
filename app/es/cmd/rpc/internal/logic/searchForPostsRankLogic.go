@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v7/esutil"
+	"strconv"
 
 	"CloudMind/app/es/cmd/rpc/internal/svc"
 	"CloudMind/app/es/cmd/rpc/pb"
@@ -32,7 +33,17 @@ TypeMount: look(浏览), star(收藏), like(点赞)
 Rank: 前多少名
 */
 func (l *SearchForPostsRankLogic) SearchForPostsRank(in *pb.SearchForPostsRankReq) (*pb.SearchForPostsRankResp, error) {
-
+	PostsJson, err := l.svcCtx.Redis.Get("posts" + in.TypeMount + strconv.Itoa(int(in.Rank)))
+	if err != nil {
+		var Posts []*pb.Post
+		err = json.Unmarshal([]byte(PostsJson), &Posts)
+		if err != nil {
+			return &pb.SearchForPostsRankResp{
+				Posts: Posts,
+				Error: "",
+			}, nil
+		}
+	}
 	query := map[string]interface{}{
 		"size": 0,
 		"aggs": map[string]interface{}{
@@ -93,6 +104,12 @@ func (l *SearchForPostsRankLogic) SearchForPostsRank(in *pb.SearchForPostsRankRe
 			Content: fileData["content"].(string),
 			Id:      fileData["id"].(string),
 		})
+	}
+
+	postsJson, err := json.Marshal(Posts)
+	val, err := l.svcCtx.Redis.SetnxEx("posts"+in.TypeMount+strconv.Itoa(int(in.Rank)), string(postsJson), 3600)
+	if err != nil || val {
+		return nil, err
 	}
 
 	return &pb.SearchForPostsRankResp{

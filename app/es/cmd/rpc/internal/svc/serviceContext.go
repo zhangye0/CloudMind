@@ -3,11 +3,13 @@ package svc
 import (
 	"CloudMind/app/es/cmd/rpc/internal/config"
 	"github.com/elastic/go-elasticsearch/v7"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 )
 
 type ServiceContext struct {
 	Config config.Config
 	Es     *elasticsearch.Client
+	Redis  *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -18,5 +20,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
 		Es:     es,
+		Redis:  redis.MustNewRedis(c.RedisConf),
 	}
 }

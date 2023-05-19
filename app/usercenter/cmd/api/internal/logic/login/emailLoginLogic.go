@@ -44,5 +44,4 @@ func (l *EmailLoginLogic) EmailLogin(req *types.EmailLoginReq) (*types.EmailLogi
 		AccessExpire: Resp.AccessExpire,
 		RefreshAfter: Resp.RefreshAfter,
 	}, nil
-	return nil, nil
 }

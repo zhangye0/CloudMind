@@ -36,3 +36,17 @@ scrape_configs:
           job: mqueue-scheduler
           app: mqueue-scheduler
           env: dev
+  - job_name: 'es-api'
+    static_configs:
+      - targets: [ 'CloudMind:3008' ]
+        labels:
+          job: es-api
+          app: es-api
+          env: dev
+  - job_name: 'es-rpc'
+    static_configs:
+      - targets: [ 'CloudMind:3009' ]
+        labels:
+          job: es-rpc
+          app: es-rpc
+          env: dev

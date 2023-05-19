@@ -51,7 +51,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		}
 
 		// 对用户数量进行+1
-		UserNumber, err := l.svcCtx.RedisClient.Incr("UserNumber")
+		UserNumber, err := l.svcCtx.Redis.Incr("UserNumber")
 		if err != nil {
 			return nil, err
 		}

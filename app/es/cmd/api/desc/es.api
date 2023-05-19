@@ -14,20 +14,20 @@ service es {
 	@handler SearchForFiles
 	get /search/SearchForFiles (SearchForFilesReq) returns (SearchForFilesResp)
 	@doc "搜索帖子"
-    @handler SearchForPosts
-    get /search/SearchForPosts (SearchForPostsReq) returns (SearchForPostsResp)
-
-    @doc "查看用户收藏/点赞/下载过的文件"
+	@handler SearchForPosts
+	get /search/SearchForPosts (SearchForPostsReq) returns (SearchForPostsResp)
+	
+	@doc "查看用户收藏/点赞/下载过的文件"
 	@handler SearchForFilesByUserId
 	get /search/SearchForFilesByUserId (SearchForFilesByUserIdReq) returns (SearchForFilesByUserIdResp)
 	@doc "查看用户收藏/点赞/浏览过的帖子"
-    @handler SearchForPostsByUserId
-    get /search/SearchForPostsByUserId (SearchForPostsByUserIdReq) returns (SearchForPostsByUserIdResp)
-
-    @doc "查看用户收藏/点赞/下载文件排行榜"
+	@handler SearchForPostsByUserId
+	get /search/SearchForPostsByUserId (SearchForPostsByUserIdReq) returns (SearchForPostsByUserIdResp)
+	
+	@doc "查看用户收藏/点赞/下载文件排行榜"
 	@handler SearchForFilesRank
 	get /search/SearchForFilesRank (SearchForFilesRankReq) returns (SearchForFilesRankResp)
 	@doc "查看用户收藏/点赞/浏览帖子排行榜"
-    @handler SearchForPostsRank
-    get /search/SearchForPostsRank(SearchForPostsRankReq) returns (SearchForPostsRankResp)
+	@handler SearchForPostsRank
+	get /search/SearchForPostsRank(SearchForPostsRankReq) returns (SearchForPostsRankResp)
 }
