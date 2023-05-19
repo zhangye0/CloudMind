@@ -1,0 +1,732 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "usercenter/v1/login/EmailLogin": {
+      "post": {
+        "summary": "邮箱登录",
+        "operationId": "EmailLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EmailLoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EmailLoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "usercenter/v1/login/QqLogin": {
+      "post": {
+        "summary": "qq登陆",
+        "operationId": "Qqlogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QqLoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QqLoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "usercenter/v1/login/Register": {
+      "post": {
+        "summary": "注册",
+        "operationId": "Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "usercenter/v1/login/SendEmail": {
+      "post": {
+        "summary": "发送邮件",
+        "operationId": "SendEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SendEmailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendEmailReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "usercenter/v1/login/WxLogin": {
+      "post": {
+        "summary": "微信登陆",
+        "operationId": "Wxlogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/WxLoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WxLoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "login"
+        ]
+      }
+    },
+    "usercenter/v1/user/GetUserInfo": {
+      "get": {
+        "summary": "用户获取个人信息",
+        "operationId": "GetUserInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserInfoResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/Logout": {
+      "post": {
+        "summary": "退出登录",
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LogoutResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LogoutReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/RealNameAuthentication": {
+      "post": {
+        "summary": "实名认证",
+        "operationId": "RealNameAuthentication",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RealNameAuthenticationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RealNameAuthenticationReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/UpdateAvatar": {
+      "post": {
+        "summary": "修改头像",
+        "operationId": "UpdateAvatar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateAvatarResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAvatarReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/UpdateNickName": {
+      "post": {
+        "summary": "修改用户名",
+        "operationId": "UpdateNickName",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateNickNameResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNickNameReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/UpdatePassWord": {
+      "post": {
+        "summary": "修改密码",
+        "operationId": "UpdatePassWord",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdatePassWordResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePassWordReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/UpdateSex": {
+      "post": {
+        "summary": "修改性别",
+        "operationId": "UpdateSex",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateSexResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateSexReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "usercenter/v1/user/UpdateStar": {
+      "post": {
+        "summary": "修改文件收藏",
+        "operationId": "UpdateStar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateStarResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateStarReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "EmailLoginReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "passWord": {
+          "type": "string"
+        }
+      },
+      "title": "EmailLoginReq",
+      "required": [
+        "email",
+        "passWord"
+      ]
+    },
+    "EmailLoginResp": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "EmailLoginResp",
+      "required": [
+        "accessToken",
+        "accessExpire",
+        "refreshAfter"
+      ]
+    },
+    "GetUserInfoReq": {
+      "type": "object",
+      "title": "GetUserInfoReq"
+    },
+    "GetUserInfoResp": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "title": "GetUserInfoResp",
+      "required": [
+        "userInfo"
+      ]
+    },
+    "LogoutReq": {
+      "type": "object",
+      "title": "LogoutReq"
+    },
+    "LogoutResp": {
+      "type": "object",
+      "title": "LogoutResp"
+    },
+    "QqLoginReq": {
+      "type": "object",
+      "title": "QqLoginReq"
+    },
+    "QqLoginResp": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QqLoginResp",
+      "required": [
+        "accessToken",
+        "accessExpire",
+        "refreshAfter"
+      ]
+    },
+    "RealNameAuthenticationReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "idCard": {
+          "type": "string"
+        }
+      },
+      "title": "RealNameAuthenticationReq",
+      "required": [
+        "name",
+        "idCard"
+      ]
+    },
+    "RealNameAuthenticationResp": {
+      "type": "object",
+      "title": "RealNameAuthenticationResp"
+    },
+    "RegisterReq": {
+      "type": "object",
+      "properties": {
+        "nickName": {
+          "type": "string"
+        },
+        "passWord": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "RegisterReq",
+      "required": [
+        "nickName",
+        "passWord",
+        "email",
+        "code"
+      ]
+    },
+    "RegisterResp": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RegisterResp",
+      "required": [
+        "accessToken",
+        "accessExpire",
+        "refreshAfter"
+      ]
+    },
+    "SendEmailReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "SendEmailReq",
+      "required": [
+        "email"
+      ]
+    },
+    "SendEmailResp": {
+      "type": "object",
+      "title": "SendEmailResp"
+    },
+    "UpdateAvatarReq": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/byte"
+          }
+        }
+      },
+      "title": "UpdateAvatarReq",
+      "required": [
+        "file"
+      ]
+    },
+    "UpdateAvatarResp": {
+      "type": "object",
+      "title": "UpdateAvatarResp"
+    },
+    "UpdateNickNameReq": {
+      "type": "object",
+      "properties": {
+        "nickName": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateNickNameReq",
+      "required": [
+        "nickName"
+      ]
+    },
+    "UpdateNickNameResp": {
+      "type": "object",
+      "title": "UpdateNickNameResp"
+    },
+    "UpdatePassWordReq": {
+      "type": "object",
+      "properties": {
+        "passWord": {
+          "type": "string"
+        }
+      },
+      "title": "UpdatePassWordReq",
+      "required": [
+        "passWord"
+      ]
+    },
+    "UpdatePassWordResp": {
+      "type": "object",
+      "title": "UpdatePassWordResp"
+    },
+    "UpdateSexReq": {
+      "type": "object",
+      "properties": {
+        "sex": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateSexReq",
+      "required": [
+        "sex"
+      ]
+    },
+    "UpdateSexResp": {
+      "type": "object",
+      "title": "UpdateSexResp"
+    },
+    "UpdateStarReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateStarReq",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateStarResp": {
+      "type": "object",
+      "title": "UpdateStarResp"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickName": {
+          "type": "string"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "idCard": {
+          "type": "string"
+        },
+        "create_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "update_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "memory": {
+          "type": "number",
+          "format": "double"
+        },
+        "flow": {
+          "type": "number",
+          "format": "double"
+        },
+        "money": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "User",
+      "required": [
+        "id",
+        "email",
+        "nickName",
+        "sex",
+        "avatar",
+        "name",
+        "idCard",
+        "create_time",
+        "update_time",
+        "memory",
+        "flow",
+        "money"
+      ]
+    },
+    "WxLoginReq": {
+      "type": "object",
+      "title": "WxLoginReq"
+    },
+    "WxLoginResp": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "accessExpire": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refreshAfter": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "WxLoginResp",
+      "required": [
+        "accessToken",
+        "accessExpire",
+        "refreshAfter"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

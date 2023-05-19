@@ -2,86 +2,70 @@
 package types
 
 type File struct {
-	Title string `json:"title"`
-	Id    string `json:"id"`
+	Title string `form:"title"`
+	Id    string `form:"id"`
 }
 
 type Posts struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Id      string `json:"id"`
+	Title   string `form:"title"`
+	Content string `form:"content"`
+	Id      string `form:"id"`
 }
 
 type SearchForFilesReq struct {
-	Content string `json:"content"`
+	Content string `form:"content"`
 }
 
 type SearchForFilesResp struct {
-	Files []File `json:"files"`
-	Error string `json:"error"`
+	Files []File `form:"files"`
+	Error string `form:"error"`
 }
 
 type SearchForPostsReq struct {
-	Content string `json:"content"`
+	Content string `form:"content"`
 }
 
 type SearchForPostsResp struct {
-	Posts []Posts `json:"posts"`
-	Error string  `json:"error"`
+	Posts []Posts `form:"posts"`
+	Error string  `form:"error"`
 }
 
 type SearchForFilesByUserIdReq struct {
-	UserId    int64  `json:"userId"`
-	TypeMount string `json:"typeMount"`
+	UserId    int64  `form:"userId"`
+	TypeMount string `form:"typeMount"`
 }
 
 type SearchForFilesByUserIdResp struct {
-	Files []File `json:"files"`
-	Error string `json:"error"`
+	Files []File `form:"files"`
+	Error string `form:"error"`
 }
 
 type SearchForPostsByUserIdReq struct {
-	UserId    int64  `json:"userId"`
-	TypeMount string `json:"typeMount"`
+	UserId    int64  `form:"userId"`
+	TypeMount string `form:"typeMount"`
 }
 
 type SearchForPostsByUserIdResp struct {
-	Posts []Posts `json:"posts"`
-	Error string  `json:"error"`
+	Posts []Posts `form:"posts"`
+	Error string  `form:"error"`
 }
 
 type SearchForFilesRankReq struct {
-	Rank      int64  `json:"rank"`
-	TypeMount string `json:"typeMount"`
+	Rank      int64  `form:"rank"`
+	TypeMount string `form:"typeMount"`
 }
 
 type SearchForFilesRankResp struct {
-	Files []File `json:"files"`
-	Error string `json:"error"`
+	Files []File `form:"files"`
+	Error string `form:"error"`
 }
 
 type SearchForPostsRankReq struct {
-	Rank      int64  `json:"rank"`
-	TypeMount string `json:"typeMount"`
+	Rank      int64  `form:"rank"`
+	TypeMount string `form:"typeMount"`
 }
 
 type SearchForPostsRankResp struct {
-	Posts []Posts `json:"posts"`
-	Error string  `json:"error"`
-}
-
-type UpdateFilesReq struct {
-	File File `json:"file"`
-}
-
-type UpdateFilesResp struct {
-	Error string `json:"error"`
-}
-
-type UpdatePostsReq struct {
-	Post Posts `json:"post"`
-}
-
-type UpdatePostsResp struct {
-	Error string `json:"error"`
+	Posts []Posts `form:"posts"`
+	Error string  `form:"error"`
 }

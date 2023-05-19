@@ -119,7 +119,6 @@ message InsertPostResp {
     string Error = 1;
 }
 
-
 service es {
   rpc SearchForFiles(SearchForFilesReq) returns (SearchForFilesResp);
   rpc SearchForPosts(SearchForPostsReq) returns (SearchForPostsResp);

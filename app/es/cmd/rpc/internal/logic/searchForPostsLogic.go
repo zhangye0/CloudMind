@@ -33,10 +33,21 @@ func (l *SearchForPostsLogic) SearchForPosts(in *pb.SearchForPostsReq) (*pb.Sear
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
-			"multi_match": map[string]interface{}{
-				"query":     in.Content,
-				"fuzziness": "AUTO",
-				"fields":    []string{"*"},
+			"bool": map[string]interface{}{
+				"must": []map[string]interface{}{
+					{
+						"multi_match": map[string]interface{}{
+							"query":     in.Content,
+							"fields":    []string{"*"},
+							"fuzziness": "AUTO",
+						},
+					},
+					{
+						"match": map[string]interface{}{
+							"typeMount": "upload",
+						},
+					},
+				},
 			},
 		},
 	}
@@ -67,13 +78,6 @@ func (l *SearchForPostsLogic) SearchForPosts(in *pb.SearchForPostsReq) (*pb.Sear
 		return &pb.SearchForPostsResp{
 			Error: fmt.Sprintf("[%s] Error indexing document ID", res.Status()),
 		}, nil
-	} else {
-		var r map[string]interface{}
-		if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-			return &pb.SearchForPostsResp{
-				Error: fmt.Sprintf("Error parsing the response body: %s", err),
-			}, nil
-		}
 	}
 	//反序列化搜索结果
 	var r map[string]interface{}

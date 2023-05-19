@@ -3,77 +3,61 @@ syntax = "v1"
 // 文件信息
 // 文件名， 文件id
 type File {
- Title string `json:"title"`
- Id  string `json:"id"`
+ Title string `form:"title"`
+ Id  string `form:"id"`
 }
 // 帖子信息
 // 帖子标题， 帖子内容， 帖子id
 type Posts {
-     Title string `json:"title"`
-     Content string `json:"content"`
-     Id string `json:"id"`
+     Title string `form:"title"`
+     Content string `form:"content"`
+     Id string `form:"id"`
 }
 type (
     SearchForFilesReq {
-        Content string `json:"content"`
+        Content string `form:"content"`
     }
     SearchForFilesResp {
-           Files []File `json:"files"`
-           Error string `json:"error"`
+           Files []File `form:"files"`
+           Error string `form:"error"`
 }
     SearchForPostsReq {
-        Content string `json:"content"`
+        Content string `form:"content"`
     }
     SearchForPostsResp {
-        Posts []Posts `json:"posts"`
-        Error string `json:"error"`
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
     }
     SearchForFilesByUserIdReq {
-        UserId int64 `json:"userId"`
-        TypeMount string `json:"typeMount"`
+        UserId int64 `form:"userId"`
+        TypeMount string `form:"typeMount"`
     }
     SearchForFilesByUserIdResp {
-        Files []File `json:"files"`
-        Error string `json:"error"`
+        Files []File `form:"files"`
+        Error string `form:"error"`
     }
     SearchForPostsByUserIdReq {
-        UserId int64 `json:"userId"`
-        TypeMount string `json:"typeMount"`
+        UserId int64 `form:"userId"`
+        TypeMount string `form:"typeMount"`
     }
     SearchForPostsByUserIdResp {
-        Posts []Posts `json:"posts"`
-        Error string `json:"error"`
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
     }
     SearchForFilesRankReq {
-        Rank int64 `json:"rank"`
-        TypeMount string `json:"typeMount"`
+        Rank int64 `form:"rank"`
+        TypeMount string `form:"typeMount"`
     }
     SearchForFilesRankResp {
-        Files []File `json:"files"`
-        Error string `json:"error"`
+        Files []File `form:"files"`
+        Error string `form:"error"`
     }
     SearchForPostsRankReq {
-        Rank int64 `json:"rank"`
-        TypeMount string `json:"typeMount"`
+        Rank int64 `form:"rank"`
+        TypeMount string `form:"typeMount"`
     }
     SearchForPostsRankResp {
-        Posts []Posts `json:"posts"`
-        Error string `json:"error"`
-    }
-
-        // 修改文件标题
-    UpdateFilesReq {
-         File File `json:"file"`
-    }
-    UpdateFilesResp {
-        Error   string `json:"error"`
-    }
-
-        // 修改帖子标题/内容
-    UpdatePostsReq {
-        Post Posts `json:"post"`
-    }
-    UpdatePostsResp {
-        Error   string `json:"error"`
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
     }
 )

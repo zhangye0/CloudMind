@@ -1,12 +1,11 @@
 package search
 
 import (
+	"CloudMind/app/es/cmd/api/internal/svc"
+	"CloudMind/app/es/cmd/api/internal/types"
 	"CloudMind/app/es/cmd/rpc/pb"
 	"CloudMind/common/errorx"
 	"context"
-
-	"CloudMind/app/es/cmd/api/internal/svc"
-	"CloudMind/app/es/cmd/api/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
