@@ -98,7 +98,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./data/elasticsearch/data:/usr/share/elasticsearch/data
-      - ./ik:/usr/share/elasticsearch/plugins/ik
+      - ./deploy/elasticsearch/ik:/usr/share/elasticsearch/plugins/ik
     restart: always
     ports:
       - 9200:9200
