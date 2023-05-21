@@ -160,7 +160,7 @@ $ vim id_rsa.pub // 这里换成你生成的 .pub文件
 ```
 $ sudo apt install docker.io
 
-// 配置用户组
+// 配置用户组支持自定义请求的格式，默认的请求格式为 {subject, object, action}。
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
@@ -196,8 +196,18 @@ docker-compose --version
 - [ ] mqueue
     - [x] 每月定时发放流量
 - [ ] elasticsearch
-    - [x] 排行榜功能
-        -[ ] 总/月/日榜功能
-        -[x] 下载量/收藏量/点赞量
+    - [ ] 排行榜功能
+      - [ ] 总/月/日榜功能
+      - [x] 下载量/收藏量/点赞量的文件/帖子排行
+    - [ ] 搜索功能
+      - [ ] 搜索文件
+        - [x] 按相关性排序
+        - [ ] 按下载量排序
+        - [ ] 按点赞量排序
+        - [ ] 按收藏量排序
+      - [ ] 搜索帖子
+        - [x] 按相关性排序
+        - [ ] 按点赞量排序
+        - [ ] 按收藏量排序
         
     
