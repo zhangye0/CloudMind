@@ -1,14 +1,12 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-
 	"CloudMind/app/usercenter/cmd/rpc/internal/config"
 	"CloudMind/app/usercenter/cmd/rpc/internal/server"
 	"CloudMind/app/usercenter/cmd/rpc/internal/svc"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
-
+	"flag"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"

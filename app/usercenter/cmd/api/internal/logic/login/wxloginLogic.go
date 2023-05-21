@@ -22,8 +22,7 @@ func NewWxloginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *WxloginLo
 	}
 }
 
-func (l *WxloginLogic) Wxlogin(req *types.WxLoginReq) (resp *types.WxLoginResp, err error) {
+func (l *WxloginLogic) Wxlogin(req *types.WxLoginReq) (*types.WxLoginResp, error) {
 	// todo: add your logic here and delete this line
-
-	return
+	return nil, nil
 }

@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+// 文件信息
+// 文件名， 文件id
+message file {
+    string Title = 1;
+    string Id = 2;
+}
+
+
+// 帖子信息
+// 帖子标题， 帖子内容， 帖子id
+message post {
+    string Title = 1;
+    string Content = 2;
+    string Id = 3;
+}
+
+// 查找文件
+// Content： 具体内容
+message SearchForFilesReq {
+    string Content = 1;
+}
+message SearchForFilesResp {
+    repeated file Files = 1;
+    string Error = 2;
+}
+
+// 查找帖子
+// Content： 具体内容
+message SearchForPostsReq {
+    string Content = 1;
+}
+message SearchForPostsResp {
+    repeated post Posts = 1;
+    string Error = 2;
+}
+
+
+// 下载/点赞/收藏量 文件排行
+message SearchForFileRankReq{
+    int64 Rank = 1;
+    string TypeMount = 2;
+}
+message SearchForFileRankResp {
+    repeated file Files = 1;
+    string Error = 2;
+}
+
+// 总/月/周/日榜 浏览/点赞/收藏量 帖子排行
+message SearchForPostsRankReq{
+    int64 Rank = 1;
+    string TypeMount = 2;
+}
+message SearchForPostsRankResp{
+    repeated post Posts = 1;
+    string Error = 2;
+}
+
+// 用户id
+// 查询下载/点赞/收藏过的文件
+message SearchForFilesByUserIdReq {
+       int64 UserId = 1;
+       string TypeMount = 2;
+}
+message SearchForFilesByUserIdResp {
+    repeated file Files = 1;
+    string Error = 2;
+}
+
+// 用户id
+// 查询点赞/收藏过的帖子
+message SearchForPostsByUserIdReq {
+       int64 UserId = 1;
+       string TypeMount = 2;
+
+}
+message SearchForPostsByUserIdResp {
+    repeated post Posts = 1;
+    string Error = 2;
+}
+
+
+// 修改文件标题
+message UpdateFilesReq {
+    file File = 1;
+}
+message UpdateFilesResp {
+    string Error = 1;
+}
+
+// 修改帖子标题/内容
+message UpdatePostsReq {
+    post Post = 1;
+}
+message UpdatePostsResp {
+    string Error = 1;
+}
+
+message InsertFileReq {
+    file File = 1;
+    int64 UserId = 2;
+    string TypeMount = 3;
+}
+message InsertFileResp {
+    string Error = 1;
+}
+
+message InsertPostReq {
+    post Post = 1;
+    int64 UserId = 2;
+    string TypeMount = 3;
+}
+message InsertPostResp {
+    string Error = 1;
+}
+
+service es {
+  rpc SearchForFiles(SearchForFilesReq) returns (SearchForFilesResp);
+  rpc SearchForPosts(SearchForPostsReq) returns (SearchForPostsResp);
+  rpc SearchForFileRank(SearchForFileRankReq) returns (SearchForFileRankResp);
+  rpc SearchForPostsRank(SearchForPostsRankReq) returns (SearchForPostsRankResp);
+  rpc SearchForFilesByUserId(SearchForFilesByUserIdReq) returns (SearchForFilesByUserIdResp);
+  rpc SearchForPostsByUserId(SearchForPostsByUserIdReq) returns (SearchForPostsByUserIdResp);
+  rpc UpdateFiles(UpdateFilesReq) returns (UpdateFilesResp);
+  rpc UpdatePosts(UpdatePostsReq) returns (UpdatePostsResp);
+  rpc InsertFile(InsertFileReq) returns (InsertFileResp);
+  rpc InsertPost(InsertPostReq) returns (InsertPostResp);
+
+}

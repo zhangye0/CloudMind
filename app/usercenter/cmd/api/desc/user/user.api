@@ -22,9 +22,9 @@ type (
             Code        string    `json:"code"`
     }
     RegisterResp{
-            AccessToken string `json:"accessToken"`
-            AccessExpire int64 `json:"accessExpire"`
-            RefreshAfter int64 `json:"refreshAfter"`
+        AccessToken string `json:"accessToken"`
+        AccessExpire int64 `json:"accessExpire"`
+        RefreshAfter int64 `json:"refreshAfter"`
     }
 
     EmailLoginReq {
@@ -33,9 +33,9 @@ type (
     }
 
     EmailLoginResp{
-            AccessToken   string `json:"accessToken"`
-            AccessExpire  int64  `json:"accessExpire"`
-            RefreshAfter  int64  `json:"refreshAfter"`
+            AccessToken string `json:"accessToken"`
+            AccessExpire int64 `json:"accessExpire"`
+            RefreshAfter int64 `json:"refreshAfter"`
     }
 
     QqLoginReq {
@@ -76,7 +76,6 @@ type (
     }
 
     UpdateNickNameResp {
-
     }
 
     UpdatePassWordReq {
@@ -84,7 +83,6 @@ type (
     }
 
     UpdatePassWordResp {
-
     }
 
     UpdateSexReq {
@@ -92,7 +90,6 @@ type (
     }
 
     UpdateSexResp {
-
     }
 
     UpdateAvatarReq {
@@ -108,37 +105,19 @@ type (
     }
 
     RealNameAuthenticationResp {
-
     }
 
-    UpdateMemoryReq {
-        Memory float64 `json:"memory"`
-    }
 
-    UpdateMemoryResp {
-
-    }
-
-    UpdateFlowReq {
-        Flow float64 `json:"flow"`
-    }
-
-    UpdateFlowResp {
-
-    }
-
-    UpdateMoneyReq {
-        Money float64 `json:"money"`
-    }
-
-    UpdateMoneyResp {
-
-    }
     UpdateStarReq {
         Id int64 `json:"id"`
     }
     UpdateStarResp {
+    }
 
+    LogoutReq{
+    }
+
+    LogoutResp{
     }
 
 )

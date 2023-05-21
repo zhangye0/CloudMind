@@ -1,0 +1,19 @@
+Name: filecenter-api
+Host: 0.0.0.0
+Port: 2003
+
+Log:
+  ServiceName: filecenter-api
+  Mode: file
+  level: error
+  KeepDays: 14
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 3006
+  Path: /metrics
+
+FileRpcConf:
+  Endpoints:
+    - 127.0.0.1:4003
+  NonBlock: true

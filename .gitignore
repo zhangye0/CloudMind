@@ -3,7 +3,7 @@
 *.iml
 .DS_Store
 **/.DS_Store
-
+/logs
 #deploy data
 
 data/*
@@ -11,7 +11,8 @@ data/*
 
 # gitlab ci
 .cache
-
+go.mod
+go.sum
 #vscode
 .vscode
 .vscode/

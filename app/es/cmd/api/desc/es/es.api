@@ -1,0 +1,63 @@
+syntax = "v1"
+
+// 文件信息
+// 文件名， 文件id
+type File {
+ Title string `form:"title"`
+ Id  string `form:"id"`
+}
+// 帖子信息
+// 帖子标题， 帖子内容， 帖子id
+type Posts {
+     Title string `form:"title"`
+     Content string `form:"content"`
+     Id string `form:"id"`
+}
+type (
+    SearchForFilesReq {
+        Content string `form:"content"`
+    }
+    SearchForFilesResp {
+           Files []File `form:"files"`
+           Error string `form:"error"`
+}
+    SearchForPostsReq {
+        Content string `form:"content"`
+    }
+    SearchForPostsResp {
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
+    }
+    SearchForFilesByUserIdReq {
+        UserId int64 `form:"userId"`
+        TypeMount string `form:"typeMount"`
+    }
+    SearchForFilesByUserIdResp {
+        Files []File `form:"files"`
+        Error string `form:"error"`
+    }
+    SearchForPostsByUserIdReq {
+        UserId int64 `form:"userId"`
+        TypeMount string `form:"typeMount"`
+    }
+    SearchForPostsByUserIdResp {
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
+    }
+    SearchForFilesRankReq {
+        Rank int64 `form:"rank"`
+        TypeMount string `form:"typeMount"`
+    }
+    SearchForFilesRankResp {
+        Files []File `form:"files"`
+        Error string `form:"error"`
+    }
+    SearchForPostsRankReq {
+        Rank int64 `form:"rank"`
+        TypeMount string `form:"typeMount"`
+    }
+    SearchForPostsRankResp {
+        Posts []Posts `form:"posts"`
+        Error string `form:"error"`
+    }
+)

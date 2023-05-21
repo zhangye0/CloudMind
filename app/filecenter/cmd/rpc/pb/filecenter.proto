@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+message File{
+  int64 Id = 1;
+  string Name = 2;
+  string Type = 3;
+  string Path = 4;
+  string Size = 5;
+  string ShareLink = 6;
+  int64 ModifyTime = 7;
+}
+
+message FileUploadReq{
+  string Name = 1;
+  string Type = 2;
+  int64 FileSize = 3;
+  string SourcePath = 4;
+  int64 Size = 5;
+  int64 Routines = 6;
+}
+
+message FileUploadResp {
+  string flag = 1;
+  string Error = 2;
+}
+
+message FileDownloadReq{
+  int64 Id = 1;
+  string Name = 2;
+  string Type = 3;
+}
+
+message FileDownloadResp {
+  string flag = 1;
+  string Error = 2;
+}
+
+message FileListReq{
+  int64 Id = 1;
+  int64 Page = 2;
+  int64 Size = 3;
+}
+
+message FileListResp{
+  repeated File List = 1;
+  int64 Count = 2;
+  string Error = 3;
+}
+
+message FileNameUpdateReq{
+  int64 Id = 1;
+  string Mame = 2;
+}
+
+message FileNameUpdateResp{
+  string Error = 1;
+}
+
+message FileCreateReq{
+  string Path = 1;
+  string Name = 2;
+}
+
+message FileCreateResp{
+  string Error = 1;
+}
+
+message FileDeletionReq{
+  int64 Id = 1;
+}
+
+message FileDeletionResp{
+  string Error = 1;
+}
+
+message FileMoveReq{
+  int64 LastParentId = 1;
+  int64 PreParentId = 2;
+  int64 Id = 3;
+}
+
+message FileMoveResp{
+  string Error = 1;
+}
+
+message FileShareReq{
+  int64 Id = 1;
+}
+
+message FileShareResp{
+  string ShareLink = 1;
+  string Error = 2;
+}
+
+message FileShareSaveReq{
+  int64 ParentId = 1;
+  string ShareLink = 2;
+  string Name = 3;
+}
+
+message FileShareSaveResp{
+  int64 Id = 1;
+  string Error = 2;
+}
+
+message FileDetailsReq{
+  int64 Id = 1;
+}
+
+message FileDetailsResp{
+  string Name = 1;
+  string Type = 2;
+  string Path = 3;
+  string Size = 4;
+  string Time = 5;
+  string Error = 6;
+}
+
+service filecenter {
+  rpc FileUpload(FileUploadReq) returns (FileUploadResp);
+  rpc FileDownload(FileDownloadReq) returns (FileDownloadResp);
+  rpc FileList(FileListReq) returns (FileListResp);
+  rpc FileNameUpdate(FileNameUpdateReq) returns (FileNameUpdateResp);
+  rpc FileCreate(FileCreateReq) returns (FileCreateResp);
+  rpc FileDeletion(FileDeletionReq) returns (FileDeletionResp);
+  rpc FileMove(FileMoveReq) returns (FileMoveResp);
+  rpc FileShare(FileShareReq) returns (FileShareResp);
+  rpc FileShareSave(FileShareSaveReq) returns (FileShareSaveResp);
+  rpc FileDetails(FileDetailsReq) returns (FileDetailsResp);
+}

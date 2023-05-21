@@ -5,6 +5,7 @@ import (
 	"CloudMind/app/usercenter/cmd/api/internal/types"
 	"CloudMind/app/usercenter/cmd/rpc/pb"
 	"CloudMind/common/ctxdata"
+	"CloudMind/common/errorx"
 	"context"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -31,7 +32,9 @@ func (l *GetUserInfoLogic) GetUserInfo(req *types.GetUserInfoReq) (*types.GetUse
 	if err != nil {
 		return nil, err
 	}
-
+	if Resp.Error != "" {
+		return nil, errorx.NewDefaultError(Resp.Error)
+	}
 	return &types.GetUserInfoResp{
 		UserInfo: types.User{
 			Id:          Resp.UserInfo.Id,

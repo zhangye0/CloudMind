@@ -1,0 +1,460 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "es/v1/search/SearchForFiles": {
+      "get": {
+        "summary": "搜索文件",
+        "operationId": "SearchForFiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForFilesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "content",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    },
+    "es/v1/search/SearchForFilesByUserId": {
+      "get": {
+        "summary": "查看用户收藏/点赞/下载过的文件",
+        "operationId": "SearchForFilesByUserId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForFilesByUserIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "typeMount",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    },
+    "es/v1/search/SearchForFilesRank": {
+      "get": {
+        "summary": "查看用户收藏/点赞/下载文件排行榜",
+        "operationId": "SearchForFilesRank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForFilesRankResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rank",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "typeMount",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    },
+    "es/v1/search/SearchForPosts": {
+      "get": {
+        "summary": "搜索帖子",
+        "operationId": "SearchForPosts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForPostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "content",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    },
+    "es/v1/search/SearchForPostsByUserId": {
+      "get": {
+        "summary": "查看用户收藏/点赞/浏览过的帖子",
+        "operationId": "SearchForPostsByUserId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForPostsByUserIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "typeMount",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    },
+    "es/v1/search/SearchForPostsRank": {
+      "get": {
+        "summary": "查看用户收藏/点赞/浏览帖子排行榜",
+        "operationId": "SearchForPostsRank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SearchForPostsRankResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rank",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "typeMount",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "search"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "File": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "File",
+      "required": [
+        "title",
+        "id"
+      ]
+    },
+    "Posts": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "title": "Posts",
+      "required": [
+        "title",
+        "content",
+        "id"
+      ]
+    },
+    "SearchForFilesByUserIdReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "typeMount": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesByUserIdReq",
+      "required": [
+        "userId",
+        "typeMount"
+      ]
+    },
+    "SearchForFilesByUserIdResp": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/File"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesByUserIdResp",
+      "required": [
+        "files",
+        "error"
+      ]
+    },
+    "SearchForFilesRankReq": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "typeMount": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesRankReq",
+      "required": [
+        "rank",
+        "typeMount"
+      ]
+    },
+    "SearchForFilesRankResp": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/File"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesRankResp",
+      "required": [
+        "files",
+        "error"
+      ]
+    },
+    "SearchForFilesReq": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesReq",
+      "required": [
+        "content"
+      ]
+    },
+    "SearchForFilesResp": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/File"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForFilesResp",
+      "required": [
+        "files",
+        "error"
+      ]
+    },
+    "SearchForPostsByUserIdReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "typeMount": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsByUserIdReq",
+      "required": [
+        "userId",
+        "typeMount"
+      ]
+    },
+    "SearchForPostsByUserIdResp": {
+      "type": "object",
+      "properties": {
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Posts"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsByUserIdResp",
+      "required": [
+        "posts",
+        "error"
+      ]
+    },
+    "SearchForPostsRankReq": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "typeMount": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsRankReq",
+      "required": [
+        "rank",
+        "typeMount"
+      ]
+    },
+    "SearchForPostsRankResp": {
+      "type": "object",
+      "properties": {
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Posts"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsRankResp",
+      "required": [
+        "posts",
+        "error"
+      ]
+    },
+    "SearchForPostsReq": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsReq",
+      "required": [
+        "content"
+      ]
+    },
+    "SearchForPostsResp": {
+      "type": "object",
+      "properties": {
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Posts"
+          }
+        },
+        "error": {
+          "type": "string"
+        }
+      },
+      "title": "SearchForPostsResp",
+      "required": [
+        "posts",
+        "error"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

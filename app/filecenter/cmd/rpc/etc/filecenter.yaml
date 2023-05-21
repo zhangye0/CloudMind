@@ -1,0 +1,27 @@
+Name: filecenter-rpc
+ListenOn: 0.0.0.0:4003
+Mode: dev
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 3007
+  Path: /metrics
+
+DB:
+  DataSource: root:PXDN93VRKUm8TeE7@tcp(mysql:3306)/cloudmind_filecenter?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Log:
+  ServiceName: filecenter-rpc
+  Mode: file
+  level: error
+  KeepDays: 14
+
+Redis:
+  Host: redis:6379
+  Type: node
+  Pass: G62m50oigInC30sf
+  Key: ""
+
+Cache:
+  - Host: redis:6379
+    Pass: G62m50oigInC30sf

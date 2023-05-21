@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"CloudMind/app/es/cmd/rpc/es"
 	"CloudMind/app/usercenter/cmd/rpc/internal/config"
 	"CloudMind/app/usercenter/model"
 	"CloudMind/common/gormlogger"
@@ -8,6 +9,7 @@ import (
 	"github.com/zeromicro/go-zero/core/bloom"
 	"github.com/zeromicro/go-zero/core/collection"
 	"github.com/zeromicro/go-zero/core/stores/redis"
+	"github.com/zeromicro/go-zero/zrpc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -17,7 +19,7 @@ import (
 
 type ServiceContext struct {
 	Config          config.Config
-	RedisClient     *redis.Redis
+	Redis           *redis.Redis
 	GormDB          *gorm.DB
 	Cache           *collection.Cache
 	Bloom           *bloom.Filter
@@ -25,6 +27,7 @@ type ServiceContext struct {
 	UserModel       model.UserModel
 	UserAuthModel   model.UserAuthModel
 	UserAvatarModel model.UserAvatarModel
+	EsRpc           es.Es
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -60,18 +63,17 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	db.SetConnMaxLifetime(time.Minute)
 
 	cache, err := collection.NewCache(time.Minute, collection.WithLimit(10000))
-	Redis := redis.New(c.Redis.Host, func(r *redis.Redis) {
-		r.Type = c.Redis.Type
-		r.Pass = c.Redis.Pass
-	})
+	Redis := redis.MustNewRedis(c.RedisConf)
+
 	return &ServiceContext{
 		Config:          c,
-		RedisClient:     Redis,
+		Redis:           Redis,
 		Cache:           cache,
 		Bloom:           bloom.New(Redis, "bloom", 1024),
 		wxAuth:          oauth.NewAuthWxWechat(wxConf),
 		UserAuthModel:   model.NewUserAuthModel(gormDB),
 		UserModel:       model.NewUserModel(gormDB),
 		UserAvatarModel: model.NewUserAvatarModel(gormDB),
+		EsRpc:           es.NewEs(zrpc.MustNewClient(c.EsRpcConf)),
 	}
 }

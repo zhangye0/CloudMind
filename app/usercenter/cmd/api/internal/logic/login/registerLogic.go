@@ -33,6 +33,7 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (*types.RegisterResp, e
 		Code:     req.Code,
 		UserAuth: &pb.UserAuth{
 			AuthType: "email",
+			AuthKey:  req.Email,
 		},
 	})
 	if err != nil {

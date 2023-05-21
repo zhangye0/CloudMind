@@ -66,3 +66,8 @@ func (s *UsercenterServer) RealNameAuthentication(ctx context.Context, in *pb.Re
 	l := logic.NewRealNameAuthenticationLogic(ctx, s.svcCtx)
 	return l.RealNameAuthentication(in)
 }
+
+func (s *UsercenterServer) Logout(ctx context.Context, in *pb.LogoutReq) (*pb.LogoutResp, error) {
+	l := logic.NewLogoutLogic(ctx, s.svcCtx)
+	return l.Logout(in)
+}
