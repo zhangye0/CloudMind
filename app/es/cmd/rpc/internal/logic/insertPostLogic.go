@@ -54,7 +54,7 @@ func (l *InsertPostLogic) InsertPost(in *pb.InsertPostReq) (*pb.InsertPostResp, 
 	// 构建请求
 
 	req := esapi.IndexRequest{
-		Index:   "posts",
+		Index:   in.TypeMount + "posts",
 		Body:    bytes.NewReader(data),
 		Refresh: "true",
 	}

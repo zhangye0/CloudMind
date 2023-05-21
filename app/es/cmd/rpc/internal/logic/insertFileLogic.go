@@ -52,9 +52,8 @@ func (l *InsertFileLogic) InsertFile(in *pb.InsertFileReq) (*pb.InsertFileResp, 
 	// 构建请求
 
 	req := esapi.IndexRequest{
-		Index:   "files",
-		Body:    bytes.NewReader(data),
-		Refresh: "true",
+		Index: in.TypeMount + "files",
+		Body:  bytes.NewReader(data),
 	}
 
 	// 发请求

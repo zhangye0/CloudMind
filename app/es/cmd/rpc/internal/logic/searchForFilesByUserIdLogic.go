@@ -35,19 +35,8 @@ func (l *SearchForFilesByUserIdLogic) SearchForFilesByUserId(in *pb.SearchForFil
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
-			"bool": map[string]interface{}{
-				"must": []map[string]interface{}{
-					{
-						"term": map[string]interface{}{
-							"userId": in.UserId,
-						},
-					},
-					{
-						"term": map[string]interface{}{
-							"typeMount": in.TypeMount,
-						},
-					},
-				},
+			"term": map[string]interface{}{
+				"userId": in.UserId,
 			},
 		},
 	}
@@ -63,7 +52,7 @@ func (l *SearchForFilesByUserIdLogic) SearchForFilesByUserId(in *pb.SearchForFil
 	// 搜索
 	res, err := l.svcCtx.Es.Search(
 		l.svcCtx.Es.Search.WithContext(context.Background()),
-		l.svcCtx.Es.Search.WithIndex("files"),
+		l.svcCtx.Es.Search.WithIndex(in.TypeMount+"files"),
 		l.svcCtx.Es.Search.WithBody(&buf),
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 		l.svcCtx.Es.Search.WithPretty(),

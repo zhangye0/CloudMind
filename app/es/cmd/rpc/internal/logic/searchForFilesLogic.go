@@ -33,21 +33,10 @@ func (l *SearchForFilesLogic) SearchForFiles(in *pb.SearchForFilesReq) (*pb.Sear
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
-			"bool": map[string]interface{}{
-				"must": []map[string]interface{}{
-					{
-						"multi_match": map[string]interface{}{
-							"query":     in.Content,
-							"fields":    []string{"*"},
-							"fuzziness": "AUTO",
-						},
-					},
-					{
-						"match": map[string]interface{}{
-							"typeMount": "upload",
-						},
-					},
-				},
+			"multi_match": map[string]interface{}{
+				"query":     in.Content,
+				"fields":    []string{"*"},
+				"fuzziness": "AUTO",
 			},
 		},
 	}
@@ -63,7 +52,7 @@ func (l *SearchForFilesLogic) SearchForFiles(in *pb.SearchForFilesReq) (*pb.Sear
 	// 搜索
 	res, err := l.svcCtx.Es.Search(
 		l.svcCtx.Es.Search.WithContext(context.Background()),
-		l.svcCtx.Es.Search.WithIndex("files"),
+		l.svcCtx.Es.Search.WithIndex("uploadfiles"),
 		l.svcCtx.Es.Search.WithBody(&buf),
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 		l.svcCtx.Es.Search.WithPretty(),

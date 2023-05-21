@@ -69,7 +69,7 @@ func (l *SearchForPostsRankLogic) SearchForPostsRank(in *pb.SearchForPostsRankRe
 	// 执行 Elasticsearch 查询
 	res, err := l.svcCtx.Es.Search(
 		l.svcCtx.Es.Search.WithContext(context.Background()),
-		l.svcCtx.Es.Search.WithIndex("posts"),
+		l.svcCtx.Es.Search.WithIndex(in.TypeMount+"posts"),
 		l.svcCtx.Es.Search.WithBody(esutil.NewJSONReader(query)),
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 	)
@@ -108,7 +108,7 @@ func (l *SearchForPostsRankLogic) SearchForPostsRank(in *pb.SearchForPostsRankRe
 
 	postsJson, err := json.Marshal(Posts)
 	val, err := l.svcCtx.Redis.SetnxEx("posts"+in.TypeMount+strconv.Itoa(int(in.Rank)), string(postsJson), 3600)
-	if err != nil || val {
+	if err != nil || !val {
 		return nil, err
 	}
 

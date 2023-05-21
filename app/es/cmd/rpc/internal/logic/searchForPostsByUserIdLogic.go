@@ -35,19 +35,8 @@ func (l *SearchForPostsByUserIdLogic) SearchForPostsByUserId(in *pb.SearchForPos
 	var buf bytes.Buffer
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
-			"bool": map[string]interface{}{
-				"must": []map[string]interface{}{
-					{
-						"term": map[string]interface{}{
-							"userId": in.UserId,
-						},
-					},
-					{
-						"term": map[string]interface{}{
-							"typeMount": in.TypeMount,
-						},
-					},
-				},
+			"term": map[string]interface{}{
+				"userId": in.UserId,
 			},
 		},
 	}
@@ -63,7 +52,7 @@ func (l *SearchForPostsByUserIdLogic) SearchForPostsByUserId(in *pb.SearchForPos
 	// 搜索
 	res, err := l.svcCtx.Es.Search(
 		l.svcCtx.Es.Search.WithContext(context.Background()),
-		l.svcCtx.Es.Search.WithIndex("posts"),
+		l.svcCtx.Es.Search.WithIndex(in.TypeMount+"posts"),
 		l.svcCtx.Es.Search.WithBody(&buf),
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 		l.svcCtx.Es.Search.WithPretty(),

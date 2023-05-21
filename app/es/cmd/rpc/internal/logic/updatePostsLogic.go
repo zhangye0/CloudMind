@@ -28,12 +28,16 @@ func NewUpdatePostsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 func (l *UpdatePostsLogic) UpdatePosts(in *pb.UpdatePostsReq) (*pb.UpdatePostsResp, error) {
 	requestBody := map[string]interface{}{
 		"query": map[string]interface{}{
-			"term": map[string]interface{}{
-				"id": in.Post.Id,
+			"constant_score": map[string]interface{}{
+				"filter": map[string]interface{}{
+					"term": map[string]interface{}{
+						"id": in.Post.Id,
+					},
+				},
 			},
 		},
 		"script": map[string]interface{}{
-			"source": "ctx._source.title = params.new_title; ctx._source.content = params.new_content;",
+			"source": "ctx._source.title = params.new_title;ctx._source.content = params.new_content;",
 			"params": map[string]interface{}{
 				"new_title":   in.Post.Title,
 				"new_content": in.Post.Content,
@@ -43,7 +47,7 @@ func (l *UpdatePostsLogic) UpdatePosts(in *pb.UpdatePostsReq) (*pb.UpdatePostsRe
 
 	// Create the Update By Query request object
 	req := esapi.UpdateByQueryRequest{
-		Index: []string{"posts"},
+		Index: []string{"uploadposts", "starposts", "likeposts"},
 		Body:  esutil.NewJSONReader(requestBody),
 	}
 

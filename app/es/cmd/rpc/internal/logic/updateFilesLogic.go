@@ -27,8 +27,12 @@ func NewUpdateFilesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Updat
 func (l *UpdateFilesLogic) UpdateFiles(in *pb.UpdateFilesReq) (*pb.UpdateFilesResp, error) {
 	requestBody := map[string]interface{}{
 		"query": map[string]interface{}{
-			"term": map[string]interface{}{
-				"id": in.File.Id,
+			"constant_score": map[string]interface{}{
+				"filter": map[string]interface{}{
+					"term": map[string]interface{}{
+						"id": in.File.Id,
+					},
+				},
 			},
 		},
 		"script": map[string]interface{}{
@@ -41,7 +45,7 @@ func (l *UpdateFilesLogic) UpdateFiles(in *pb.UpdateFilesReq) (*pb.UpdateFilesRe
 
 	// Create the Update By Query request object
 	req := esapi.UpdateByQueryRequest{
-		Index: []string{"files"},
+		Index: []string{"uploadfiles", "downloadfiles", "starfiles", "likefiles"},
 		Body:  esutil.NewJSONReader(requestBody),
 	}
 
@@ -54,7 +58,7 @@ func (l *UpdateFilesLogic) UpdateFiles(in *pb.UpdateFilesReq) (*pb.UpdateFilesRe
 	}
 	defer res.Body.Close()
 
-	if res.IsError() {
+	if res.IsError() && res.StatusCode != 404 {
 		return &pb.UpdateFilesResp{
 			Error: fmt.Sprintf("update by query failed with code %d: %s", res.StatusCode, res.String()),
 		}, nil

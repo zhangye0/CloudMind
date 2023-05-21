@@ -7,9 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v7/esutil"
-	"strconv"
-
 	"github.com/zeromicro/go-zero/core/logx"
+	"strconv"
 )
 
 type SearchForFileRankLogic struct {
@@ -47,7 +46,6 @@ func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) 
 
 	query := map[string]interface{}{
 		"size": 0,
-
 		"aggs": map[string]interface{}{
 			"files": map[string]interface{}{
 				"terms": map[string]interface{}{
@@ -71,7 +69,7 @@ func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) 
 	// 执行 Elasticsearch 查询
 	res, err := l.svcCtx.Es.Search(
 		l.svcCtx.Es.Search.WithContext(context.Background()),
-		l.svcCtx.Es.Search.WithIndex("files"),
+		l.svcCtx.Es.Search.WithIndex(in.TypeMount+"files"),
 		l.svcCtx.Es.Search.WithBody(esutil.NewJSONReader(query)),
 		l.svcCtx.Es.Search.WithTrackTotalHits(true),
 	)
@@ -108,8 +106,11 @@ func (l *SearchForFileRankLogic) SearchForFileRank(in *pb.SearchForFileRankReq) 
 	}
 
 	filesJson, err := json.Marshal(Files)
+	if err != nil {
+		return nil, err
+	}
 	val, err := l.svcCtx.Redis.SetnxEx("files"+in.TypeMount+strconv.Itoa(int(in.Rank)), string(filesJson), 3600)
-	if err != nil || val {
+	if err != nil || !val {
 		return nil, err
 	}
 	return &pb.SearchForFileRankResp{
